@@ -55,7 +55,9 @@
 
 ---
 
-## ❌ What Fable 5 Needs to Build
+## ❌ What Fable 5 Needs to Build (FRONTEND ONLY)
+
+**Backend is COMPLETE.** All services, routers, deps, and main.py are done.
 
 ### Frontend Components & Pages
 
@@ -65,7 +67,7 @@
 - `app/generate/page.tsx` — Generation loading state + result display
 - `app/program/[id]/page.tsx` — Program detail (Design View + Execution View tabs)
 - `app/library/page.tsx` — User's saved programs
-- `app/auth/login/page.tsx` — Magic link request
+- `app/auth/login/page.tsx` — Magic link login
 - `app/auth/callback/page.tsx` — Auth callback
 
 #### Components (`frontend/components/`)
@@ -76,30 +78,28 @@
 - `program-viewer/` — DesignView, ExecutionView, DayCard, MovementRow, FinisherCard, CodeNameBadge, PillarChecklist
 - `library/` — ProgramCard, FilterBar
 
-### Backend Routers (`backend/app/routers/`)
+### Backend Routers (`backend/app/routers/`) — ✅ ALL COMPLETE
 
-Each router implements its respective API endpoints from the spec:
-- `auth.py` — POST `/api/auth/request-link`, POST `/api/auth/verify`, POST `/api/auth/logout`, GET `/api/auth/me`
-- `users.py` — GET/PUT `/api/users/me`
-- `equipment.py` — GET `/api/equipment`, GET `/api/equipment/{id}`
-- `movements.py` — GET `/api/movements`, GET `/api/movements/{id}`
-- `programs.py` — GET/POST/DELETE `/api/programs`, GET `/api/programs/{id}`, POST `/api/programs/{id}/save`, GET `/api/programs/examples`
-- `generation.py` — POST `/api/generate` (the big one)
+All 6 routers are fully implemented and registered in `main.py`:
+- ✅ `auth.py` — Magic link auth endpoints
+- ✅ `users.py` — User profile CRUD with get_or_create_user dependency
+- ✅ `equipment.py` — Equipment catalog listing
+- ✅ `movements.py` — Movement database listing
+- ✅ `programs.py` — Program CRUD, examples, save/delete
+- ✅ `generation.py` — AI generation endpoint with full pipeline
 
-### Backend Services (`backend/app/services/`)
+### Backend Services (`backend/app/services/`) — ✅ ALL COMPLETE
 
-- `program_generator.py` — Format prompt + LLM API call + parse response
-- `pillar_validator.py` — **5-pillar post-generation validation** (the gate)
-- `name_generator.py` — Code-name generator (adjective + noun) + collision detection
-- `finisher_matcher.py` — Finisher selection by equipment and goal
-- `auth_service.py` — Magic link generation + verification
+All 5 services are fully implemented and tested:
+- ✅ `pillar_validator.py` — 5-pillar post-generation validation gate
+- ✅ `name_generator.py` — Code-name engine (Adjective + Noun, collision detection)
+- ✅ `finisher_matcher.py` — Finisher selection by equipment/difficulty/type
+- ✅ `program_generator.py` — LLM integration + prompt formatting + execution view builder
+- ✅ `auth_service.py` — In-memory token store + Resend email integration
 
-### Tests (`backend/app/tests/`)
-
-- `test_generation.py` — Test generation endpoint
-- `test_pillar_validator.py` — Test 5-pillar validation logic
-- `test_name_generator.py` — Test code-name generation and collision
-- `test_finisher_matcher.py` — Test finisher matching
+### Backend Shared (`backend/app/`)
+- ✅ `deps.py` — `get_current_user` + `get_or_create_user` dependencies
+- ✅ `main.py` — All 6 routers registered
 
 ---
 
