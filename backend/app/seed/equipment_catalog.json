@@ -1,0 +1,262 @@
+[
+  {
+    "id": "barbell-olympic",
+    "category": "barbells",
+    "name": "Olympic Barbell",
+    "aliases": ["barbell", "bb", "olympic bar"],
+    "requires": ["bumper-plates"],
+    "paired_with": ["squat-rack", "bench"],
+    "movements": ["back-squat", "bench-press", "barbell-row", "overhead-press", "deadlift"],
+    "icon": "dumbbell"
+  },
+  {
+    "id": "bumper-plates",
+    "category": "barbells",
+    "name": "Bumper Plates",
+    "aliases": ["plates", "weights"],
+    "requires": [],
+    "paired_with": ["barbell-olympic"],
+    "movements": [],
+    "icon": "circle"
+  },
+  {
+    "id": "ez-curl-bar",
+    "category": "barbells",
+    "name": "EZ Curl Bar",
+    "aliases": ["ez bar", "curl bar"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["bicep-curl"],
+    "icon": "dumbbell"
+  },
+  {
+    "id": "squat-rack",
+    "category": "rack",
+    "name": "Squat Rack / Rig",
+    "aliases": ["rack", "rig", "power rack", "squat cage"],
+    "requires": [],
+    "paired_with": ["barbell-olympic", "bench"],
+    "movements": ["back-squat", "overhead-press", "pull-up"],
+    "icon": "box"
+  },
+  {
+    "id": "bench",
+    "category": "rack",
+    "name": "Flat Bench",
+    "aliases": ["flat bench", "bench press"],
+    "requires": [],
+    "paired_with": ["squat-rack", "barbell-olympic"],
+    "movements": ["bench-press"],
+    "icon": "square"
+  },
+  {
+    "id": "incline-bench",
+    "category": "rack",
+    "name": "Incline Bench",
+    "aliases": ["incline"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["incline-db-press"],
+    "icon": "square"
+  },
+  {
+    "id": "dumbbells",
+    "category": "weights",
+    "name": "Dumbbell Set",
+    "aliases": ["dbs", "dumbbell"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["db-press", "db-row", "walking-lunge"],
+    "icon": "dumbbell"
+  },
+  {
+    "id": "kettlebells",
+    "category": "weights",
+    "name": "Kettlebell Set",
+    "aliases": ["kbs", "kettlebell"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["kb-swing", "goblet-squat", "kb-deadlift"],
+    "icon": "circle"
+  },
+  {
+    "id": "cable-machine",
+    "category": "machines",
+    "name": "Cable Machine",
+    "aliases": ["cable", "cable crossover"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["cable-row", "tricep-pushdown", "cable-chest-fly", "face-pull"],
+    "icon": "cable"
+  },
+  {
+    "id": "leg-extension",
+    "category": "machines",
+    "name": "Leg Extension",
+    "aliases": ["leg ext"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["leg-extension"],
+    "icon": "settings"
+  },
+  {
+    "id": "leg-curl",
+    "category": "machines",
+    "name": "Leg Curl",
+    "aliases": ["hamstring curl"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["leg-curl"],
+    "icon": "settings"
+  },
+  {
+    "id": "rower",
+    "category": "cardio",
+    "name": "Rower (Concept2)",
+    "aliases": ["row", "rowing machine", "erg"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["row"],
+    "icon": "activity"
+  },
+  {
+    "id": "assault-bike",
+    "category": "cardio",
+    "name": "Assault Bike",
+    "aliases": ["bike", "air bike"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["bike"],
+    "icon": "bike"
+  },
+  {
+    "id": "exercise-bike",
+    "category": "cardio",
+    "name": "Exercise Bike",
+    "aliases": ["spin bike", "stationary bike"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["bike"],
+    "icon": "bike"
+  },
+  {
+    "id": "pull-up-bar",
+    "category": "bodyweight",
+    "name": "Pull-Up Bar",
+    "aliases": ["pullup bar"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["pull-up", "hanging-leg-raise"],
+    "icon": "minus"
+  },
+  {
+    "id": "ghd",
+    "category": "bodyweight",
+    "name": "GHD Machine",
+    "aliases": ["glute ham developer"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["ghd-extension", "ghd-sit-up"],
+    "icon": "activity"
+  },
+  {
+    "id": "trx",
+    "category": "bodyweight",
+    "name": "TRX / Suspension Trainer",
+    "aliases": ["suspension trainer"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["trx-row", "trx-core-slide"],
+    "icon": "link"
+  },
+  {
+    "id": "rings",
+    "category": "bodyweight",
+    "name": "Gymnastics Rings",
+    "aliases": ["rings"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["ring-row", "ring-dip"],
+    "icon": "circle"
+  },
+  {
+    "id": "dip-station",
+    "category": "bodyweight",
+    "name": "Dip Station",
+    "aliases": ["dip bars", "parallettes"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["dip"],
+    "icon": "minus"
+  },
+  {
+    "id": "battle-ropes",
+    "category": "specialty",
+    "name": "Battle Ropes",
+    "aliases": ["ropes"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["battle-ropes"],
+    "icon": "wind"
+  },
+  {
+    "id": "bosu",
+    "category": "specialty",
+    "name": "Bosu Ball",
+    "aliases": ["bosu"],
+    "requires": [],
+    "paired_with": [],
+    "movements": [],
+    "icon": "circle"
+  },
+  {
+    "id": "plyo-boxes",
+    "category": "specialty",
+    "name": "Plyo Boxes",
+    "aliases": ["boxes", "jump boxes"],
+    "requires": [],
+    "paired_with": [],
+    "movements": [],
+    "icon": "square"
+  },
+  {
+    "id": "resistance-bands",
+    "category": "specialty",
+    "name": "Resistance Bands",
+    "aliases": ["bands"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["band-row", "band-pull-apart", "band-chest-press"],
+    "icon": "link"
+  },
+  {
+    "id": "ab-wheel",
+    "category": "specialty",
+    "name": "Ab Wheel",
+    "aliases": ["ab roller"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["ab-wheel-rollout"],
+    "icon": "circle"
+  },
+  {
+    "id": "foam-roller",
+    "category": "specialty",
+    "name": "Foam Roller",
+    "aliases": ["roller"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["foam-roll"],
+    "icon": "circle"
+  },
+  {
+    "id": "weight-belt",
+    "category": "specialty",
+    "name": "Weight Belt",
+    "aliases": ["lifting belt"],
+    "requires": [],
+    "paired_with": [],
+    "movements": [],
+    "icon": "minus"
+  }
+]

@@ -1,0 +1,111 @@
+[
+  {
+    "id": "the-engine-burn",
+    "name": "The Engine Burn",
+    "format": "EMOM",
+    "duration_minutes": 15,
+    "rounds": null,
+    "rest_between_rounds": null,
+    "reps_scheme": null,
+    "movements": [
+      {"minute": 1, "name": "12 Cal Rower", "detail": "Sprinting"},
+      {"minute": 2, "name": "Mountain Climbers", "reps": 20},
+      {"minute": 3, "name": "Battle Ropes", "duration_seconds": 30, "detail": "Max Intensity"}
+    ],
+    "equipment_required": ["rower", "battle-ropes"],
+    "type": "metabolic",
+    "difficulty": "intermediate",
+    "notes": "Max intensity on ropes."
+  },
+  {
+    "id": "the-oxygen-debt",
+    "name": "The Oxygen Debt",
+    "format": "EMOM",
+    "duration_minutes": 12,
+    "rounds": null,
+    "rest_between_rounds": null,
+    "reps_scheme": null,
+    "movements": [
+      {"minute": 1, "name": "Cal Row", "reps": 15, "detail": "or 200m"},
+      {"minute": 2, "name": "Burpees", "reps": 15},
+      {"minute": 3, "name": "Rest", "detail": "Built-in recovery"}
+    ],
+    "equipment_required": ["rower"],
+    "type": "metabolic",
+    "difficulty": "beginner",
+    "notes": "High-intensity burst with built-in recovery."
+  },
+  {
+    "id": "the-iron-lung",
+    "name": "The Iron Lung",
+    "format": "rounds",
+    "duration_minutes": null,
+    "rounds": 4,
+    "rest_between_rounds": 60,
+    "reps_scheme": null,
+    "movements": [
+      {"name": "Heavy KB Swings", "reps": 20},
+      {"name": "Goblet Squats", "reps": 15},
+      {"name": "Row", "distance_meters": 400}
+    ],
+    "equipment_required": ["kettlebells", "rower"],
+    "type": "posterior-chain",
+    "difficulty": "intermediate",
+    "notes": "Focused on posterior chain and aerobic capacity."
+  },
+  {
+    "id": "the-genesis-chipper",
+    "name": "The Genesis Chipper",
+    "format": "for-time",
+    "duration_minutes": null,
+    "rounds": null,
+    "rest_between_rounds": null,
+    "reps_scheme": "15-12-9-6-3",
+    "movements": [
+      {"name": "Devil Presses"},
+      {"name": "Kettlebell Swings"},
+      {"name": "Push Presses"}
+    ],
+    "equipment_required": ["kettlebells", "barbell-olympic"],
+    "type": "high-volume",
+    "difficulty": "advanced",
+    "notes": "Total volume: 45 reps per movement."
+  },
+  {
+    "id": "the-compression",
+    "name": "The Compression",
+    "format": "rounds",
+    "duration_minutes": null,
+    "rounds": 4,
+    "rest_between_rounds": 60,
+    "reps_scheme": null,
+    "movements": [
+      {"name": "KB Swings", "reps": 20},
+      {"name": "Rower Sprint", "distance_meters": 250},
+      {"name": "Burpees", "reps": 15},
+      {"name": "Hanging Leg Raises", "reps": 15}
+    ],
+    "equipment_required": ["kettlebells", "rower", "pull-up-bar"],
+    "type": "full-body",
+    "difficulty": "intermediate",
+    "notes": "Full body fatigue."
+  },
+  {
+    "id": "the-vertical-limit",
+    "name": "The Vertical Limit",
+    "format": "AMRAP",
+    "duration_minutes": 10,
+    "rounds": null,
+    "rest_between_rounds": null,
+    "reps_scheme": null,
+    "movements": [
+      {"name": "HSPU or Pike Push-ups", "reps": 10},
+      {"name": "Weighted Russian Twists", "reps": 20},
+      {"name": "Mountain Climbers", "reps": 30}
+    ],
+    "equipment_required": [],
+    "type": "shoulder-endurance",
+    "difficulty": "intermediate",
+    "notes": "Focus on shoulder endurance and core stability."
+  }
+]

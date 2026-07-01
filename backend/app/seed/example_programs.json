@@ -1,0 +1,261 @@
+[
+  {
+    "name": "Genesis Protocol",
+    "goal_tag": "Foundational Strength & Movement Literacy",
+    "difficulty": "beginner",
+    "split": "4-day",
+    "user_level": "beginner",
+    "is_example": true,
+    "design_view": {
+      "days": [
+        {
+          "day": 1,
+          "name": "Full-Body A (Squat/Hinge Focus)",
+          "movements": [
+            {"name": "Goblet Squats", "sets": 3, "reps": "10-12", "tempo": "3-1-1", "rest_seconds": 90, "notes": null},
+            {"name": "Kettlebell Deadlifts", "sets": 3, "reps": "10-12", "tempo": "3-1-X", "rest_seconds": 90, "notes": null},
+            {"name": "Incline Push-Ups (Bosu/Box)", "sets": 3, "reps": "8-12", "tempo": "2-1-2", "rest_seconds": 60, "notes": null},
+            {"name": "Band Rows", "sets": 3, "reps": "12-15", "tempo": "3-1-2", "rest_seconds": 60, "notes": null},
+            {"name": "Band Pull-Aparts", "sets": 2, "reps": "15", "tempo": "3-1-2", "rest_seconds": 45, "notes": null},
+            {"name": "Plank (Bodyweight)", "sets": 2, "reps": "30s hold", "tempo": "static", "rest_seconds": 45, "notes": null}
+          ],
+          "finisher": null,
+          "cardio": null,
+          "mobility": "5-min dynamic warm-up: leg swings, arm circles, hip rotations"
+        },
+        {
+          "day": 2,
+          "name": "Full-Body B (Push/Pull Focus)",
+          "movements": [
+            {"name": "Bulgarian Split Squats", "sets": 3, "reps": "8-10 per leg", "tempo": "3-1-1", "rest_seconds": 90, "notes": null},
+            {"name": "TRX Inverted Rows", "sets": 3, "reps": "8-12", "tempo": "3-1-X", "rest_seconds": 60, "notes": null},
+            {"name": "Band Chest Press (Floor)", "sets": 3, "reps": "10-12", "tempo": "3-1-1", "rest_seconds": 60, "notes": null},
+            {"name": "Band Lat Pulldown (Rig)", "sets": 3, "reps": "10-12", "tempo": "3-1-1", "rest_seconds": 60, "notes": null},
+            {"name": "Goblet Reverse Lunges", "sets": 2, "reps": "8 per leg", "tempo": "2-1-1", "rest_seconds": 60, "notes": null}
+          ],
+          "finisher": null,
+          "cardio": null,
+          "mobility": "5-min dynamic warm-up + 5-min cool-down stretch"
+        },
+        {
+          "day": 3,
+          "name": "Full-Body C (Core/Mobility Focus)",
+          "movements": [
+            {"name": "Goblet Squats", "sets": 3, "reps": "12", "tempo": "3-1-1", "rest_seconds": 60, "notes": null},
+            {"name": "Kettlebell Romanian Deadlifts", "sets": 3, "reps": "10-12", "tempo": "3-1-X", "rest_seconds": 90, "notes": null},
+            {"name": "Band Facepulls (Rig)", "sets": 2, "reps": "15", "tempo": "3-1-2", "rest_seconds": 45, "notes": null},
+            {"name": "TRX Core Slides (or Ab Wheel)", "sets": 3, "reps": "8-10", "tempo": "2-1-2", "rest_seconds": 60, "notes": null},
+            {"name": "Glute Bridges (Bodyweight)", "sets": 3, "reps": "15", "tempo": "2-1-2", "rest_seconds": 45, "notes": null}
+          ],
+          "finisher": null,
+          "cardio": null,
+          "mobility": "Extended cool-down: foam roller full-body 10m"
+        },
+        {
+          "day": 4,
+          "name": "Active Recovery (Zone 2 + Mobility)",
+          "movements": [],
+          "finisher": null,
+          "cardio": {"type": "zone-2", "duration_minutes": 30, "equipment": "rower-or-bike", "notes": null},
+          "mobility": "Foam roller full-body 5m + band dislocates 2x10"
+        }
+      ],
+      "finishers_used": [],
+      "pillars_covered": {
+        "strength": true,
+        "zone2": true,
+        "vo2max": false,
+        "mobility": true,
+        "recovery": true
+      }
+    },
+    "execution_view": "### MONDAY: Full-Body A (Squat/Hinge Focus)\n- A1. Goblet Squats: 3x10-12 | Tempo: 3-1-1\n- A2. Kettlebell Deadlifts: 3x10-12 | Tempo: 3-1-X\n- B1. Incline Push-Ups (Bosu/Box): 3x8-12 | Tempo: 2-1-2\n- B2. Band Rows: 3x12-15 | Tempo: 3-1-2\n- C1. Band Pull-Aparts: 2x15 | Tempo: 3-1-2\n- C2. Plank (Bodyweight): 2x30s\n\n### TUESDAY: Full-Body B (Push/Pull Focus)\n- A1. Bulgarian Split Squats: 3x8-10 reps per leg | Tempo: 3-1-1\n- A2. TRX Inverted Rows: 3x8-12 | Tempo: 3-1-X\n- B1. Band Chest Press (Floor): 3x10-12 | Tempo: 3-1-1\n- B2. Band Lat Pulldown (Rig): 3x10-12 | Tempo: 3-1-1\n- C1. Goblet Reverse Lunges: 2x8 per leg | Tempo: 2-1-1\n\n### THURSDAY: Full-Body C (Core/Mobility Focus)\n- A1. Goblet Squats: 3x12 | Tempo: 3-1-1\n- A2. Kettlebell Romanian Deadlifts: 3x10-12 | Tempo: 3-1-X\n- B1. Band Facepulls (Rig): 2x15 | Tempo: 3-1-2\n- B2. TRX Core Slides (or Ab Wheel): 3x8-10 | Tempo: 2-1-2\n- C1. Glute Bridges (Bodyweight): 3x15 | Tempo: 2-1-2\n\n### FRIDAY: Active Recovery (Zone 2 + Mobility)\n- Zone 2 Cardio: 30m (Rower/Bike)\n- Foam Roller Mobility: Full-body 5m\n- Band Dislocates: 2x10 | Tempo: X-1-X"
+  },
+  {
+    "name": "Cobalt Fury",
+    "goal_tag": "High-Volume Hypertrophy & Metabolic Conditioning",
+    "difficulty": "intermediate",
+    "split": "4-day",
+    "user_level": "intermediate",
+    "is_example": true,
+    "design_view": {
+      "days": [
+        {
+          "day": 1,
+          "name": "Legs (Power/Stability) + Core",
+          "movements": [
+            {"name": "Barbell Back Squats", "sets": 4, "reps": "6-8", "tempo": "3-1-1", "rest_seconds": 120, "notes": "Deep, explosive ascent"},
+            {"name": "Walking Lunges (DB/KB)", "sets": 3, "reps": "10-12 per leg", "tempo": "2-1-1", "rest_seconds": 90, "notes": null},
+            {"name": "Bulgarian Split Squats", "sets": 3, "reps": "8-10 per leg", "tempo": "3-1-1", "rest_seconds": 90, "notes": null},
+            {"name": "Weighted GHD Extensions", "sets": 3, "reps": "10", "tempo": "3-1-1", "rest_seconds": 60, "notes": null},
+            {"name": "Weighted Planks", "sets": 3, "reps": "60s hold", "tempo": "static", "rest_seconds": 45, "notes": null}
+          ],
+          "finisher": null,
+          "cardio": {"type": "zone-2", "duration_minutes": 30, "equipment": "rower-or-bike", "notes": null},
+          "mobility": "Dynamic warm-up: leg swings, hip openers, ankle mobility"
+        },
+        {
+          "day": 2,
+          "name": "Chest & Back + HIIT Finisher",
+          "movements": [
+            {"name": "Flat Bench Press (BB)", "sets": 4, "reps": "8-10", "tempo": "3-1-1", "rest_seconds": 90, "notes": null},
+            {"name": "Barbell Rows", "sets": 4, "reps": "8-10", "tempo": "2-1-2", "rest_seconds": 90, "notes": null},
+            {"name": "Incline DB Press", "sets": 3, "reps": "10-12", "tempo": "2-1-1", "rest_seconds": 60, "notes": null},
+            {"name": "Lat Pulldowns", "sets": 3, "reps": "10-12", "tempo": "3-1-1", "rest_seconds": 60, "notes": null}
+          ],
+          "finisher": {
+            "name": "The Compression",
+            "format": "4 Rounds. 60s rest between rounds.",
+            "movements": [
+              {"name": "KB Swings", "reps": 20},
+              {"name": "Rower Sprint", "distance_meters": 250},
+              {"name": "Burpees", "reps": 15},
+              {"name": "Hanging Leg Raises", "reps": 15}
+            ],
+            "notes": "Full body fatigue. 15-20m total."
+          },
+          "cardio": null,
+          "mobility": "Warm-up: band pull-aparts, shoulder dislocates, push-up pyramid"
+        },
+        {
+          "day": 3,
+          "name": "Shoulders & Arms + HIIT Finisher",
+          "movements": [
+            {"name": "Overhead Press (BB/DB)", "sets": 4, "reps": "8-10", "tempo": "2-1-1", "rest_seconds": 90, "notes": null},
+            {"name": "Lateral Raises", "sets": 3, "reps": "12-15", "tempo": "2-1-2", "rest_seconds": 45, "notes": null},
+            {"name": "Bicep Curls (EZ Bar)", "sets": 3, "reps": "10-12", "tempo": "3-1-1", "rest_seconds": 60, "notes": null},
+            {"name": "Tricep Pushdowns (Cable)", "sets": 3, "reps": "10-12", "tempo": "2-1-1", "rest_seconds": 60, "notes": null}
+          ],
+          "finisher": {
+            "name": "The Engine Burn",
+            "format": "15m EMOM",
+            "movements": [
+              {"minute": 1, "name": "12 Cal Rower", "detail": "Sprinting"},
+              {"minute": 2, "name": "Mountain Climbers", "reps": 20},
+              {"minute": 3, "name": "Battle Ropes", "duration_seconds": 30, "detail": "Max Intensity"}
+            ],
+            "notes": "Max intensity on ropes."
+          },
+          "cardio": null,
+          "mobility": "Warm-up: shoulder mobility flow, band work"
+        },
+        {
+          "day": 4,
+          "name": "Legs & Back (Volume) + Core",
+          "movements": [
+            {"name": "Goblet Squats (DB/KB)", "sets": 4, "reps": "12-15", "tempo": "3-1-2", "rest_seconds": 60, "notes": null},
+            {"name": "Weighted Pull-ups", "sets": 4, "reps": "6-8", "tempo": "3-1-X", "rest_seconds": 120, "notes": null},
+            {"name": "Leg Extensions", "sets": 3, "reps": "12-15", "tempo": "2-1-2", "rest_seconds": 45, "notes": null},
+            {"name": "Seated Cable Rows", "sets": 3, "reps": "12-15", "tempo": "2-1-2", "rest_seconds": 60, "notes": null},
+            {"name": "GHD Sit-ups", "sets": 3, "reps": "15", "tempo": "2-1-2", "rest_seconds": 45, "notes": null}
+          ],
+          "finisher": {
+            "name": "The Genesis Chipper",
+            "format": "For Time. Descending reps: 15-12-9-6-3",
+            "movements": [
+              {"name": "Devil Presses"},
+              {"name": "Kettlebell Swings"},
+              {"name": "Push Presses"}
+            ],
+            "notes": "Total volume: 45 reps of each movement."
+          },
+          "cardio": null,
+          "mobility": "Cool-down: foam roller, hip flexor stretch, lat stretch"
+        }
+      ],
+      "finishers_used": ["the-compression", "the-engine-burn", "the-genesis-chipper"],
+      "pillars_covered": {
+        "strength": true,
+        "zone2": true,
+        "vo2max": true,
+        "mobility": true,
+        "recovery": true
+      }
+    },
+    "execution_view": "### MONDAY: Legs (Power/Stability) + Core\n- A1. Barbell Back Squats: 4x6-8 | Tempo: 3-1-1\n- B1. Walking Lunges (DB/KB): 3x10-12 reps per leg | Tempo: 2-1-1\n- C1. Bulgarian Split Squats: 3x8-10 reps per leg | Tempo: 3-1-1\n- D1. Weighted GHD Extensions: 3x10 | Tempo: 3-1-1\n- E1. Weighted Planks: 3x60s\n- F1. Zone 2 Cardio: 30-45m (Rower/Bike)\n\n### TUESDAY: Chest & Back + HIIT Finisher\n- A1. Flat Bench Press (BB): 4x8-10 | Tempo: 3-1-1\n- B1. Barbell Rows: 4x8-10 | Tempo: 2-1-2\n- C1. Incline DB Press: 3x10-12 | Tempo: 2-1-1\n- D1. Lat Pulldowns: 3x10-12 | Tempo: 3-1-1\n- E1. FINISHER: \"The Compression\" (15-20m)\n    - Format: 4 Rounds. 60s rest between rounds.\n    - KB Swings (20), Rower Sprint (250m), Burpees (15), Hanging Leg Raises (15)\n\n### THURSDAY: Shoulders & Arms + HIIT Finisher\n- A1. Overhead Press (BB/DB): 4x8-10 | Tempo: 2-1-1\n- B1. Lateral Raises: 3x12-15 | Tempo: 2-1-2\n- C1. Bicep Curls (EZ Bar): 3x10-12 | Tempo: 3-1-1\n- D1. Tricep Pushdowns (Cable): 3x10-12 | Tempo: 2-1-1\n- E1. FINISHER: \"The Engine Burn\" (15m EMOM)\n    - Min 1: 12 Cal Rower (Sprinting)\n    - Min 2: 20 Mountain Climbers\n    - Min 3: 30s Battle Ropes (Max Intensity)\n\n### FRIDAY: Legs & Back (Volume) + Core\n- A1. Goblet Squats (DB/KB): 4x12-15 | Tempo: 3-1-2\n- B1. Weighted Pull-ups: 4x6-8 | Tempo: 3-1-X\n- C1. Leg Extensions: 3x12-15 | Tempo: 2-1-2\n- D1. Seated Cable Rows: 3x12-15 | Tempo: 2-1-2\n- E1. GHD Sit-ups: 3x15\n- F1. THE FINISHER: \"The Genesis Chipper\" (15-12-9-6-3)\n    - Format: For Time. Descending reps for each round.\n    - Devil Presses\n    - Kettlebell Swings\n    - Push Presses\n    - *Total Volume: 45 reps of each movement.*"
+  },
+  {
+    "name": "Sanguine Thunder",
+    "goal_tag": "Hybrid Strength & Aerobic Capacity",
+    "difficulty": "intermediate",
+    "split": "4-day",
+    "user_level": "intermediate",
+    "is_example": true,
+    "design_view": {
+      "days": [
+        {
+          "day": 1,
+          "name": "Leg/Back Primer + Engine",
+          "movements": [
+            {"name": "Goblet Squats", "sets": 3, "reps": "10-12", "tempo": "3-1-2", "rest_seconds": 60, "notes": null},
+            {"name": "Hamstring Curls", "sets": 3, "reps": "12", "tempo": "3-1-2", "rest_seconds": 60, "notes": null},
+            {"name": "Weighted Pull-ups", "sets": 4, "reps": "6-8", "tempo": "3-1-X", "rest_seconds": 120, "notes": null},
+            {"name": "Seated Cable Rows", "sets": 3, "reps": "10-12", "tempo": "2-1-2", "rest_seconds": 60, "notes": null},
+            {"name": "GHD Sit-ups", "sets": 3, "reps": "15", "tempo": "2-1-2", "rest_seconds": 45, "notes": null}
+          ],
+          "finisher": null,
+          "cardio": {"type": "zone-2", "duration_minutes": 30, "equipment": "rower-or-bike", "notes": null},
+          "mobility": "Dynamic warm-up: hip openers, thoracic rotations"
+        },
+        {
+          "day": 2,
+          "name": "Push + VO2 Max",
+          "movements": [
+            {"name": "Bench Press (BB)", "sets": 4, "reps": "6-8", "tempo": "3-1-1", "rest_seconds": 120, "notes": null},
+            {"name": "Overhead Press (DB)", "sets": 3, "reps": "8-10", "tempo": "2-1-1", "rest_seconds": 90, "notes": null},
+            {"name": "Cable Chest Flys", "sets": 3, "reps": "12-15", "tempo": "2-1-2", "rest_seconds": 45, "notes": null},
+            {"name": "Tricep Cable Pushdowns", "sets": 3, "reps": "12", "tempo": "2-1-1", "rest_seconds": 45, "notes": null}
+          ],
+          "finisher": null,
+          "cardio": {"type": "vo2-max", "duration_minutes": 35, "equipment": "rower-or-bike", "notes": "Norwegian 4x4: 4 sets (4m High / 3m Low). Easy Mode available."},
+          "mobility": "Warm-up: band work, push-up progression"
+        },
+        {
+          "day": 3,
+          "name": "Heavy Legs + Core Engine",
+          "movements": [
+            {"name": "Barbell Back Squats", "sets": 4, "reps": "5-8", "tempo": "3-1-1", "rest_seconds": 180, "notes": null},
+            {"name": "Leg Extensions", "sets": 3, "reps": "10-12", "tempo": "2-1-2", "rest_seconds": 60, "notes": null},
+            {"name": "Weighted GHD Extensions", "sets": 3, "reps": "10", "tempo": "3-1-1", "rest_seconds": 60, "notes": null},
+            {"name": "Weighted Planks", "sets": 3, "reps": "45-60s hold", "tempo": "static", "rest_seconds": 45, "notes": null}
+          ],
+          "finisher": null,
+          "cardio": {"type": "zone-2", "duration_minutes": 30, "equipment": "rower-or-bike", "notes": null},
+          "mobility": "Extended cool-down: foam roller, quad/hip flexor stretch"
+        },
+        {
+          "day": 4,
+          "name": "Back/Biceps + Metabolic Finisher",
+          "movements": [
+            {"name": "Barbell Rows", "sets": 4, "reps": "8-10", "tempo": "2-1-2", "rest_seconds": 90, "notes": null},
+            {"name": "Lat Pulldowns", "sets": 3, "reps": "10-12", "tempo": "3-1-1", "rest_seconds": 60, "notes": null},
+            {"name": "Rear Delt Flys", "sets": 3, "reps": "15", "tempo": "2-1-2", "rest_seconds": 45, "notes": null},
+            {"name": "Bicep Curls", "sets": 3, "reps": "10-12", "tempo": "3-1-1", "rest_seconds": 60, "notes": null}
+          ],
+          "finisher": {
+            "name": "HIIT Circuit",
+            "format": "4 Rounds. 60s rest between rounds.",
+            "movements": [
+              {"name": "KB Swings", "reps": 20},
+              {"name": "Rower Sprint", "distance_meters": 250},
+              {"name": "Battle Ropes", "duration_seconds": 30},
+              {"name": "Hanging Leg Raises", "reps": 15}
+            ],
+            "notes": "Metabolic finisher. Full send."
+          },
+          "cardio": null,
+          "mobility": "Cool-down: banded stretch, forearm stretch"
+        }
+      ],
+      "finishers_used": ["hiit-circuit"],
+      "pillars_covered": {
+        "strength": true,
+        "zone2": true,
+        "vo2max": true,
+        "mobility": true,
+        "recovery": true
+      }
+    },
+    "execution_view": "### MONDAY: Leg/Back Primer + Engine\n- A1. Goblet Squats: 3x10-12 | Tempo: 3-1-2\n- A2. Hamstring Curls: 3x12 | Tempo: 3-1-2\n- B1. Weighted Pull-ups: 4x6-8 | Tempo: 3-1-X\n- B2. Seated Cable Rows: 3x10-12 | Tempo: 2-1-2\n- C1. GHD Sit-ups: 3x15\n- D1. Zone 2 Cardio: 30-45m (Rower/Bike)\n\n### TUESDAY: Push + VO2 Max\n- A1. Bench Press (BB): 4x6-8 | Tempo: 3-1-1\n- B1. Overhead Press (DB): 3x8-10 | Tempo: 2-1-1\n- B2. Cable Chest Flys: 3x12-15 | Tempo: 2-1-2\n- C1. Tricep Cable Pushdowns: 3x12 | Tempo: 2-1-1\n- Norwegian 4x4: 4 sets (4m High / 3m Low) | NOTE: Easy Mode available\n\n### THURSDAY: Heavy Legs + Core Engine\n- A1. Barbell Back Squats: 4x5-8 | Tempo: 3-1-1\n- B1. Leg Extensions: 3x10-12 | Tempo: 2-1-2\n- C1. Weighted GHD Extensions: 3x10\n- D1. Weighted Planks: 3x45-60s\n- E1. Zone 2 Cardio: 30m (Rower/Bike)\n\n### FRIDAY: Back/Biceps + Metabolic Finisher\n- A1. Barbell Rows: 4x8-10 | Tempo: 2-1-2\n- B1. Lat Pulldowns: 3x10-12 | Tempo: 3-1-1\n- B2. Rear Delt Flys: 3x15\n- C1. Bicep Curls: 3x10-12 | Tempo: 3-1-1\n- D1. HIIT Circuit: 4 Rounds (KB Swings, Rower Sprint, Battle Ropes, Leg Raises)"
+  }
+]
