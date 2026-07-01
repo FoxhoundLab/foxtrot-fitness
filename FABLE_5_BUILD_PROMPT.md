@@ -417,4 +417,28 @@ After building, verify:
 
 ---
 
+## 🔍 POST-BUILD VERIFICATION (ONLY after ALL frontend pages work)
+
+These tasks run **after** every frontend page is built and functional. Do NOT start them early — building comes first. Only run these if priority tiers 1-5 are complete.
+
+### 1. Backend Code Review
+
+Review all code in `backend/` — look for optimizations, edge cases, or improvements. The backend was written and tested by Otacon (all 9 API endpoints verified working). Focus on suggestions, not rewrites. Report findings as a written list. Do NOT auto-refactor — report only.
+
+### 2. UX Walkthrough
+
+Walk through every user path using browser tools:
+- Landing page → click example program → see detail page
+- Onboard → select experience level → pick equipment → set goals → generate
+- Library → view saved program
+- Mobile viewport (375px) on every page
+
+Write a UX report: Where can users get confused? What friction exists? What can be improved? Report findings as a written list.
+
+### 3. Commit Your Findings
+
+Push a final commit with your review reports as `docs/fable5-review.md`. Then stop.
+
+---
+
 **Build the frontend. Ship it.**
