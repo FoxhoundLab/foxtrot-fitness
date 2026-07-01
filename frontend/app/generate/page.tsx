@@ -7,7 +7,7 @@ import { BookmarkPlus, Eye, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { CodeNameBadge } from "@/components/program-viewer/CodeNameBadge";
 import { PillarChecklist } from "@/components/program-viewer/PillarChecklist";
-import { api } from "@/lib/api";
+import { api, getSessionEmail } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import type { GenerationRequest, Program } from "@/lib/types";
 
@@ -56,14 +56,19 @@ export default function GeneratePage() {
     return () => clearInterval(ticker);
   }, [router]);
 
+  const [saveError, setSaveError] = useState<string | null>(null);
+
   async function save() {
     if (!program) return;
+    if (!getSessionEmail()) {
+      router.push("/auth/login");
+      return;
+    }
     try {
       await api.saveProgram(program.id);
       setSaved(true);
     } catch {
-      // program already persisted server-side; still send them to the library
-      setSaved(true);
+      setSaveError("Save failed — check that you're signed in and try again.");
     }
   }
 
@@ -117,6 +122,9 @@ export default function GeneratePage() {
         variant="full"
         className="mb-10"
       />
+      {saveError && (
+        <p className="mb-4 font-body text-sm text-accent-red">{saveError}</p>
+      )}
       <div className="flex flex-wrap justify-center gap-3">
         {saved ? (
           <Link href="/library">
