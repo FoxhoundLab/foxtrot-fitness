@@ -21,7 +21,9 @@
 - `postcss.config.js`
 - `app/globals.css` — dark background, sharp corners, scrollbar styling, print styles
 - `app/layout.tsx` — Bebas Neue + Inter + JetBrains Mono font loading, root layout
-- `app/page.tsx` — minimal landing stub (Fable 5 builds the real one)
+- ✅ `app/page.tsx` — **LANDING PAGE COMPLETE** (hero, example missions grid, how-it-works, CTA)
+- ✅ `components/program-viewer/CodeNameBadge.tsx` — shield-shaped badge, color-coded, 4 sizes
+- ✅ `components/program-viewer/PillarChecklist.tsx` — 5 pillars, Lucide icons, compact + full variants
 - `lib/types.ts` — **COMPLETE TypeScript types** for User, Equipment, Movement, Finisher, Program, etc.
 - `lib/utils.ts` — cn(), formatTempo(), formatDifficultyColor(), formatBadgeColor()
 - `lib/api.ts` — **COMPLETE API client** with all endpoints stubbed
@@ -73,9 +75,9 @@
 #### Components (`frontend/components/`)
 - `ui/` — Button, Card, Badge, Input, Select, Tabs (base components)
 - `layout/` — Navbar, Footer, MobileBottomNav
-- `equipment-wizard/` — WizardStepper, CategorySelector, ItemPicker, SummaryReview
-- `goals-form/` — GoalSelector, ExperiencePicker, SchedulePicker, FocusAreas, LimitationsInput, PreferencesInput
-- `program-viewer/` — DesignView, ExecutionView, DayCard, MovementRow, FinisherCard, CodeNameBadge, PillarChecklist
+- `equipment-wizard/` — WizardStepper, ExperienceGate, CategorySelector, ItemPicker, SummaryReview
+- `goals-form/` — GoalSelector, SchedulePicker, FocusAreas, LimitationsInput, PreferencesInput
+- `program-viewer/` — DesignView, ExecutionView, DayCard, MovementRow, FinisherCard (CodeNameBadge ✅ and PillarChecklist ✅ already built)
 - `library/` — ProgramCard, FilterBar
 
 ### Backend Routers (`backend/app/routers/`) — ✅ ALL COMPLETE

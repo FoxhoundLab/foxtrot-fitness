@@ -13,10 +13,17 @@ You are continuing a project at `~/Projects/foxtrot-fitness/`. **The entire back
 **What's done:**
 - ✅ Full monorepo scaffold (configs, types, DB schema, migrations)
 - ✅ **Complete backend** — 5 services + 6 routers + deps.py, all registered in main.py
+- ✅ Backend bug-fixed and **end-to-end tested** (all 9 API endpoints verified working)
+  - Cross-DB type compatibility (`backend/app/types.py` — StringList + GUID decorators)
+  - Response serialization fixed (UUID + datetime field serializers in schemas)
+  - UserGoals fields made optional with defaults for empty new-user flow
 - ✅ Seed data — 26 equipment, 42 movements, 6 finishers, 3 example programs
 - ✅ Frontend foundation — Tailwind P90X design system, TypeScript types, API client
+- ✅ **Landing page** (`app/page.tsx`) — hero, example missions grid, how-it-works, CTA (DONE)
+- ✅ **CodeNameBadge** component — shield-shaped badge, color-coded, 4 sizes (DONE)
+- ✅ **PillarChecklist** component — 5 pillars with Lucide icons, compact + full variants (DONE)
 - ✅ Dependencies installed (npm + pip)
-- ✅ All code verified (Python compiles, JSON valid, services tested)
+- ✅ All code verified (Python compiles, TypeScript clean, Next.js build passes, 4 git commits)
 
 **Your job:** Build the frontend React components and Next.js pages only. Wire them to the existing backend API.
 
@@ -91,9 +98,11 @@ Every program is validated against the 5-pillar blueprint (Strength, Zone 2, VO2
 ### Build Priority Order (Critical — Follow This Exactly)
 
 1. **Base UI components first** (shadcn/ui install + theme override + Button/Card/Badge/Input/Tabs)
-2. **ExperienceGate + Program viewer components** (ExperienceGate is the wizard entry point; Program viewer is the payoff screen)
-   - ExperienceGate, DesignView, ExecutionView, DayCard, MovementRow, FinisherCard, CodeNameBadge, PillarChecklist
-3. **Core pages** (Landing page → Program detail page → Onboarding wizard → Generation page)
+2. **ExperienceGate + remaining Program viewer components** (ExperienceGate is the wizard entry point; Program viewer needs DesignView/ExecutionView/DayCard/MovementRow/FinisherCard)
+   - Note: CodeNameBadge ✅ and PillarChecklist ✅ are already built
+   - Note: Landing page ✅ is already built
+3. **Core pages** (Program detail page → Onboarding wizard → Generation page)
+   - Note: Landing page ✅ is already built
 4. **Equipment wizard + goals form components** (WizardStepper, CategorySelector, ItemPicker, GoalSelector, SchedulePicker, etc.)
 5. **Auth + library** (Login/callback pages, library page, mobile bottom nav)
 6. **Polish last** (animations, transitions, progress indicators, advanced mobile)
@@ -232,6 +241,10 @@ Build these reusable components (use Tailwind classes, follow P90X design system
 
 ### F. Program Viewer (`frontend/components/program-viewer/`)
 
+**Already built:** CodeNameBadge.tsx ✅, PillarChecklist.tsx ✅ — DO NOT REBUILD
+
+Build the remaining components:
+
 ```typescript
 // DesignView.tsx — Full structured program display
 // Weekly overview + day cards
@@ -251,15 +264,6 @@ Build these reusable components (use Tailwind classes, follow P90X design system
 // FinisherCard.tsx — Distinct visual treatment
 // Darker bg, red top border, finisher name (Bebas Neue large)
 // Format badge, movements list (mono)
-
-// CodeNameBadge.tsx — Program name display
-// Use formatBadgeColor() for color
-// Bebas Neue uppercase, large, shield-like shape (clip-path or sharp corners)
-
-// PillarChecklist.tsx — 5-pillar display
-// 5 icons in a row: strength, zone2, vo2max, mobility, recovery
-// Green checkmark if passed, red X if failed, with glow
-// Always display on program cards and detail view
 ```
 
 ### G. Library (`frontend/components/library/`)
@@ -275,13 +279,11 @@ Build these reusable components (use Tailwind classes, follow P90X design system
 
 ### H. Frontend Pages
 
-#### `app/page.tsx` (Landing Page)
-- Hero: "BUILD YOUR MISSION" (Bebas Neue 6xl uppercase)
-- Subhead: "AI-generated workout programs. Tailored to your equipment. Named like operations."
-- CTA: "START YOUR MISSION" (red, large)
-- Example Missions section: fetch from `api.listExamplePrograms()`, display 3 cards (Genesis Protocol first as "START HERE")
-- How It Works: 3-step visual (Equipment → Goals → Mission)
-- Footer
+#### `app/page.tsx` (Landing Page) — ✅ ALREADY BUILT — DO NOT REBUILD
+- Already implemented with hero, example missions grid, how-it-works section
+- Fetches from `api.listExamplePrograms()` with fallback to static data
+- Uses CodeNameBadge + PillarChecklist components
+- If you think you can improve it, feel free — but it's fully functional and styled
 
 #### `app/onboard/page.tsx` (Multi-step wizard — 4 steps)
 - **Step 0: Experience Level** (ExperienceGate component) — THE FIRST THING
