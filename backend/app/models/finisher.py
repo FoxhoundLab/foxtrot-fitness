@@ -1,10 +1,10 @@
 """Finisher SQLAlchemy model."""
 from datetime import datetime
 from sqlalchemy import String, DateTime, Integer, JSON, func
-from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.database import Base
+from app.types import StringList
 
 
 class Finisher(Base):
@@ -19,7 +19,7 @@ class Finisher(Base):
     reps_scheme: Mapped[str | None] = mapped_column(String, nullable=True)
 
     movements: Mapped[list] = mapped_column(JSON, default=list)
-    equipment_required: Mapped[list] = mapped_column(ARRAY(String), default=list)
+    equipment_required: Mapped[list] = mapped_column(StringList, default=list)
     type: Mapped[str] = mapped_column(String, nullable=True)
     difficulty: Mapped[str] = mapped_column(String, default="intermediate")
     notes: Mapped[str | None] = mapped_column(String, nullable=True)

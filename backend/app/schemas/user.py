@@ -1,7 +1,7 @@
 """User Pydantic schemas."""
 from datetime import datetime
-from pydantic import BaseModel, EmailStr, Field
-from typing import Literal
+from pydantic import BaseModel, EmailStr, Field, field_serializer
+from typing import Literal, Any
 
 
 Goal = Literal["strength", "hypertrophy", "conditioning", "balanced", "longevity"]
@@ -15,13 +15,13 @@ FocusArea = Literal[
 
 
 class UserGoals(BaseModel):
-    primary: Goal
-    experience: Experience
-    days_per_week: DaysPerWeek
-    session_length_minutes: SessionLength
+    primary: Goal = "balanced"
+    experience: Experience = "intermediate"
+    days_per_week: DaysPerWeek = 4
+    session_length_minutes: SessionLength = 60
     focus_areas: list[FocusArea] = []
     limitations: str = ""
-    finisher_preference: FinisherPreference
+    finisher_preference: FinisherPreference = "mixed"
 
 
 class UserPreferences(BaseModel):
@@ -34,15 +34,29 @@ class UserPreferences(BaseModel):
 
 
 class UserSchema(BaseModel):
-    id: str
+    model_config = {"from_attributes": True}
+
+    id: Any  # str or UUID accepted; serialized as str
     email: str
     name: str | None = None
     equipment_ids: list[str] = []
-    goals: UserGoals = Field(default_factory=UserGoals)
-    preferences: UserPreferences = Field(default_factory=UserPreferences)
+    goals: Any = {}  # accepts dict or UserGoals
+    preferences: Any = {}  # accepts dict or UserPreferences
     user_level: Experience = "intermediate"
-    created_at: datetime
-    updated_at: datetime
+    created_at: Any  # datetime or str
+    updated_at: Any  # datetime or str
+
+    @field_serializer("id")
+    def serialize_id(self, v):
+        return str(v) if v is not None else None
+
+    @field_serializer("created_at", "updated_at")
+    def serialize_datetime(self, v):
+        if v is None:
+            return None
+        if isinstance(v, datetime):
+            return v.isoformat()
+        return v
 
 
 class UserCreate(BaseModel):

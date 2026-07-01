@@ -1,24 +1,24 @@
 """User SQLAlchemy model."""
 from datetime import datetime
 from sqlalchemy import String, DateTime, func, JSON
-from sqlalchemy.dialects.postgresql import UUID, ARRAY
 from sqlalchemy.orm import Mapped, mapped_column
 import uuid
 
 from app.database import Base
+from app.types import StringList, GUID
 
 
 class User(Base):
     __tablename__ = "users"
 
     id: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True), primary_key=True, default=uuid.uuid4
+        GUID(), primary_key=True, default=uuid.uuid4
     )
     email: Mapped[str] = mapped_column(String, unique=True, nullable=False, index=True)
     name: Mapped[str | None] = mapped_column(String, nullable=True)
 
     # Profile
-    equipment_ids: Mapped[list] = mapped_column(ARRAY(String), default=list)
+    equipment_ids: Mapped[list] = mapped_column(StringList, default=list)
     goals: Mapped[dict] = mapped_column(JSON, default=dict)
     preferences: Mapped[dict] = mapped_column(JSON, default=dict)
     user_level: Mapped[str] = mapped_column(String, default="intermediate")

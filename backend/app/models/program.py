@@ -1,21 +1,21 @@
 """Program SQLAlchemy model."""
 from datetime import datetime
 from sqlalchemy import String, DateTime, Integer, Boolean, JSON, func
-from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column
 import uuid
 
 from app.database import Base
+from app.types import GUID
 
 
 class Program(Base):
     __tablename__ = "programs"
 
     id: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True), primary_key=True, default=uuid.uuid4
+        GUID(), primary_key=True, default=uuid.uuid4
     )
     user_id: Mapped[uuid.UUID | None] = mapped_column(
-        UUID(as_uuid=True), nullable=True, index=True
+        GUID(), nullable=True, index=True
     )
     name: Mapped[str] = mapped_column(String, nullable=False)
     goal_tag: Mapped[str] = mapped_column(String, nullable=True)
