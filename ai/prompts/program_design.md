@@ -26,18 +26,19 @@ USER PREFERENCES:
 
 DESIGN RULES:
 1. Assign each day a focus (Legs, Push, Pull, Full Body, etc.)
-2. Select 3-5 movements per day based ONLY on available equipment
-3. Assign sets, reps, and tempos aligned to the goal:
+2. NEVER train the same primary muscle group on consecutive days. Chest Monday → no chest Tuesday. This is smart programming — muscle recovery is built into the split design.
+3. Select 3-5 movements per day based ONLY on available equipment
+4. Assign sets, reps, and tempos aligned to the goal:
    - Strength: 4-6 reps, tempo 3-1-1, rest 120-180s
    - Hypertrophy: 8-12 reps, tempo 2-1-2 or 3-1-1, rest 60-90s
    - Conditioning: 12-15 reps, tempo 2-0-2, rest 30-60s
-4. Include Zone 2 cardio (≥20 min) embedded in at least one day
-5. Include VO2 Max work: Norwegian 4x4, HIIT finisher, or dedicated cardio day
-6. Include a finisher from the finisher library if preferred and equipment allows
-7. Include warm-up/cool-down or mobility notes in each day
-8. Ensure at least 1 full rest day or active recovery day in the weekly split
-9. Respect all limitations — do not program contraindicated movements
-10. Respect all dislikes — substitute with preferred alternatives
+5. Include Zone 2 cardio (≥20 min) embedded in at least one day
+6. Include VO2 Max work: Norwegian 4x4, HIIT finisher, or dedicated cardio day
+7. Include a finisher from the finisher library if preferred and equipment allows
+8. Include warm-up/cool-down or mobility notes in each day
+9. Ensure at least 1 full rest day or active recovery day in the weekly split
+10. Respect all limitations — do not program contraindicated movements
+11. Respect all dislikes — substitute with preferred alternatives
 
 SPLIT-SPECIFIC RULES:
 - 3-day split: Full body each day. Finishers handle cardio. No dedicated cardio day.
@@ -61,9 +62,11 @@ Every program MUST satisfy all 5 pillars:
 5. Recovery (rest day or active recovery)
 
 CODE-NAME:
-Generate a code-name using the Adjective + Noun convention.
-Examples: Cobalt Fury, Sanguine Thunder, Crimson Typhoon, Genesis Protocol.
-Do NOT use these reserved names.
+Generate a code-name using the Operation [Adjective] [Noun] convention.
+The name should be FUN and memorable — a mix of playful and bold.
+Examples: Operation Classy Cat, Operation Zesty Corgi, Operation Cobalt Fury, Operation Sassy Phantom.
+Do NOT use these reserved names: "Genesis Protocol", "Cobalt Fury", "Sanguine Thunder".
+The adjective+noun combination should be surprising and delightful.
 
 OUTPUT FORMAT:
 Output ONLY valid JSON matching this schema:

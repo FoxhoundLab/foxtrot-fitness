@@ -135,7 +135,7 @@ export default function OnboardPage() {
             Select Your <span className="text-accent-red">Gear</span>
           </h1>
           <p className="mb-6 font-body text-sm text-text-secondary">
-            Your mission is built around what you actually have. No equipment? Skip ahead —
+            Your program is built around what you actually have. No equipment? Skip ahead —
             bodyweight works.
           </p>
           {equipmentError && (
@@ -173,7 +173,7 @@ export default function OnboardPage() {
               Set Your <span className="text-accent-red">Objectives</span>
             </h1>
             <p className="mb-6 font-body text-sm text-text-secondary">
-              Every parameter shapes the mission.
+              Every parameter shapes the program.
             </p>
             <h3 className="mb-3 font-display text-xl uppercase tracking-wide text-text-primary">
               Primary Goal
@@ -208,7 +208,7 @@ export default function OnboardPage() {
       {step === 3 && experience && (
         <div className="animate-fade-in">
           <h1 className="mb-6 font-display text-4xl uppercase tracking-wide text-text-primary">
-            Mission <span className="text-accent-red">Briefing</span>
+            Review <span className="text-accent-red">& Build</span>
           </h1>
           <SummaryReview
             experience={experience}

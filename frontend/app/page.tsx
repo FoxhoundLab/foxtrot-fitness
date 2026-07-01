@@ -155,7 +155,7 @@ function ProgramCard({ program }: { program: Program }) {
 
         {/* CTA */}
         <div className="mt-6 flex items-center gap-2 font-display text-sm uppercase tracking-wide text-accent-red transition-colors group-hover:text-accent-red-dark">
-          <span>View Mission</span>
+          <span>View Program</span>
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
         </div>
       </div>
@@ -219,13 +219,13 @@ export default async function HomePage() {
           <h1 className="mb-6 font-display text-7xl uppercase leading-none tracking-wide text-text-primary sm:text-8xl md:text-9xl">
             Build Your
             <br />
-            <span className="text-accent-red">Mission</span>
+            <span className="text-accent-red">Workout</span>
           </h1>
 
           {/* Subhead */}
           <p className="mx-auto mb-10 max-w-2xl font-body text-lg text-text-secondary sm:text-xl">
-            AI-generated workout programs. Tailored to your equipment.
-            Named like operations.
+            Smart programming tailored to your equipment.
+            Proper recovery built into every split.
           </p>
 
           {/* CTA */}
@@ -234,7 +234,7 @@ export default async function HomePage() {
             className="inline-flex items-center gap-3 bg-accent-red px-10 py-4 font-display text-xl uppercase tracking-wider text-text-primary transition-all hover:bg-accent-red-dark hover:shadow-glow-red-strong animate-pulse-red"
             style={{ borderRadius: "2px" }}
           >
-            Start Your Mission
+            Start Building
             <ArrowRight className="h-5 w-5" />
           </Link>
 
@@ -256,13 +256,13 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* === EXAMPLE MISSIONS === */}
+      {/* === EXAMPLE PROGRAMS === */}
       <section className="border-t border-border-default px-4 py-20">
         <div className="mx-auto max-w-6xl">
           {/* Section header */}
           <div className="mb-12">
             <h2 className="font-display text-5xl uppercase tracking-wide text-text-primary">
-              Example Missions
+              Example Programs
             </h2>
             <div className="mt-2 h-1 w-24 bg-accent-red" />
             <p className="mt-4 font-body text-base text-text-secondary">
@@ -306,7 +306,7 @@ export default async function HomePage() {
             <HowItWorksStep
               step="03"
               icon={Zap}
-              title="Get Your Mission"
+              title="Get Your Program"
               description="AI generates a named program with movements, tempos, finishers — validated against the 5-pillar blueprint. Copy-paste ready."
             />
           </div>
@@ -317,14 +317,14 @@ export default async function HomePage() {
               Ready to Deploy?
             </p>
             <p className="mb-6 font-body text-sm text-text-secondary">
-              Your mission is one click away.
+              Your workout is one click away.
             </p>
             <Link
               href="/onboard"
               className="inline-flex items-center gap-3 bg-accent-red px-8 py-3 font-display text-lg uppercase tracking-wider text-text-primary transition-all hover:bg-accent-red-dark hover:shadow-glow-red"
               style={{ borderRadius: "2px" }}
             >
-              Build Your Mission
+              Build Your Workout
               <ArrowRight className="h-5 w-5" />
             </Link>
           </div>

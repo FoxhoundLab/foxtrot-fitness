@@ -12,7 +12,7 @@ export function Footer() {
           <Link href="/onboard" className="hover:text-text-secondary">Generate</Link>
           <Link href="/auth/login" className="hover:text-text-secondary">Sign In</Link>
         </nav>
-        <p className="font-body text-xs text-text-muted">Build Your Mission. 2026</p>
+        <p className="font-body text-xs text-text-muted">Build Your Workout. 2026</p>
       </div>
     </footer>
   );

@@ -25,9 +25,9 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Foxtrot Fitness — Build Your Mission",
+  title: "Foxtrot Fitness — Build Your Workout",
   description:
-    "AI-generated workout programs. Tailored to your equipment. Named like operations.",
+    "Smart programming tailored to your equipment. Proper recovery built into every split.",
 };
 
 export default function RootLayout({

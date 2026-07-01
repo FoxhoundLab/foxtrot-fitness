@@ -111,7 +111,7 @@ export function SummaryReview({
         className="w-full animate-pulse-red"
       >
         <Rocket className="h-5 w-5" />
-        {generating ? "Generating…" : "Generate Mission"}
+        {generating ? "Generating…" : "Generate Program"}
       </Button>
     </div>
   );

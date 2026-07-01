@@ -75,7 +75,7 @@ export default function GeneratePage() {
   if (error) {
     return (
       <div className="flex min-h-[70vh] flex-col items-center justify-center px-4 text-center">
-        <h1 className="mb-2 font-display text-4xl uppercase text-accent-red">Mission Aborted</h1>
+        <h1 className="mb-2 font-display text-4xl uppercase text-accent-red">Generation Failed</h1>
         <p className="mb-6 max-w-md font-body text-sm text-text-secondary">{error}</p>
         <Link href="/onboard">
           <Button variant="secondary">
@@ -113,7 +113,7 @@ export default function GeneratePage() {
   return (
     <div className="flex min-h-[70vh] flex-col items-center justify-center px-4 py-12 text-center animate-fade-in">
       <p className="mb-4 font-display text-lg uppercase tracking-[0.3em] text-text-muted">
-        Mission Assigned
+        Operation Ready
       </p>
       <CodeNameBadge name={program.name} size="xl" className="mb-6" />
       <p className="mb-8 max-w-md font-body text-base text-text-secondary">{program.goal_tag}</p>
@@ -142,7 +142,7 @@ export default function GeneratePage() {
         <Link href={`/program/${program.id}`}>
           <Button variant="secondary" size="lg">
             <Eye className="h-5 w-5" />
-            View Mission
+            View Program
           </Button>
         </Link>
         <Link href="/onboard">

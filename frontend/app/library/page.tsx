@@ -49,7 +49,7 @@ export default function LibraryPage() {
     <div className="mx-auto max-w-6xl px-4 py-8 pb-28 md:pb-12">
       <div className="mb-8">
         <h1 className="font-display text-5xl uppercase tracking-wide text-text-primary">
-          Mission <span className="text-accent-red">Library</span>
+          Program <span className="text-accent-red">Library</span>
         </h1>
         <div className="mt-2 h-1 w-24 bg-accent-red" />
       </div>
@@ -61,7 +61,7 @@ export default function LibraryPage() {
             Sign In Required
           </h2>
           <p className="mb-6 font-body text-sm text-text-secondary">
-            Your saved missions live behind the wire. Sign in to access them.
+            Your saved programs live behind the wire. Sign in to access them.
           </p>
           <Link href="/auth/login">
             <Button size="lg">Sign In</Button>
@@ -85,14 +85,14 @@ export default function LibraryPage() {
         <div className="flex min-h-[40vh] flex-col items-center justify-center text-center">
           <FolderOpen className="mb-4 h-12 w-12 text-text-muted" />
           <h2 className="mb-2 font-display text-3xl uppercase text-text-primary">
-            No Missions Yet
+            No Programs Yet
           </h2>
           <p className="mb-6 font-body text-sm text-text-secondary">
             Generate your first program and it lands here.
           </p>
           <Link href="/onboard">
             <Button size="lg" className="animate-pulse-red">
-              Start Your Mission
+              Start Building
             </Button>
           </Link>
         </div>
@@ -105,7 +105,7 @@ export default function LibraryPage() {
           </div>
           {filtered.length === 0 ? (
             <p className="py-12 text-center font-body text-sm text-text-muted">
-              No missions match those filters.
+              No programs match those filters.
             </p>
           ) : (
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

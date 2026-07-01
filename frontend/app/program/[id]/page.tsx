@@ -27,7 +27,7 @@ export default function ProgramPage({ params }: { params: { id: string } }) {
   if (error) {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center px-4 text-center">
-        <h1 className="mb-2 font-display text-4xl uppercase text-accent-red">Mission Not Found</h1>
+        <h1 className="mb-2 font-display text-4xl uppercase text-accent-red">Program Not Found</h1>
         <p className="mb-6 font-body text-sm text-text-secondary">
           This program doesn&apos;t exist, or the backend isn&apos;t reachable.
         </p>
