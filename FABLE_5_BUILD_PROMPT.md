@@ -91,9 +91,10 @@ Every program is validated against the 5-pillar blueprint (Strength, Zone 2, VO2
 ### Build Priority Order (Critical — Follow This Exactly)
 
 1. **Base UI components first** (shadcn/ui install + theme override + Button/Card/Badge/Input/Tabs)
-2. **Program viewer components** (DesignView, ExecutionView, DayCard, MovementRow, FinisherCard, CodeNameBadge, PillarChecklist)
+2. **ExperienceGate + Program viewer components** (ExperienceGate is the wizard entry point; Program viewer is the payoff screen)
+   - ExperienceGate, DesignView, ExecutionView, DayCard, MovementRow, FinisherCard, CodeNameBadge, PillarChecklist
 3. **Core pages** (Landing page → Program detail page → Onboarding wizard → Generation page)
-4. **Equipment wizard + goals form components** (WizardStepper, CategorySelector, ItemPicker, GoalSelector, ExperiencePicker, etc.)
+4. **Equipment wizard + goals form components** (WizardStepper, CategorySelector, ItemPicker, GoalSelector, SchedulePicker, etc.)
 5. **Auth + library** (Login/callback pages, library page, mobile bottom nav)
 6. **Polish last** (animations, transitions, progress indicators, advanced mobile)
 
@@ -176,8 +177,19 @@ Build these reusable components (use Tailwind classes, follow P90X design system
 ### D. Equipment Wizard (`frontend/components/equipment-wizard/`)
 
 ```typescript
-// WizardStepper.tsx — Progress indicator (3 steps: Equipment → Goals → Review)
+// WizardStepper.tsx — Progress indicator (4 steps: Experience → Equipment → Goals → Review)
 // Numbers with connecting lines, red active step
+
+// ExperienceGate.tsx — THE FIRST THING USERS SEE
+// Full-screen experience level selector: Beginner / Intermediate / Advanced
+// 3 large cards, each with:
+//   - Visual difficulty indicator (1/2/3 dumbbells or bars)
+//   - Short description ("New to structured training" / "Consistent training 6+ months" / "Years of structured programming")
+//   - What to expect (volume, complexity)
+// This sets the tone for the entire wizard — equipment and goals adapt based on this choice
+// Beginner: simplify equipment labels, default to 3-day, conservative everything
+// Intermediate: standard labels, default to 4-day, full options
+// Advanced: all options, 5-day available, highest intensity
 
 // CategorySelector.tsx — Equipment category cards
 // 6 categories: Barbells & Plates, Squat Rack & Bench, Dumbbells & Kettlebells,
@@ -187,9 +199,10 @@ Build these reusable components (use Tailwind classes, follow P90X design system
 // ItemPicker.tsx — Individual equipment selection within a category
 // Toggleable item cards, checkmark when selected
 // Use equipment list from api.listEquipment()
+// For beginners: show plain-English descriptions ("Dumbbells — handheld weights")
 
 // SummaryReview.tsx — Final review before generation
-// List of selected equipment, count, "Generate Mission" button
+// Shows experience level + selected equipment + goals, "Generate Mission" button
 ```
 
 ### E. Goals Form (`frontend/components/goals-form/`)
@@ -199,11 +212,12 @@ Build these reusable components (use Tailwind classes, follow P90X design system
 // 5 large cards: Strength, Hypertrophy, Conditioning, Balanced, Longevity
 // Icon + description, single select
 
-// ExperiencePicker.tsx — Beginner / Intermediate / Advanced
-// 3 cards with visual difficulty indicators
-
 // SchedulePicker.tsx — Days/week + Session length
-// Two grids: days (3/4/5) and minutes (30/45/60/75/90)
+// Two grids: days and minutes
+// Days available adapt to experience level set in ExperienceGate:
+//   Beginner: 3-day default, 4-day available
+//   Intermediate: 4-day default, 3 or 5 available
+//   Advanced: 5-day default, 3/4 available
 
 // FocusAreas.tsx — Multi-select body parts
 // 7 cards: Legs, Chest, Back, Shoulders, Arms, Full Body, Core
@@ -269,11 +283,18 @@ Build these reusable components (use Tailwind classes, follow P90X design system
 - How It Works: 3-step visual (Equipment → Goals → Mission)
 - Footer
 
-#### `app/onboard/page.tsx` (Multi-step wizard)
-- Fetch equipment from `api.listEquipment()` on mount
+#### `app/onboard/page.tsx` (Multi-step wizard — 4 steps)
+- **Step 0: Experience Level** (ExperienceGate component) — THE FIRST THING
+  - Full-screen, 3 large cards: Beginner / Intermediate / Advanced
+  - Each card has visual difficulty indicator + description
+  - Selection gates everything downstream (equipment labels, default days/week, finisher availability)
 - Step 1: Equipment selection (use equipment-wizard components)
+  - Fetch from `api.listEquipment()` on mount
+  - Labels adapt to experience level (beginner = plain English, advanced = technical)
 - Step 2: Goals & preferences (use goals-form components)
+  - Default days/week based on experience level from step 0
 - Step 3: Review & generate
+  - Shows experience + equipment + goals summary
 - On submit: `api.generateProgram(request)`, redirect to `/program/[id]`
 
 #### `app/generate/page.tsx` (Generation page)
