@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Bebas_Neue, Inter, JetBrains_Mono } from "next/font/google";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
+import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
 import "./globals.css";
 
 const bebas = Bebas_Neue({
@@ -33,7 +36,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${bebas.variable} ${inter.variable} ${jetbrains.variable}`}>
       <body className="bg-bg-primary text-text-primary min-h-screen">
-        {children}
+        <Navbar />
+        <main>{children}</main>
+        <Footer />
+        <MobileBottomNav />
       </body>
     </html>
   );

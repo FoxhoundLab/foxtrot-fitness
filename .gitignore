@@ -34,3 +34,5 @@ Thumbs.db
 
 # Alembic
 alembic/versions/__pycache__/
+backend/.venv/
+backend/foxtrot_dev.db

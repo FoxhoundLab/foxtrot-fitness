@@ -331,17 +331,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* === FOOTER === */}
-      <footer className="border-t border-border-default px-4 py-8">
-        <div className="mx-auto flex max-w-6xl items-center justify-between">
-          <p className="font-display text-lg uppercase tracking-widest text-text-muted">
-            Foxtrot Fitness
-          </p>
-          <p className="font-body text-xs text-text-muted">
-            Build Your Mission. {new Date().getFullYear()}
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }

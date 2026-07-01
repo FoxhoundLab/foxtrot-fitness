@@ -2,11 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --font-display: "Bebas Neue", "Oswald", sans-serif;
-  --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: "JetBrains Mono", "Courier New", monospace;
-}
+/* Font variables are injected by next/font on <html> (see app/layout.tsx). */
 
 html,
 body {
