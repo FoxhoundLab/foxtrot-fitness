@@ -136,7 +136,7 @@ export default function GeneratePage() {
         ) : (
           <Button size="lg" onClick={save} className="shadow-glow-red-strong">
             <BookmarkPlus className="h-5 w-5" />
-            Save to Library
+            Save Operation
           </Button>
         )}
         <Link href={`/program/${program.id}`}>
