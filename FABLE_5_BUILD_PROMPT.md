@@ -1,8 +1,22 @@
 # FOXTROT FITNESS — FABLE 5 BUILD PROMPT (FRONTEND ONLY)
 # Target: Claude Fable 5
 # Project: ~/Projects/foxtrot-fitness/
+# GitHub Repo: https://github.com/FoxhoundLab/foxtrot-fitness (PRIVATE)
 # Date: 2026-07-01
 # Status: SCAFFOLD + COMPLETE BACKEND DONE. Build frontend components and pages only.
+
+---
+
+## GITHUB ACCESS
+
+The project is on GitHub at **https://github.com/FoxhoundLab/foxtrot-fitness** (private repo under the FoxhoundLab org).
+
+You are authenticated as FoxhoundLab via `gh` CLI. You can:
+- Push your work with `git add -A && git commit -m "message" && git push`
+- Reference existing files/commits via `gh` or `git log`
+- Create branches if needed
+
+**Commit convention:** Use conventional commits (`feat:`, `fix:`, `docs:`, `refactor:`). Keep messages concise.
 
 ---
 
