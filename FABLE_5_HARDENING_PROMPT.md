@@ -178,7 +178,47 @@ Read `docs/fable5-review.md` for the full context. Fix these 5 issues:
 
 ---
 
-## ✅ VERIFICATION
+## 🎨 PART 3: BRAND IDENTITY — LOGO + COLOR ALIGNMENT
+
+### Logo Integration
+
+The Foxtrot Fitness mascot logo is at:
+`~/Projects/foxtrot-fitness/frontend/public/foxtrot-logo.png`
+
+Place it in these locations:
+
+1. **Navbar** (`components/layout/Navbar.tsx`) — logo icon (left side, ~40px height), next to "FOXTROT FITNESS" wordmark
+2. **Landing hero** (`app/page.tsx`) — large logo above or behind the hero text. Consider a subtle watermark behind "BUILD YOUR WORKOUT"
+3. **Footer** (`components/layout/Footer.tsx`) — small logo next to copyright
+4. **Auth pages** — logo above the login form for brand presence
+5. **Mobile bottom nav** — small fox head icon for the Home tab
+
+If the logo file doesn't exist yet, create the directory: `mkdir -p frontend/public` and note in a comment that the asset goes there. The app should still build without it (use a placeholder div with the correct aspect ratio).
+
+### Color Scheme Update — Match the Logo
+
+The current app uses P90X red (`#E5342D`) as the primary accent. The logo uses **fox orange** (`#F26B1F`). Update `tailwind.config.ts` to align:
+
+```typescript
+// Update these color values to match the logo:
+"accent-red": "#F26B1F",         // Fox orange (was #E5342D P90X red) — primary brand color
+"accent-red-dark": "#B8430E",    // Burnt rust orange (was #B81A14) — hover/pressed
+"accent-red-glow": "rgba(242, 107, 31, 0.15)",  // Matching glow
+// Keep orange as-is (tempo badges still need distinction):
+"accent-orange": "#FF8C42",      // Slightly lighter for badge contrast against new red
+// Keep green/blue (functional pillar colors, not brand):
+// accent-green and accent-blue stay unchanged
+```
+
+Also update `globals.css` if any hardcoded color values reference the old red.
+
+**Why this matters:** The logo is the brand anchor. The app's primary CTA color must match it. Fox orange is warmer and more energetic than P90X red — it'll feel more cohesive.
+
+### Favicon
+
+Create a favicon from the logo's fox head (square crop). Place at `frontend/app/icon.png` (Next.js will auto-detect). If you can't crop programmatically, just use the full logo and note it for manual replacement.
+
+---
 
 After all fixes, verify:
 
@@ -197,11 +237,15 @@ After all fixes, verify:
 10. Multiple equipment categories can be open at once
 11. Error states show differentiated copy
 12. Landing page stats stack cleanly at 375px (test in browser dev tools)
+13. Logo appears in navbar, footer, and landing hero
+14. Primary CTA color is fox orange (`#F26B1F`), not P90X red
+15. All accent-red usage (buttons, hovers, badges, pillar backgrounds) updated to new color
 
 ### Commit Structure
 - Commit 1: `fix: backend hardening — JWT auth, ownership checks, error handling, dev magic link`
 - Commit 2: `fix: UX polish — wizard persistence, library delete, multi-open accordion, error states, responsive stats`
-- Push both to origin
+- Commit 3: `feat: brand identity — logo integration + fox orange color scheme alignment`
+- Push all to origin
 
 ---
 
