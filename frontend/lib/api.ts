@@ -32,25 +32,42 @@ export class ApiError extends Error {
   }
 }
 
+export interface ApiFetchOptions extends RequestInit {
+  /** Per-call timeout; defaults to 30s. Slow endpoints (generation) override. */
+  timeoutMs?: number;
+}
+
 export async function apiFetch<T>(
   path: string,
-  options: RequestInit = {}
+  options: ApiFetchOptions = {}
 ): Promise<T> {
+  const { timeoutMs = 30_000, signal, ...rest } = options;
   const token = getSessionToken();
   const email = getSessionEmail();
-  const res = await fetch(`${API_URL}${path}`, {
-    headers: {
-      "Content-Type": "application/json",
-      // JWT is the real auth; X-User-Email only works as a dev-mode fallback
-      ...(token
-        ? { Authorization: `Bearer ${token}` }
-        : email
-          ? { "X-User-Email": email }
-          : {}),
-      ...options.headers,
-    },
-    ...options,
-  });
+
+  const timeoutSignal = AbortSignal.timeout(timeoutMs);
+  const finalSignal = signal ? AbortSignal.any([signal, timeoutSignal]) : timeoutSignal;
+
+  let res: Response;
+  try {
+    res = await fetch(`${API_URL}${path}`, {
+      headers: {
+        "Content-Type": "application/json",
+        // JWT is the real auth; X-User-Email only works as a dev-mode fallback
+        ...(token
+          ? { Authorization: `Bearer ${token}` }
+          : email
+            ? { "X-User-Email": email }
+            : {}),
+        ...rest.headers,
+      },
+      signal: finalSignal,
+      ...rest,
+    });
+  } catch (e) {
+    if (timeoutSignal.aborted) throw new ApiError(0, "Request timed out");
+    throw e; // caller abort or genuine network failure
+  }
 
   if (!res.ok) {
     let detail = res.statusText;
@@ -91,11 +108,13 @@ export const api = {
     apiFetch<void>(`/api/programs/${id}`, { method: "DELETE" }),
   listExamplePrograms: () => apiFetch<Program[]>("/api/programs/examples"),
 
-  // Generation
-  generateProgram: (request: GenerationRequest) =>
+  // Generation — measured 190s server-side (120s/attempt LLM + retries); 240s ceiling
+  generateProgram: (request: GenerationRequest, opts?: { signal?: AbortSignal }) =>
     apiFetch<GenerationResponse>("/api/generate", {
       method: "POST",
       body: JSON.stringify(request),
+      timeoutMs: 240_000,
+      signal: opts?.signal,
     }),
 
   // Auth — backend expects email/token as query params
