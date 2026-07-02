@@ -29,6 +29,24 @@ from app.services.name_generator import generate_unique_name
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent
 PROMPT_PATH = PROJECT_ROOT / "ai" / "prompts" / "program_design.md"
+KB_DIR = PROJECT_ROOT / "backend" / "app" / "knowledge_base"
+
+
+def _load_knowledge_base() -> str:
+    """Load all knowledge base files for injection into the AI prompt."""
+    kb_files = ["movements.md", "limitations.md", "program_patterns.md"]
+    sections = []
+    for filename in kb_files:
+        path = KB_DIR / filename
+        if path.exists():
+            sections.append(f"\n--- {filename.upper().replace('.MD', '')} ---\n{path.read_text()}")
+        else:
+            # KB file missing — fail loudly so the operator notices
+            raise FileNotFoundError(
+                f"Knowledge base file missing: {path}. "
+                f"Required for AI generation. See backend/app/knowledge_base/."
+            )
+    return "\n".join(sections)
 
 
 async def generate_program(
@@ -144,7 +162,7 @@ def parse_json_response(raw: str) -> dict:
 
 
 def format_prompt(equipment_list: str, goals, preferences, user_level: str) -> str:
-    """Format the system prompt template with user data."""
+    """Format the system prompt template with user data + knowledge base."""
     with open(PROMPT_PATH) as f:
         content = f.read()
 
@@ -163,7 +181,11 @@ def format_prompt(equipment_list: str, goals, preferences, user_level: str) -> s
 
     template = content[start_idx:end_idx]
 
+    # Load knowledge base (movements, limitations, program patterns)
+    knowledge_base = _load_knowledge_base()
+
     return template.format(
+        knowledge_base=knowledge_base,
         days_per_week=goals.days_per_week,
         experience=user_level,
         equipment_list=equipment_list,

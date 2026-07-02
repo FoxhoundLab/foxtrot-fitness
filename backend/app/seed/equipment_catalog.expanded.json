@@ -1,0 +1,1362 @@
+[
+  {
+    "id": "barbell-olympic",
+    "category": "barbells",
+    "name": "Olympic Barbell (20kg/15kg)",
+    "aliases": ["barbell", "bb", "olympic bar", "mens barbell", "womens barbell"],
+    "requires": ["bumper-plates"],
+    "paired_with": ["squat-rack", "bench"],
+    "movements": ["back-squat", "bench-press", "barbell-row", "overhead-press", "deadlift", "push-press"],
+    "icon": "dumbbell"
+  },
+  {
+    "id": "training-barbell",
+    "category": "barbells",
+    "name": "Training / Technique Barbell",
+    "aliases": ["technique bar", "womens training bar", "light bar"],
+    "requires": ["bumper-plates"],
+    "paired_with": ["squat-rack"],
+    "movements": ["back-squat", "bench-press", "barbell-row", "overhead-press"],
+    "icon": "dumbbell"
+  },
+  {
+    "id": "ez-curl-bar",
+    "category": "barbells",
+    "name": "EZ Curl Bar",
+    "aliases": ["ez bar", "curl bar"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["bicep-curl", "skullcrusher"],
+    "icon": "dumbbell"
+  },
+  {
+    "id": "trap-bar",
+    "category": "barbells",
+    "name": "Trap Bar / Hex Bar",
+    "aliases": ["hex bar", "trap"],
+    "requires": ["bumper-plates"],
+    "paired_with": [],
+    "movements": ["trap-bar-deadlift", "trap-bar-walk", "trap-bar-row"],
+    "icon": "box"
+  },
+  {
+    "id": "safety-squat-bar",
+    "category": "barbells",
+    "name": "Safety Squat Bar (SSB)",
+    "aliases": ["ssb", "safety bar"],
+    "requires": ["bumper-plates"],
+    "paired_with": ["squat-rack"],
+    "movements": ["back-squat", "good-morning", "box-squat"],
+    "icon": "dumbbell"
+  },
+  {
+    "id": "swiss-bar",
+    "category": "barbells",
+    "name": "Swiss / Multi-Grip Bar",
+    "aliases": ["multi-grip bar", "football bar"],
+    "requires": ["bumper-plates"],
+    "paired_with": ["squat-rack"],
+    "movements": ["swiss-bar-bench", "swiss-bar-row", "swiss-bar-overhead-press"],
+    "icon": "dumbbell"
+  },
+  {
+    "id": "landmine",
+    "category": "barbells",
+    "name": "Landmine Attachment",
+    "aliases": ["landmine"],
+    "requires": ["barbell-olympic"],
+    "paired_with": ["squat-rack", "bumper-plates"],
+    "movements": ["landmine-press", "landmine-rotation", "landmine-row", "landmine-squat"],
+    "icon": "circle"
+  },
+  {
+    "id": "bumper-plates",
+    "category": "weights",
+    "name": "Bumper Plates",
+    "aliases": ["plates", "weights", "bumpers"],
+    "requires": [],
+    "paired_with": ["barbell-olympic"],
+    "movements": [],
+    "icon": "circle"
+  },
+  {
+    "id": "iron-plates",
+    "category": "weights",
+    "name": "Iron Plates",
+    "aliases": ["standard plates", "iron weight plates"],
+    "requires": [],
+    "paired_with": ["barbell-olympic"],
+    "movements": [],
+    "icon": "circle"
+  },
+  {
+    "id": "plate-tree",
+    "category": "weights",
+    "name": "Plate Tree / Storage Rack",
+    "aliases": ["plate rack", "plate storage"],
+    "requires": [],
+    "paired_with": [],
+    "movements": [],
+    "icon": "box"
+  },
+  {
+    "id": "olympic-plate-holder",
+    "category": "weights",
+    "name": "Olympic Plate Holders",
+    "aliases": ["plate horns", "plate holder"],
+    "requires": [],
+    "paired_with": ["squat-rack"],
+    "movements": [],
+    "icon": "minus"
+  },
+  {
+    "id": "dumbbells",
+    "category": "weights",
+    "name": "Dumbbell Set (5-150+ lb pairs)",
+    "aliases": ["dbs", "dumbbell", "hex dumbbells", "rubber hex dumbbells"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["db-press", "db-row", "walking-lunge", "db-overhead-press", "lateral-raise", "bulgarian-split-squat", "db-bicep-curl", "db-chest-fly", "rear-delt-fly"],
+    "icon": "dumbbell"
+  },
+  {
+    "id": "pro-style-dumbbells",
+    "category": "weights",
+    "name": "Pro-Style / Chrome Dumbbells",
+    "aliases": ["chrome dumbbells", "pro dumbbells"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["db-press", "db-row", "db-overhead-press", "lateral-raise"],
+    "icon": "dumbbell"
+  },
+  {
+    "id": "adjustable-dumbbells",
+    "category": "weights",
+    "name": "Adjustable Dumbbells (PowerBlock/Selectech)",
+    "aliases": ["powerblocks", "selectech", "adjustable dbs"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["db-press", "db-row", "db-overhead-press", "lateral-raise"],
+    "icon": "dumbbell"
+  },
+  {
+    "id": "dumbbell-rack",
+    "category": "weights",
+    "name": "Dumbbell Rack / Tree",
+    "aliases": ["db rack", "dumbbell tree"],
+    "requires": [],
+    "paired_with": [],
+    "movements": [],
+    "icon": "box"
+  },
+  {
+    "id": "kettlebells",
+    "category": "weights",
+    "name": "Kettlebell Set",
+    "aliases": ["kbs", "kettlebell"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["kb-swing", "goblet-squat", "kb-deadlift", "kb-rdl", "reverse-lunge", "devil-press", "turkish-getup"],
+    "icon": "circle"
+  },
+  {
+    "id": "competition-kettlebells",
+    "category": "weights",
+    "name": "Competition Kettlebells",
+    "aliases": ["comp kbs", "competition kb"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["kb-swing", "turkish-getup", "kb-snatch", "kb-clean"],
+    "icon": "circle"
+  },
+  {
+    "id": "medicine-ball",
+    "category": "specialty",
+    "name": "Medicine Ball",
+    "aliases": ["med ball"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["medicine-ball-slam", "medicine-ball-rotation", "medicine-ball-throw"],
+    "icon": "circle"
+  },
+  {
+    "id": "wall-ball",
+    "category": "specialty",
+    "name": "Wall Ball",
+    "aliases": ["wallball"],
+    "requires": [],
+    "paired_with": ["wall-ball-target"],
+    "movements": ["wall-ball-throw"],
+    "icon": "circle"
+  },
+  {
+    "id": "slam-ball",
+    "category": "specialty",
+    "name": "Slam Ball",
+    "aliases": ["slam"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["slam-ball-throw"],
+    "icon": "circle"
+  },
+  {
+    "id": "squat-rack",
+    "category": "rack",
+    "name": "Squat Rack / Power Rack / Cage",
+    "aliases": ["rack", "rig", "power rack", "squat cage", "full cage"],
+    "requires": [],
+    "paired_with": ["barbell-olympic", "bench"],
+    "movements": ["back-squat", "overhead-press", "pull-up", "pin-press"],
+    "icon": "box"
+  },
+  {
+    "id": "half-rack",
+    "category": "rack",
+    "name": "Half Rack / Squat Stand",
+    "aliases": ["squat stand", "half rack"],
+    "requires": [],
+    "paired_with": ["barbell-olympic", "bench"],
+    "movements": ["back-squat", "overhead-press", "pin-press"],
+    "icon": "box"
+  },
+  {
+    "id": "olympic-platform",
+    "category": "rack",
+    "name": "Olympic Lifting Platform",
+    "aliases": ["lifting platform", "olympic platform"],
+    "requires": ["barbell-olympic", "bumper-plates"],
+    "paired_with": ["squat-rack"],
+    "movements": ["clean", "snatch", "jerk"],
+    "icon": "square"
+  },
+  {
+    "id": "bench",
+    "category": "rack",
+    "name": "Flat Bench",
+    "aliases": ["flat bench", "bench press"],
+    "requires": [],
+    "paired_with": ["squat-rack", "barbell-olympic"],
+    "movements": ["bench-press", "db-press"],
+    "icon": "square"
+  },
+  {
+    "id": "incline-bench",
+    "category": "rack",
+    "name": "Incline Bench (fixed)",
+    "aliases": ["incline"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["incline-db-press", "incline-bench-press"],
+    "icon": "square"
+  },
+  {
+    "id": "adjustable-bench",
+    "category": "rack",
+    "name": "Adjustable Bench (FID)",
+    "aliases": ["fid bench", "adjustable", "utility bench"],
+    "requires": [],
+    "paired_with": ["dumbbells", "barbell-olympic"],
+    "movements": ["incline-db-press", "decline-bench-press", "db-row", "seated-db-press", "decline-sit-up"],
+    "icon": "square"
+  },
+  {
+    "id": "decline-bench",
+    "category": "rack",
+    "name": "Decline Bench",
+    "aliases": ["decline"],
+    "requires": [],
+    "paired_with": ["barbell-olympic"],
+    "movements": ["decline-bench-press"],
+    "icon": "square"
+  },
+  {
+    "id": "preacher-curl-bench",
+    "category": "rack",
+    "name": "Preacher Curl / Scott Bench",
+    "aliases": ["scott bench", "preacher bench"],
+    "requires": ["ez-curl-bar", "dumbbells"],
+    "paired_with": [],
+    "movements": ["preacher-curl"],
+    "icon": "square"
+  },
+  {
+    "id": "ab-bench",
+    "category": "rack",
+    "name": "Ab / Decline Sit-Up Bench",
+    "aliases": ["ab bench", "sit-up bench"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["decline-sit-up", "v-up", "russian-twist"],
+    "icon": "square"
+  },
+  {
+    "id": "captains-chair",
+    "category": "rack",
+    "name": "Captain's Chair / Hanging Leg Raise Station",
+    "aliases": ["captains chair", "hanging leg raise station"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["hanging-leg-raise", "knee-raise", "l-sit"],
+    "icon": "minus"
+  },
+  {
+    "id": "smith-machine",
+    "category": "machines",
+    "name": "Smith Machine",
+    "aliases": ["smith"],
+    "requires": [],
+    "paired_with": ["bumper-plates"],
+    "movements": ["smith-squat", "smith-bench", "smith-overhead-press", "smith-row"],
+    "icon": "settings"
+  },
+  {
+    "id": "cable-machine",
+    "category": "machines",
+    "name": "Cable Machine / Functional Trainer",
+    "aliases": ["cable", "cable crossover", "functional trainer", "dual pulley"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["cable-row", "tricep-pushdown", "cable-chest-fly", "face-pull", "rear-delt-fly", "cable-lateral-raise", "cable-curl", "cable-crunch", "cable-pull-through"],
+    "icon": "cable"
+  },
+  {
+    "id": "cable-crossover",
+    "category": "machines",
+    "name": "Cable Crossover Machine",
+    "aliases": ["cable crossover"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["cable-chest-fly", "cable-crossover"],
+    "icon": "cable"
+  },
+  {
+    "id": "multi-station-jungle",
+    "category": "machines",
+    "name": "Multi-Station Cable Jungle Gym",
+    "aliases": ["jungle gym", "4-station", "8-station", "12-station"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["cable-row", "lat-pulldown", "cable-chest-fly", "tricep-pushdown"],
+    "icon": "settings"
+  },
+  {
+    "id": "chest-press-machine",
+    "category": "machines",
+    "name": "Seated Chest Press Machine",
+    "aliases": ["chest press", "machine chest press"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["machine-chest-press"],
+    "icon": "settings"
+  },
+  {
+    "id": "incline-chest-press-machine",
+    "category": "machines",
+    "name": "Incline Chest Press Machine",
+    "aliases": ["incline press machine"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["machine-incline-press"],
+    "icon": "settings"
+  },
+  {
+    "id": "pec-deck",
+    "category": "machines",
+    "name": "Pec Deck / Chest Fly Machine",
+    "aliases": ["pec deck", "machine fly", "butterfly machine"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["pec-deck", "machine-chest-fly"],
+    "icon": "settings"
+  },
+  {
+    "id": "shoulder-press-machine",
+    "category": "machines",
+    "name": "Shoulder Press Machine",
+    "aliases": ["machine shoulder press"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["machine-shoulder-press"],
+    "icon": "settings"
+  },
+  {
+    "id": "lateral-raise-machine",
+    "category": "machines",
+    "name": "Lateral Raise / Deltoid Raise Machine",
+    "aliases": ["lateral raise machine"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["machine-lateral-raise"],
+    "icon": "settings"
+  },
+  {
+    "id": "rear-delt-machine",
+    "category": "machines",
+    "name": "Rear Delt Fly / Reverse Pec Deck",
+    "aliases": ["rear delt machine", "reverse pec deck"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["machine-rear-delt"],
+    "icon": "settings"
+  },
+  {
+    "id": "lat-pulldown-machine",
+    "category": "machines",
+    "name": "Lat Pulldown Machine",
+    "aliases": ["pulldown machine"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["lat-pulldown"],
+    "icon": "settings"
+  },
+  {
+    "id": "seated-row-machine",
+    "category": "machines",
+    "name": "Seated Row Machine",
+    "aliases": ["machine row"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["machine-row"],
+    "icon": "settings"
+  },
+  {
+    "id": "low-pulley",
+    "category": "machines",
+    "name": "Low Pulley / Low Row Station",
+    "aliases": ["low row", "low pulley"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["cable-row", "low-pulley-row"],
+    "icon": "settings"
+  },
+  {
+    "id": "assisted-pull-up-machine",
+    "category": "machines",
+    "name": "Assisted Pull-Up / Chin-Up Machine",
+    "aliases": ["assisted pullup machine"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["assisted-pull-up"],
+    "icon": "settings"
+  },
+  {
+    "id": "assisted-dip-machine",
+    "category": "machines",
+    "name": "Assisted Dip Machine",
+    "aliases": ["assisted dip"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["assisted-dip"],
+    "icon": "settings"
+  },
+  {
+    "id": "bicep-curl-machine",
+    "category": "machines",
+    "name": "Seated Bicep Curl Machine",
+    "aliases": ["bicep curl machine", "machine curl"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["machine-bicep-curl"],
+    "icon": "settings"
+  },
+  {
+    "id": "tricep-extension-machine",
+    "category": "machines",
+    "name": "Tricep Extension / Pushdown Machine",
+    "aliases": ["tricep machine", "tricep pushdown machine"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["machine-tricep-extension"],
+    "icon": "settings"
+  },
+  {
+    "id": "overhead-tricep-machine",
+    "category": "machines",
+    "name": "Overhead Tricep Extension Machine",
+    "aliases": ["overhead tricep"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["machine-overhead-tricep"],
+    "icon": "settings"
+  },
+  {
+    "id": "leg-press",
+    "category": "machines",
+    "name": "Leg Press Machine",
+    "aliases": ["sled", "45 leg press"],
+    "requires": ["bumper-plates"],
+    "paired_with": [],
+    "movements": ["leg-press"],
+    "icon": "settings"
+  },
+  {
+    "id": "horizontal-leg-press",
+    "category": "machines",
+    "name": "Horizontal Leg Press",
+    "aliases": ["seated leg press"],
+    "requires": ["bumper-plates"],
+    "paired_with": [],
+    "movements": ["leg-press"],
+    "icon": "settings"
+  },
+  {
+    "id": "leg-extension",
+    "category": "machines",
+    "name": "Leg Extension Machine",
+    "aliases": ["leg ext"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["leg-extension"],
+    "icon": "settings"
+  },
+  {
+    "id": "seated-leg-curl",
+    "category": "machines",
+    "name": "Seated Leg Curl Machine",
+    "aliases": ["seated leg curl"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["leg-curl"],
+    "icon": "settings"
+  },
+  {
+    "id": "lying-leg-curl",
+    "category": "machines",
+    "name": "Lying / Prone Leg Curl",
+    "aliases": ["prone leg curl", "lying curl"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["leg-curl"],
+    "icon": "settings"
+  },
+  {
+    "id": "calf-raise-machine",
+    "category": "machines",
+    "name": "Calf Raise Machine (Standing or Seated)",
+    "aliases": ["calf raise"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["calf-raise"],
+    "icon": "settings"
+  },
+  {
+    "id": "hip-abductor-machine",
+    "category": "machines",
+    "name": "Hip Abductor / Outer Thigh Machine",
+    "aliases": ["abductor machine", "outer thigh"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["hip-abduction"],
+    "icon": "settings"
+  },
+  {
+    "id": "hip-adductor-machine",
+    "category": "machines",
+    "name": "Hip Adductor / Inner Thigh Machine",
+    "aliases": ["adductor machine", "inner thigh"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["hip-adduction"],
+    "icon": "settings"
+  },
+  {
+    "id": "glute-kickback-machine",
+    "category": "machines",
+    "name": "Glute Kickback / Hip Thrust Machine",
+    "aliases": ["glute kickback", "selectorized glute"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["glute-kickback"],
+    "icon": "settings"
+  },
+  {
+    "id": "belt-squat-machine",
+    "category": "machines",
+    "name": "Belt Squat Machine",
+    "aliases": ["belt squat"],
+    "requires": ["bumper-plates"],
+    "paired_with": [],
+    "movements": ["belt-squat"],
+    "icon": "settings"
+  },
+  {
+    "id": "abdominal-crunch-machine",
+    "category": "machines",
+    "name": "Abdominal Crunch Machine",
+    "aliases": ["ab crunch", "crunch machine"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["machine-crunch"],
+    "icon": "settings"
+  },
+  {
+    "id": "rotary-torso-machine",
+    "category": "machines",
+    "name": "Rotary Torso / Twist Machine",
+    "aliases": ["rotary torso", "twist machine"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["machine-rotation"],
+    "icon": "settings"
+  },
+  {
+    "id": "back-extension-machine",
+    "category": "machines",
+    "name": "Back Extension / Hyperextension Machine",
+    "aliases": ["hyperextension", "back ext machine"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["back-extension", "ghd-extension"],
+    "icon": "settings"
+  },
+  {
+    "id": "oblique-machine",
+    "category": "machines",
+    "name": "Oblique / Side Crunch Machine",
+    "aliases": ["oblique machine"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["machine-oblique"],
+    "icon": "settings"
+  },
+  {
+    "id": "plate-loaded-chest-press",
+    "category": "machines",
+    "name": "Plate-Loaded Chest Press",
+    "aliases": ["hammer strength chest press"],
+    "requires": ["bumper-plates"],
+    "paired_with": [],
+    "movements": ["plate-loaded-chest-press"],
+    "icon": "settings"
+  },
+  {
+    "id": "iso-lateral-chest-press",
+    "category": "machines",
+    "name": "Iso-Lateral Chest Press",
+    "aliases": ["iso chest press"],
+    "requires": ["bumper-plates"],
+    "paired_with": [],
+    "movements": ["iso-lateral-chest-press"],
+    "icon": "settings"
+  },
+  {
+    "id": "plate-loaded-shoulder-press",
+    "category": "machines",
+    "name": "Plate-Loaded Shoulder Press",
+    "aliases": ["plate shoulder press"],
+    "requires": ["bumper-plates"],
+    "paired_with": [],
+    "movements": ["plate-loaded-shoulder-press"],
+    "icon": "settings"
+  },
+  {
+    "id": "plate-loaded-row",
+    "category": "machines",
+    "name": "Plate-Loaded Row / Seated Row",
+    "aliases": ["plate row", "iso row"],
+    "requires": ["bumper-plates"],
+    "paired_with": [],
+    "movements": ["plate-loaded-row"],
+    "icon": "settings"
+  },
+  {
+    "id": "t-bar-row-machine",
+    "category": "machines",
+    "name": "T-Bar Row Machine",
+    "aliases": ["t-bar", "landmine t-bar"],
+    "requires": ["bumper-plates"],
+    "paired_with": ["landmine"],
+    "movements": ["t-bar-row"],
+    "icon": "settings"
+  },
+  {
+    "id": "plate-loaded-lat-pulldown",
+    "category": "machines",
+    "name": "Plate-Loaded Lat Pulldown",
+    "aliases": ["plate pulldown"],
+    "requires": ["bumper-plates"],
+    "paired_with": [],
+    "movements": ["plate-loaded-lat-pulldown"],
+    "icon": "settings"
+  },
+  {
+    "id": "45-leg-press",
+    "category": "machines",
+    "name": "45-Degree Leg Press",
+    "aliases": ["45 leg press"],
+    "requires": ["bumper-plates"],
+    "paired_with": [],
+    "movements": ["leg-press"],
+    "icon": "settings"
+  },
+  {
+    "id": "hack-squat",
+    "category": "machines",
+    "name": "Hack Squat Machine",
+    "aliases": ["hack squat"],
+    "requires": ["bumper-plates"],
+    "paired_with": [],
+    "movements": ["hack-squat"],
+    "icon": "settings"
+  },
+  {
+    "id": "pendulum-squat",
+    "category": "machines",
+    "name": "Pendulum / V-Squat Machine",
+    "aliases": ["v-squat", "pendulum"],
+    "requires": ["bumper-plates"],
+    "paired_with": [],
+    "movements": ["pendulum-squat"],
+    "icon": "settings"
+  },
+  {
+    "id": "ground-base-jammer",
+    "category": "machines",
+    "name": "Ground Base Jammer / Shrug Machine",
+    "aliases": ["jammer", "ground base"],
+    "requires": ["barbell-olympic", "bumper-plates"],
+    "paired_with": [],
+    "movements": ["jammer-press", "shrug"],
+    "icon": "settings"
+  },
+  {
+    "id": "plate-loaded-glute-drive",
+    "category": "machines",
+    "name": "Glute Drive / Hip Thrust Machine (Plate-Loaded)",
+    "aliases": ["glute drive", "hip thrust machine"],
+    "requires": ["bumper-plates"],
+    "paired_with": [],
+    "movements": ["hip-thrust"],
+    "icon": "settings"
+  },
+  {
+    "id": "plate-loaded-ab-machine",
+    "category": "machines",
+    "name": "Abdominal / Oblique Machine (Plate-Loaded)",
+    "aliases": ["plate ab machine"],
+    "requires": ["bumper-plates"],
+    "paired_with": [],
+    "movements": ["machine-crunch", "machine-oblique"],
+    "icon": "settings"
+  },
+  {
+    "id": "plate-loaded-calf-raise",
+    "category": "machines",
+    "name": "Plate-Loaded Calf Raise",
+    "aliases": ["plate calf raise"],
+    "requires": ["bumper-plates"],
+    "paired_with": [],
+    "movements": ["calf-raise"],
+    "icon": "settings"
+  },
+  {
+    "id": "ghd",
+    "category": "bodyweight",
+    "name": "GHD Machine",
+    "aliases": ["glute ham developer", "glute-ham raise"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["ghd-extension", "ghd-sit-up"],
+    "icon": "activity"
+  },
+  {
+    "id": "reverse-hyper",
+    "category": "bodyweight",
+    "name": "Reverse Hyper Machine",
+    "aliases": ["reverse hyper"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["reverse-hyper"],
+    "icon": "activity"
+  },
+  {
+    "id": "pull-up-bar",
+    "category": "bodyweight",
+    "name": "Pull-Up Bar (doorframe, wall, or rig)",
+    "aliases": ["pullup bar", "doorframe pull-up bar"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["pull-up", "hanging-leg-raise", "muscle-up"],
+    "icon": "minus"
+  },
+  {
+    "id": "trx",
+    "category": "bodyweight",
+    "name": "TRX / Suspension Trainer",
+    "aliases": ["suspension trainer"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["trx-row", "trx-core-slide", "trx-push-up", "trx-bicep-curl", "trx-y-fly", "trx-pike"],
+    "icon": "link"
+  },
+  {
+    "id": "rings",
+    "category": "bodyweight",
+    "name": "Gymnastics Rings (wooden or plastic)",
+    "aliases": ["rings", "wooden rings"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["ring-row", "ring-dip", "ring-muscle-up", "ring-push-up", "ring-support-hold"],
+    "icon": "circle"
+  },
+  {
+    "id": "dip-station",
+    "category": "bodyweight",
+    "name": "Dip Station / Parallettes / Parallel Bars",
+    "aliases": ["dip bars", "parallettes", "parallel bars"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["dip", "l-sit", "parallette-push-up", "handstand-push-up"],
+    "icon": "minus"
+  },
+  {
+    "id": "monkey-bars",
+    "category": "bodyweight",
+    "name": "Monkey Bars / Rig Extensions",
+    "aliases": ["monkey bars"],
+    "requires": [],
+    "paired_with": ["squat-rack"],
+    "movements": ["monkey-bar-traverse"],
+    "icon": "minus"
+  },
+  {
+    "id": "pegboard",
+    "category": "bodyweight",
+    "name": "Pegboard / Climbing Peg Wall",
+    "aliases": ["pegboard"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["pegboard-climb"],
+    "icon": "minus"
+  },
+  {
+    "id": "climbing-rope",
+    "category": "bodyweight",
+    "name": "Climbing Rope",
+    "aliases": ["rope climb", "knotted rope", "smooth rope"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["rope-climb"],
+    "icon": "minus"
+  },
+  {
+    "id": "cargo-net",
+    "category": "bodyweight",
+    "name": "Cargo Net / Climbing Wall",
+    "aliases": ["climbing wall", "cargo net"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["climb"],
+    "icon": "minus"
+  },
+  {
+    "id": "plyo-boxes",
+    "category": "specialty",
+    "name": "Plyo Boxes (12/18/20/24/30 inch)",
+    "aliases": ["boxes", "jump boxes", "soft box", "wooden plyo box"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["box-jump", "box-step-up", "deficit-push-up", "box-pistol-squat"],
+    "icon": "square"
+  },
+  {
+    "id": "jump-rope",
+    "category": "cardio",
+    "name": "Jump Rope (speed or weighted)",
+    "aliases": ["rope", "skipping rope", "speed rope"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["jump-rope", "double-unders", "weighted-jump-rope"],
+    "icon": "circle"
+  },
+  {
+    "id": "battle-ropes",
+    "category": "specialty",
+    "name": "Battle Ropes (30-50 ft)",
+    "aliases": ["ropes"],
+    "requires": [],
+    "paired_with": ["squat-rack"],
+    "movements": ["battle-ropes"],
+    "icon": "wind"
+  },
+  {
+    "id": "prowler-sled",
+    "category": "specialty",
+    "name": "Prowler / Push-Pull Sled",
+    "aliases": ["prowler", "sled", "push sled"],
+    "requires": ["bumper-plates"],
+    "paired_with": [],
+    "movements": ["prowler-push", "sled-drag"],
+    "icon": "minus"
+  },
+  {
+    "id": "tank-sled",
+    "category": "specialty",
+    "name": "TANK-Style All-Surface Sled",
+    "aliases": ["tank sled", "all-surface sled"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["tank-push", "tank-drag"],
+    "icon": "minus"
+  },
+  {
+    "id": "tractor-tire",
+    "category": "specialty",
+    "name": "Tractor Tire (for flipping)",
+    "aliases": ["tire flip", "large tire"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["tire-flip"],
+    "icon": "circle"
+  },
+  {
+    "id": "sandbag",
+    "category": "specialty",
+    "name": "Sandbag (filled)",
+    "aliases": ["sandbag carry"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["sandbag-carry", "sandbag-squat", "sandbag-clean"],
+    "icon": "square"
+  },
+  {
+    "id": "farmers-walk-handles",
+    "category": "specialty",
+    "name": "Farmers Walk Handles / Implements",
+    "aliases": ["farmers walk", "carry handles"],
+    "requires": ["bumper-plates"],
+    "paired_with": [],
+    "movements": ["farmers-walk"],
+    "icon": "minus"
+  },
+  {
+    "id": "yoke",
+    "category": "specialty",
+    "name": "Yoke (Walking Yoke)",
+    "aliases": ["yoke walk"],
+    "requires": ["bumper-plates"],
+    "paired_with": [],
+    "movements": ["yoke-walk"],
+    "icon": "minus"
+  },
+  {
+    "id": "strongman-log",
+    "category": "specialty",
+    "name": "Strongman Log / Log Bar",
+    "aliases": ["log bar", "log press"],
+    "requires": ["bumper-plates"],
+    "paired_with": [],
+    "movements": ["log-press", "log-clean"],
+    "icon": "minus"
+  },
+  {
+    "id": "atlas-stones",
+    "category": "specialty",
+    "name": "Atlas Stones",
+    "aliases": ["atlas stone", "stones"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["stone-load"],
+    "icon": "circle"
+  },
+  {
+    "id": "bulgarian-bag",
+    "category": "specialty",
+    "name": "Bulgarian Bag / Core Bag",
+    "aliases": ["bulgarian bag", "core bag"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["bulgarian-bag-swing", "bulgarian-bag-twist"],
+    "icon": "square"
+  },
+  {
+    "id": "wall-ball-target",
+    "category": "specialty",
+    "name": "Wall Ball Target (mounted or freestanding)",
+    "aliases": ["wall ball target"],
+    "requires": ["wall-ball"],
+    "paired_with": [],
+    "movements": ["wall-ball-throw"],
+    "icon": "square"
+  },
+  {
+    "id": "ab-wheel",
+    "category": "specialty",
+    "name": "Ab Wheel / Ab Roller",
+    "aliases": ["ab roller"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["ab-wheel-rollout"],
+    "icon": "circle"
+  },
+  {
+    "id": "push-up-bars",
+    "category": "specialty",
+    "name": "Push-Up Bars / Stands",
+    "aliases": ["push-up handles"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["push-up"],
+    "icon": "minus"
+  },
+  {
+    "id": "bosu",
+    "category": "specialty",
+    "name": "Bosu Ball (Half-Dome Balance Trainer)",
+    "aliases": ["bosu", "half ball"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["bosu-squat", "bosu-push-up", "bosu-plank"],
+    "icon": "circle"
+  },
+  {
+    "id": "stability-ball",
+    "category": "specialty",
+    "name": "Stability / Swiss Ball",
+    "aliases": ["swiss ball", "physioball", "exercise ball"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["stability-ball-crunch", "stability-ball-squat", "stability-ball-push-up"],
+    "icon": "circle"
+  },
+  {
+    "id": "balance-board",
+    "category": "specialty",
+    "name": "Balance Board / Wobble Board",
+    "aliases": ["wobble board", "balance board"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["balance-board-squat", "balance-board-plank"],
+    "icon": "circle"
+  },
+  {
+    "id": "resistance-bands",
+    "category": "specialty",
+    "name": "Resistance Bands / Loop Bands",
+    "aliases": ["bands", "loop bands", "pull-up bands"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["band-row", "band-pull-apart", "band-chest-press", "band-lat-pulldown", "band-facepull", "banded-squat", "pull-up-assist"],
+    "icon": "link"
+  },
+  {
+    "id": "mini-bands",
+    "category": "specialty",
+    "name": "Mini Bands (Light loop bands)",
+    "aliases": ["mini band", "light bands"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["mini-band-walk", "mini-band-glute-activation", "banded-kickback"],
+    "icon": "link"
+  },
+  {
+    "id": "indian-club",
+    "category": "specialty",
+    "name": "Indian Club / Mace / Clubbell",
+    "aliases": ["mace", "clubbell", "indian club"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["clubbell-swing", "mace-360"],
+    "icon": "circle"
+  },
+  {
+    "id": "massage-gun",
+    "category": "recovery",
+    "name": "Massage Gun / Percussion Device",
+    "aliases": ["percussion massager", "theragun"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["self-myofascial-release"],
+    "icon": "circle"
+  },
+  {
+    "id": "foam-roller",
+    "category": "recovery",
+    "name": "Foam Roller",
+    "aliases": ["roller", "high-density roller"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["foam-roll"],
+    "icon": "circle"
+  },
+  {
+    "id": "lacrosse-ball",
+    "category": "recovery",
+    "name": "Lacrosse Ball / Peanut / Trigger Point",
+    "aliases": ["massage ball", "peanut roller", "trigger point ball"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["lacrosse-ball-roll"],
+    "icon": "circle"
+  },
+  {
+    "id": "yoga-mat",
+    "category": "recovery",
+    "name": "Yoga / Mobility Mat",
+    "aliases": ["mat", "exercise mat", "yoga mat"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["couch-stretch", "90-90-stretch", "pigeon-stretch", "worlds-greatest-stretch", "childs-pose"],
+    "icon": "square"
+  },
+  {
+    "id": "weight-belt",
+    "category": "specialty",
+    "name": "Weight Belt",
+    "aliases": ["lifting belt", "leather belt"],
+    "requires": [],
+    "paired_with": [],
+    "movements": [],
+    "icon": "minus"
+  },
+  {
+    "id": "wrist-wraps",
+    "category": "specialty",
+    "name": "Wrist Wraps",
+    "aliases": ["wraps"],
+    "requires": [],
+    "paired_with": [],
+    "movements": [],
+    "icon": "minus"
+  },
+  {
+    "id": "lifting-straps",
+    "category": "specialty",
+    "name": "Lifting Straps",
+    "aliases": ["straps"],
+    "requires": [],
+    "paired_with": [],
+    "movements": [],
+    "icon": "minus"
+  },
+  {
+    "id": "dip-belt",
+    "category": "specialty",
+    "name": "Dip Belt",
+    "aliases": ["dip belt"],
+    "requires": ["bumper-plates"],
+    "paired_with": [],
+    "movements": ["weighted-dip", "weighted-pull-up"],
+    "icon": "minus"
+  },
+  {
+    "id": "hand-gripper",
+    "category": "specialty",
+    "name": "Hand Gripper / Grip Strength Tool",
+    "aliases": ["gripper", "grip strengthener"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["grip-work"],
+    "icon": "minus"
+  },
+  {
+    "id": "chalk-bowl",
+    "category": "specialty",
+    "name": "Chalk Bowl / Liquid Chalk Station",
+    "aliases": ["chalk"],
+    "requires": [],
+    "paired_with": [],
+    "movements": [],
+    "icon": "minus"
+  },
+  {
+    "id": "treadmill",
+    "category": "cardio",
+    "name": "Treadmill (motorized, standard)",
+    "aliases": ["treadmill", "tread mill"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["treadmill-run", "treadmill-sprint", "zone-2-treadmill", "incline-walk"],
+    "icon": "activity"
+  },
+  {
+    "id": "incline-trainer",
+    "category": "cardio",
+    "name": "Incline Trainer / Alpine Runner",
+    "aliases": ["incline trainer", "alpine runner"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["incline-walk", "incline-run"],
+    "icon": "activity"
+  },
+  {
+    "id": "decline-treadmill",
+    "category": "cardio",
+    "name": "Decline Treadmill",
+    "aliases": ["decline treadmill"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["decline-treadmill-run"],
+    "icon": "activity"
+  },
+  {
+    "id": "curved-treadmill",
+    "category": "cardio",
+    "name": "Curved Non-Motorized Treadmill (Woodway/Assault)",
+    "aliases": ["curved treadmill", "woodway", "assault runner"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["curved-treadmill-run", "curved-treadmill-sprint"],
+    "icon": "activity"
+  },
+  {
+    "id": "manual-treadmill",
+    "category": "cardio",
+    "name": "Manual / Self-Powered Treadmill",
+    "aliases": ["manual treadmill"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["manual-treadmill-run"],
+    "icon": "activity"
+  },
+  {
+    "id": "elliptical",
+    "category": "cardio",
+    "name": "Standard Elliptical Trainer / Cross-Trainer",
+    "aliases": ["elliptical", "cross-trainer"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["elliptical-zone-2", "elliptical-intervals"],
+    "icon": "activity"
+  },
+  {
+    "id": "arc-trainer",
+    "category": "cardio",
+    "name": "Arc Trainer (Cybex)",
+    "aliases": ["arc trainer", "cybex arc"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["arc-trainer-zone-2", "arc-trainer-intervals"],
+    "icon": "activity"
+  },
+  {
+    "id": "upright-bike",
+    "category": "cardio",
+    "name": "Upright Stationary Bike",
+    "aliases": ["upright bike"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["upright-bike-zone-2", "upright-bike-intervals"],
+    "icon": "bike"
+  },
+  {
+    "id": "recumbent-bike",
+    "category": "cardio",
+    "name": "Recumbent Stationary Bike",
+    "aliases": ["recumbent bike", "recumbent"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["recumbent-bike-zone-2"],
+    "icon": "bike"
+  },
+  {
+    "id": "spin-bike",
+    "category": "cardio",
+    "name": "Spin Bike / Indoor Cycling (Keiser, etc.)",
+    "aliases": ["spin bike", "indoor cycling", "keiser"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["spin-bike-zone-2", "spin-bike-intervals", "spin-bike-sprint"],
+    "icon": "bike"
+  },
+  {
+    "id": "assault-bike",
+    "category": "cardio",
+    "name": "Assault / Echo / Air Bike",
+    "aliases": ["bike", "air bike", "echo bike", "assault bike"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["bike", "bike-sprint", "bike-intervals"],
+    "icon": "bike"
+  },
+  {
+    "id": "rower",
+    "category": "cardio",
+    "name": "Rowing Machine (Concept2 ergometer)",
+    "aliases": ["row", "rowing machine", "erg", "c2 rower"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["row", "rower-sprint", "rower-zone-2"],
+    "icon": "activity"
+  },
+  {
+    "id": "stair-climber",
+    "category": "cardio",
+    "name": "Stair Climber / Stairmaster / StepMill",
+    "aliases": ["stairmaster", "stepmill", "stair stepper"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["stair-climb", "stair-climb-zone-2"],
+    "icon": "activity"
+  },
+  {
+    "id": "versaclimber",
+    "category": "cardio",
+    "name": "VersaClimber (Vertical Climber)",
+    "aliases": ["versaclimber", "vertical climber"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["versaclimber-zone-2", "versaclimber-intervals"],
+    "icon": "activity"
+  },
+  {
+    "id": "ski-erg",
+    "category": "cardio",
+    "name": "SkiErg (Concept2 or similar)",
+    "aliases": ["skierg", "ski erg"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["ski-erg", "ski-erg-sprint"],
+    "icon": "activity"
+  },
+  {
+    "id": "jacobs-ladder",
+    "category": "cardio",
+    "name": "Jacob's Ladder (Treadmill-Style Climber)",
+    "aliases": ["jacobs ladder", "jacob's ladder"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["jacobs-ladder-climb"],
+    "icon": "activity"
+  },
+  {
+    "id": "upper-body-ergometer",
+    "category": "cardio",
+    "name": "Upper-Body Ergometer / Hand Cycle",
+    "aliases": ["hand cycle", "ube", "arm bike"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["ube-cardio"],
+    "icon": "activity"
+  },
+  {
+    "id": "recumbent-stepper",
+    "category": "cardio",
+    "name": "Recumbent Stepper / Seated Climber",
+    "aliases": ["seated climber", "recumbent stepper"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["recumbent-stepper-zone-2"],
+    "icon": "activity"
+  },
+  {
+    "id": "lateral-trainer",
+    "category": "cardio",
+    "name": "Lateral Trainer (Side-to-Side Cardio)",
+    "aliases": ["lateral trainer", "side-to-side cardio"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["lateral-trainer-zone-2"],
+    "icon": "activity"
+  },
+  {
+    "id": "seated-stepper",
+    "category": "cardio",
+    "name": "Seated or Standing Stepper",
+    "aliases": ["seated stepper", "standing stepper"],
+    "requires": [],
+    "paired_with": [],
+    "movements": ["seated-stepper-zone-2", "standing-stepper-zone-2"],
+    "icon": "activity"
+  }
+]
