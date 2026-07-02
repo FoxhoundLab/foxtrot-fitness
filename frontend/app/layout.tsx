@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Bebas_Neue, Inter, JetBrains_Mono } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -24,10 +24,30 @@ const jetbrains = JetBrains_Mono({
   display: "swap",
 });
 
+const SITE_TITLE = "Foxtrot Fitness — AI Workout Programs Built for Your Equipment";
+const SITE_DESCRIPTION =
+  "AI-generated workout programs built around the equipment you actually have. Tempo, finishers, and recovery baked into every split.";
+
 export const metadata: Metadata = {
-  title: "Foxtrot Fitness — Build Your Workout",
-  description:
-    "Smart programming tailored to your equipment. Proper recovery built into every split.",
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
+  openGraph: {
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    siteName: "Foxtrot Fitness",
+    type: "website",
+    images: ["/foxtrot-logo.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    images: ["/foxtrot-logo.png"],
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0a0e1a",
 };
 
 export default function RootLayout({
