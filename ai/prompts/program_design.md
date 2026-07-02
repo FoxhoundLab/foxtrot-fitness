@@ -86,11 +86,8 @@ Every program MUST satisfy all 5 pillars:
 5. Recovery (rest day or active recovery, CNS restoration)
 
 CODE-NAME:
-Generate a code-name using the Operation [Adjective] [Noun] convention.
-The name should be FUN and memorable — a mix of playful and bold.
-Examples: Operation Classy Cat, Operation Zesty Corgi, Operation Cobalt Fury, Operation Sassy Phantom.
-Do NOT use these reserved names: "Genesis Protocol", "Cobalt Fury", "Sanguine Thunder".
-The adjective+noun combination should be surprising and delightful.
+Do NOT generate a code-name in your output. The system will assign a unique
+Operation [Adjective] [Noun] code-name automatically after generation.
 
 OUTPUT FORMAT:
 Output ONLY valid JSON matching this schema:

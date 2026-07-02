@@ -86,10 +86,10 @@ async def generate_program(
     if not program_dict:
         raise HTTPException(status_code=502, detail="No program generated — please retry")
 
-    # Generate unique code-name
+    # Generate unique code-name — ALWAYS generate from our word lists
+    # (don't rely on the AI to suggest one — it may collide or be empty)
     existing_names = await get_existing_program_names(session)
-    if not program_dict.get("name") or program_dict["name"] in existing_names:
-        program_dict["name"] = generate_unique_name(existing_names)
+    program_dict["name"] = generate_unique_name(existing_names)
 
     # Build execution view from design view
     program_dict["execution_view"] = build_execution_view(program_dict["design_view"])
