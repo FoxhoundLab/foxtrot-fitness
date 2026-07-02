@@ -9,8 +9,12 @@ router = APIRouter()
 @router.post("/request-link")
 async def request_link(email: str):
     """Send magic link to email."""
-    await send_magic_link(email)
-    return {"message": "Magic link sent"}
+    token, is_dev = await send_magic_link(email)
+    response: dict = {"message": "Magic link sent"}
+    if is_dev:
+        from app.config import settings
+        response["dev_link"] = f"{settings.app_url}/auth/callback?token={token}"
+    return response
 
 
 @router.post("/verify")

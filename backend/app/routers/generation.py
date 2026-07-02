@@ -1,10 +1,10 @@
 """Generation router — the AI program generation endpoint."""
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database import get_db
-from app.deps import get_or_create_user
+from app.deps import get_current_user
 from app.models.equipment import Equipment
 from app.models.program import Program
 from app.models.user import User
@@ -21,11 +21,19 @@ GENERATIONS_PER_HOUR = 5
 @router.post("", response_model=GenerationResponse)
 async def generate(
     request: GenerationRequest,
-    user: User = Depends(get_or_create_user),
+    http_request: Request,
+    user: User | None = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    """Generate a new program based on equipment + goals + preferences."""
-    if not check_rate_limit(f"generate:{user.id}", GENERATIONS_PER_HOUR):
+    """Generate a new program based on equipment + goals + preferences.
+
+    Generation is PUBLIC — no auth required. If the user is signed in,
+    the program is persisted to their library. If anonymous, the program
+    is returned but not saved (user can sign in to save it later).
+    """
+    # Rate limit: use user ID if authenticated, otherwise IP address
+    rate_key = f"generate:{user.id}" if user else f"generate:anon:{http_request.client.host if http_request.client else 'unknown'}"
+    if not check_rate_limit(rate_key, GENERATIONS_PER_HOUR):
         raise HTTPException(
             status_code=429,
             detail=f"Rate limit reached — max {GENERATIONS_PER_HOUR} generations per hour",
@@ -55,22 +63,25 @@ async def generate(
         session=db,
     )
 
-    # Persist to database
-    program = Program(
-        user_id=user.id,
-        name=program_schema.name,
-        goal_tag=program_schema.goal_tag,
-        difficulty=program_schema.difficulty,
-        split=program_schema.split,
-        user_level=program_schema.user_level,
-        design_view=program_schema.design_view.model_dump(),
-        execution_view=program_schema.execution_view,
-        version=1,
-        is_active=False,
-        is_example=False,
-    )
-    db.add(program)
-    await db.commit()
-    await db.refresh(program)
+    # Persist to database only if user is authenticated
+    if user:
+        program = Program(
+            user_id=user.id,
+            name=program_schema.name,
+            goal_tag=program_schema.goal_tag,
+            difficulty=program_schema.difficulty,
+            split=program_schema.split,
+            user_level=program_schema.user_level,
+            design_view=program_schema.design_view.model_dump(),
+            execution_view=program_schema.execution_view,
+            version=1,
+            is_active=False,
+            is_example=False,
+        )
+        db.add(program)
+        await db.commit()
+        await db.refresh(program)
+        return GenerationResponse(program=ProgramSchema.model_validate(program, from_attributes=True))
 
-    return GenerationResponse(program=ProgramSchema.model_validate(program, from_attributes=True))
+    # Anonymous: return the program without persisting
+    return GenerationResponse(program=program_schema)

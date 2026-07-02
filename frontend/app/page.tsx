@@ -251,7 +251,7 @@ export default async function HomePage() {
           <div className="mt-16 flex flex-col items-center justify-center gap-3 font-body text-xs text-text-muted sm:flex-row sm:gap-8 sm:text-sm">
             <span className="flex items-center gap-2">
               <Dumbbell className="h-4 w-4 text-accent-orange" />
-              26 Equipment Types
+              130+ Equipment Types
             </span>
             <span className="flex items-center gap-2">
               <Zap className="h-4 w-4 text-accent-orange" />

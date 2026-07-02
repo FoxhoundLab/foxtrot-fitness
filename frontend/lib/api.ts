@@ -100,7 +100,7 @@ export const api = {
 
   // Auth — backend expects email/token as query params
   requestMagicLink: (email: string) =>
-    apiFetch<{ message: string }>(
+    apiFetch<{ message: string; dev_link?: string }>(
       `/api/auth/request-link?email=${encodeURIComponent(email)}`,
       { method: "POST" }
     ),

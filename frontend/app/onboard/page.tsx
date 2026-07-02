@@ -13,7 +13,7 @@ import { GoalSelector } from "@/components/goals-form/GoalSelector";
 import { SchedulePicker } from "@/components/goals-form/SchedulePicker";
 import { LimitationsInput } from "@/components/goals-form/LimitationsInput";
 import { PreferencesInput } from "@/components/goals-form/PreferencesInput";
-import { api, getSessionEmail } from "@/lib/api";
+import { api } from "@/lib/api";
 import type {
   DaysPerWeek,
   Equipment,
@@ -146,11 +146,6 @@ export default function OnboardPage() {
   };
 
   function generate() {
-    if (!getSessionEmail()) {
-      // generation requires auth; draft persists so they can resume after login
-      router.push("/auth/login");
-      return;
-    }
     const request: GenerationRequest = {
       equipment_ids: Array.from(selectedIds),
       goals,

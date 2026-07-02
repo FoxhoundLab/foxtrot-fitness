@@ -54,8 +54,12 @@ def decode_jwt(token: str) -> str | None:
         return None
 
 
-async def send_magic_link(email: str) -> str:
-    """Generate magic link token, store it, and send via Resend."""
+async def send_magic_link(email: str) -> tuple[str, bool]:
+    """Generate magic link token, store it, and send via Resend.
+
+    Returns (token, is_dev) where is_dev=True means the link was printed
+    to console instead of emailed (no Resend API key configured).
+    """
     token = secrets.token_urlsafe(32)
 
     _token_store[token] = {
@@ -67,13 +71,14 @@ async def send_magic_link(email: str) -> str:
     _cleanup_expired()
 
     magic_link = f"{settings.app_url}/auth/callback?token={token}"
+    is_dev = not settings.resend_api_key
     await send_email(
         email,
         "Your Foxtrot Fitness Magic Link",
         f"Click to log in: {magic_link}\n\nThis link expires in 1 hour.",
     )
 
-    return token
+    return token, is_dev
 
 
 async def verify_token(token: str) -> str:

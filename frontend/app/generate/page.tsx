@@ -27,7 +27,7 @@ export default function GeneratePage() {
   const [error, setError] = useState<{
     title: string;
     message: string;
-    cta: "retry" | "login" | "wait";
+    cta: "retry" | "wait";
   } | null>(null);
   const [saved, setSaved] = useState(false);
   const started = useRef(false);
@@ -55,13 +55,7 @@ export default function GeneratePage() {
         setProgram(res.program);
       })
       .catch((e) => {
-        if (e instanceof ApiError && e.status === 401) {
-          setError({
-            title: "Sign In Required",
-            message: "Generating a program needs an account so we can save it to your library.",
-            cta: "login",
-          });
-        } else if (e instanceof ApiError && e.status === 429) {
+        if (e instanceof ApiError && e.status === 429) {
           setError({
             title: "Rate Limit Reached",
             message: e.message + ". Take a rest day — try again in an hour.",
@@ -104,20 +98,17 @@ export default function GeneratePage() {
       await api.saveProgram(program.id);
       setSaved(true);
     } catch {
-      setSaveError("Save failed — check that you're signed in and try again.");
+      setSaveError("Save failed — the program wasn't persisted. Sign in and try generating again.");
     }
   }
+
+  const isSignedIn = !!getSessionEmail();
 
   if (error) {
     return (
       <div className="flex min-h-[70vh] flex-col items-center justify-center px-4 text-center">
         <h1 className="mb-2 font-display text-4xl uppercase text-accent-red">{error.title}</h1>
         <p className="mb-6 max-w-md font-body text-sm text-text-secondary">{error.message}</p>
-        {error.cta === "login" && (
-          <Link href="/auth/login">
-            <Button>Sign In</Button>
-          </Link>
-        )}
         {error.cta === "retry" && (
           <Link href="/onboard">
             <Button variant="secondary">
@@ -181,11 +172,18 @@ export default function GeneratePage() {
               View Library
             </Button>
           </Link>
-        ) : (
+        ) : isSignedIn ? (
           <Button size="lg" onClick={save} className="shadow-glow-red-strong">
             <BookmarkPlus className="h-5 w-5" />
             Save Operation
           </Button>
+        ) : (
+          <Link href="/auth/login">
+            <Button size="lg" variant="secondary">
+              <BookmarkPlus className="h-5 w-5" />
+              Sign In to Save
+            </Button>
+          </Link>
         )}
         <Link href={`/program/${program.id}`}>
           <Button variant="secondary" size="lg">

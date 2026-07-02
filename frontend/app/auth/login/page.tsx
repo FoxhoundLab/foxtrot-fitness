@@ -13,14 +13,18 @@ export default function LoginPage() {
   const [sent, setSent] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [sending, setSending] = useState(false);
+  const [devLink, setDevLink] = useState<string | null>(null);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
     setSending(true);
     try {
-      await api.requestMagicLink(email);
+      const res = await api.requestMagicLink(email);
       setSent(true);
+      if (res.dev_link) {
+        setDevLink(res.dev_link);
+      }
     } catch {
       setError("Couldn't send the link. Check the email and try again.");
     } finally {
@@ -48,6 +52,22 @@ export default function LoginPage() {
               A magic link is on its way to <span className="font-mono text-text-primary">{email}</span>.
               Click it to deploy.
             </p>
+            {devLink && (
+              <div className="mt-6 rounded-sm border border-border-default bg-bg-tertiary p-4">
+                <p className="mb-2 font-display text-xs uppercase tracking-wider text-accent-orange">
+                  Dev Mode — Link Ready
+                </p>
+                <p className="mb-3 font-body text-xs text-text-secondary">
+                  Email delivery isn't configured. Use this link to sign in:
+                </p>
+                <a
+                  href={devLink}
+                  className="inline-block bg-accent-red px-4 py-2 font-display text-sm uppercase tracking-wide text-text-primary transition-colors hover:bg-accent-red-dark"
+                >
+                  Click to Sign In
+                </a>
+              </div>
+            )}
           </div>
         ) : (
           <>
