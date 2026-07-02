@@ -180,6 +180,118 @@ export default function OnboardPage() {
               continue bodyweight-only.
             </p>
           )}
+
+          {/* Quick Select — Most Common Gym Equipment */}
+          {!equipmentError && equipment.length > 0 && (
+            <div className="mb-6 rounded-sm border border-border-default bg-bg-secondary p-4">
+              <div className="mb-3 flex items-center justify-between">
+                <div>
+                  <h3 className="font-display text-lg uppercase tracking-wide text-text-primary">
+                    Most Common Gym Equipment
+                  </h3>
+                  <p className="font-body text-xs text-text-secondary">
+                    The standard setup at LA Fitness, 24 Hour, Anytime, etc.
+                  </p>
+                </div>
+                <button
+                  onClick={() => {
+                    const COMMON_GEAR = new Set([
+                      "barbell-olympic",
+                      "bumper-plates",
+                      "squat-rack",
+                      "bench",
+                      "adjustable-bench",
+                      "dumbbells",
+                      "kettlebells",
+                      "ez-curl-bar",
+                      "cable-machine",
+                      "lat-pulldown-machine",
+                      "seated-row-machine",
+                      "leg-press",
+                      "leg-extension",
+                      "seated-leg-curl",
+                      "calf-raise-machine",
+                      "rower",
+                      "treadmill",
+                      "spin-bike",
+                      "pull-up-bar",
+                      "smith-machine",
+                    ]);
+                    // Check if all common gear is already selected
+                    const allSelected = Array.from(COMMON_GEAR).every((id) => selectedIds.has(id));
+                    setSelectedIds((prev) => {
+                      const next = new Set(prev);
+                      if (allSelected) {
+                        COMMON_GEAR.forEach((id) => next.delete(id));
+                      } else {
+                        COMMON_GEAR.forEach((id) => next.add(id));
+                      }
+                      return next;
+                    });
+                  }}
+                  className="bg-accent-red px-4 py-2 font-display text-sm uppercase tracking-wide text-text-primary transition-colors hover:bg-accent-red-dark"
+                >
+                  {(() => {
+                    const COMMON_GEAR = ["barbell-olympic", "bumper-plates", "squat-rack", "bench", "adjustable-bench", "dumbbells", "kettlebells", "ez-curl-bar", "cable-machine", "lat-pulldown-machine", "seated-row-machine", "leg-press", "leg-extension", "seated-leg-curl", "calf-raise-machine", "rower", "treadmill", "spin-bike", "pull-up-bar", "smith-machine"];
+                    const allSelected = COMMON_GEAR.every((id) => selectedIds.has(id));
+                    return allSelected ? "Deselect All" : "Select All";
+                  })()}
+                </button>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { id: "barbell-olympic", label: "Barbell" },
+                  { id: "dumbbells", label: "Dumbbells" },
+                  { id: "squat-rack", label: "Squat Rack" },
+                  { id: "bench", label: "Flat Bench" },
+                  { id: "adjustable-bench", label: "Adjustable Bench" },
+                  { id: "kettlebells", label: "Kettlebells" },
+                  { id: "ez-curl-bar", label: "EZ Curl Bar" },
+                  { id: "cable-machine", label: "Cable Machine" },
+                  { id: "lat-pulldown-machine", label: "Lat Pulldown" },
+                  { id: "seated-row-machine", label: "Seated Row" },
+                  { id: "leg-press", label: "Leg Press" },
+                  { id: "leg-extension", label: "Leg Extension" },
+                  { id: "seated-leg-curl", label: "Leg Curl" },
+                  { id: "calf-raise-machine", label: "Calf Raise" },
+                  { id: "rower", label: "Rower" },
+                  { id: "treadmill", label: "Treadmill" },
+                  { id: "spin-bike", label: "Spin Bike" },
+                  { id: "pull-up-bar", label: "Pull-Up Bar" },
+                  { id: "smith-machine", label: "Smith Machine" },
+                ].map((item) => {
+                  const isSelected = selectedIds.has(item.id);
+                  return (
+                    <button
+                      key={item.id}
+                      onClick={() => toggleItem(item.id)}
+                      className={
+                        "rounded-sm border px-3 py-1.5 font-body text-xs transition-all " +
+                        (isSelected
+                          ? "border-accent-red bg-accent-red/15 text-text-primary"
+                          : "border-border-default text-text-secondary hover:border-text-muted")
+                      }
+                    >
+                      {isSelected ? "✓ " : ""}
+                      {item.label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Category divider */}
+          {!equipmentError && equipment.length > 0 && (
+            <div className="mb-3 flex items-center gap-3">
+              <div className="h-px flex-1 bg-border-default" />
+              <span className="font-body text-xs uppercase tracking-wider text-text-muted">
+                Browse by category
+              </span>
+              <div className="h-px flex-1 bg-border-default" />
+            </div>
+          )}
+
           <div className="space-y-3">
             {categories.map(([cat, items]) => (
               <CategorySelector

@@ -33,20 +33,67 @@ KB_DIR = PROJECT_ROOT / "backend" / "app" / "knowledge_base"
 
 
 def _load_knowledge_base() -> str:
-    """Load all knowledge base files for injection into the AI prompt."""
-    kb_files = ["movements.md", "limitations.md", "program_patterns.md"]
-    sections = []
-    for filename in kb_files:
-        path = KB_DIR / filename
-        if path.exists():
-            sections.append(f"\n--- {filename.upper().replace('.MD', '')} ---\n{path.read_text()}")
-        else:
-            # KB file missing — fail loudly so the operator notices
-            raise FileNotFoundError(
-                f"Knowledge base file missing: {path}. "
-                f"Required for AI generation. See backend/app/knowledge_base/."
-            )
-    return "\n".join(sections)
+    """Load a condensed knowledge base summary for injection into the AI prompt.
+
+    Instead of injecting the full 40KB KB files, we inject a condensed ~4KB summary
+    of the critical rules. The full KB files remain at backend/app/knowledge_base/
+    for reference and future RAG retrieval.
+    """
+    return """
+=== KNOWLEDGE BASE SUMMARY ===
+
+MOVEMENT SELECTION:
+- Select movements ONLY from the user's available equipment list
+- Map each equipment type to appropriate exercises (squats → barbell/dumbbell/kettlebell, presses → bench/dumbbell/cable, rows → barbell/cable/TRX)
+- 3-5 movements per training day
+- Contraindication awareness: knee issues → avoid deep squats/lunges/jumps; shoulder issues → avoid overhead press/behind-neck; back issues → avoid heavy deadlifts/bent rows; wrist issues → avoid front rack/clean
+
+LIMITATION HANDLING:
+- Parse free-text limitations and auto-resolve: "bad knees" → knee-injury, "shoulder pain" → shoulder-injury, "lower back" → back-injury
+- EXCLUDE contraindicated movements for each limitation
+- SUBSTITUTE with safe alternatives (e.g., knee-injury: goblet squat instead of back squat, belt squat instead of barbell deadlift)
+
+PROGRAM PATTERNS (select based on experience + days/week + goal):
+- Beginner, 3 days → Full Body (compound per session)
+- Beginner, 4 days → Upper/Lower split
+- Intermediate, 3 days → Full Body or PPL
+- Intermediate, 4 days → Upper/Lower or Hybrid (legs/push/pull/legs)
+- Intermediate, 5 days → Hybrid with Wednesday VO2 Max
+- Advanced, 4 days → Powerbuilding (heavy compound + volume accessories)
+- Advanced, 5 days → Hybrid with Wednesday VO2 Max
+- Advanced, 6 days → PPL or Arnold Split
+- Longevity goal → Blueprint pattern (3x strength + 150min Zone 2 + 75min VO2 Max)
+- Hybrid goal → Equal hypertrophy + conditioning emphasis
+
+VOLUME LANDMARKS (sets per muscle group per week):
+- Beginner: 8-10 sets (minimum effective)
+- Intermediate: 10-16 sets (optimal)
+- Advanced: 16-22 sets (maximum adaptive for lagging muscles)
+- Deload weeks: 50% of working volume
+
+RECOVERY SPACING:
+- NEVER train the same primary muscle group on consecutive days
+- Minimum 1 full rest day per week
+- Each muscle hit 1.5-2x per week for optimal growth
+
+TEMPO BY GOAL:
+- Strength: 3-1-1 or 4-1-1, 4-6 reps, 120-180s rest
+- Hypertrophy: 2-1-2 or 3-1-1, 8-12 reps, 60-90s rest
+- Conditioning: 2-0-2 or X-0-X, 12-15 reps, 30-60s rest
+- Power: X-0-X explosive, 1-5 reps, 120-180s rest
+
+CARDIO INTEGRATION:
+- Zone 2 (low intensity, conversation pace, 60-70% max HR): 150 min/week minimum. After strength work or rest days.
+- VO2 Max (Norwegian 4x4 or intervals, 80-90% max HR): 75 min/week. STANDALONE SESSION ONLY in 5-day splits (Wednesday). NEVER tack onto strength day.
+- HIIT Finishers (metabolic circuits): 10-20 min at end of strength sessions. Used in 3-day and 4-day splits to satisfy VO2 Max pillar.
+
+CRITICAL — NORWEGIAN 4x4 RULE:
+- Norwegian 4x4 is a 30-minute standalone VO2 Max protocol (4 min high / 3 min recovery × 4 sets)
+- It is NEVER a finisher. It is NEVER tacked onto strength work.
+- 5-day split: Wednesday = standalone Norwegian 4x4 session
+- 4-day split: NO Norwegian 4x4. HIIT finishers handle VO2 Max pillar instead.
+=== END KNOWLEDGE BASE ===
+"""
 
 
 async def generate_program(
@@ -185,8 +232,11 @@ def format_prompt(equipment_list: str, goals, preferences, user_level: str) -> s
 
     template = content[start_idx:end_idx]
 
+    # Load condensed knowledge base (movements, limitations, program patterns)
+    knowledge_base = _load_knowledge_base()
+
     return template.format(
-        knowledge_base="See backend/app/knowledge_base/ directory for detailed movement catalogs, limitation substitutions, and program pattern templates.",
+        knowledge_base=knowledge_base,
         days_per_week=goals.days_per_week,
         experience=user_level,
         equipment_list=equipment_list,
