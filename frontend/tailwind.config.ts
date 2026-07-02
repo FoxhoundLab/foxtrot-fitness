@@ -29,7 +29,7 @@ const config: Config = {
         "text-muted": "#5C5C63",
         // Borders
         "border-default": "#2A2A2E",
-        "border-active": "#E5342D",
+        "border-active": "#F26B1F",
         // Code-name badges
         "badge-crimson": "#DC2626",
         "badge-cobalt": "#2563EB",
