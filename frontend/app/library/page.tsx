@@ -6,6 +6,7 @@ import { FolderOpen, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { ProgramCard } from "@/components/library/ProgramCard";
 import { FilterBar, type LibraryFilters } from "@/components/library/FilterBar";
+import { ProgramCardSkeleton } from "@/components/ui/Skeleton";
 import { api, getSessionEmail } from "@/lib/api";
 import type { Program } from "@/lib/types";
 
@@ -76,8 +77,10 @@ export default function LibraryPage() {
       )}
 
       {!error && !signedOut && programs === null && (
-        <div className="flex min-h-[40vh] items-center justify-center">
-          <div className="h-12 w-12 animate-pulse-red bg-accent-red" />
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <ProgramCardSkeleton key={i} />
+          ))}
         </div>
       )}
 
