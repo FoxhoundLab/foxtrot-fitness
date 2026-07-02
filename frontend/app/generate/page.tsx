@@ -124,9 +124,10 @@ export default function GeneratePage() {
   useEffect(() => {
     if (!generating) return;
     if (startTime.current === null) startTime.current = Date.now();
+    // Generation runs ~3min; pace the 6 phases across it instead of exhausting in 11s
     const phaseTicker = setInterval(
       () => setPhase((p) => Math.min(p + 1, PHASES.length - 1)),
-      1800
+      20_000
     );
     const clock = setInterval(
       () => setElapsed(Math.floor((Date.now() - (startTime.current ?? Date.now())) / 1000)),
