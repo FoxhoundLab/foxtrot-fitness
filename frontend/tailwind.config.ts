@@ -14,10 +14,10 @@ const config: Config = {
         "bg-secondary": "#141416",
         "bg-tertiary": "#1C1C1F",
         // Accents
-        "accent-red": "#E5342D",
-        "accent-red-dark": "#B81A14",
-        "accent-red-glow": "rgba(229, 52, 45, 0.15)",
-        "accent-orange": "#FF6B1A",
+        "accent-red": "#F26B1F",
+        "accent-red-dark": "#B8430E",
+        "accent-red-glow": "rgba(242, 107, 31, 0.15)",
+        "accent-orange": "#FF8C42",
         "accent-orange-dark": "#CC5414",
         "accent-blue": "#2D7DD2",
         "accent-blue-dark": "#1A5A9E",
@@ -49,14 +49,14 @@ const config: Config = {
         lg: "6px",
       },
       boxShadow: {
-        "glow-red": "0 0 20px rgba(229, 52, 45, 0.15)",
-        "glow-red-strong": "0 0 15px rgba(229, 52, 45, 0.3)",
+        "glow-red": "0 0 20px rgba(242, 107, 31, 0.15)",
+        "glow-red-strong": "0 0 15px rgba(242, 107, 31, 0.3)",
         "glow-green": "0 0 12px rgba(52, 211, 153, 0.2)",
       },
       keyframes: {
         "pulse-red": {
-          "0%, 100%": { boxShadow: "0 0 0 0 rgba(229, 52, 45, 0.7)" },
-          "50%": { boxShadow: "0 0 0 12px rgba(229, 52, 45, 0)" },
+          "0%, 100%": { boxShadow: "0 0 0 0 rgba(242, 107, 31, 0.7)" },
+          "50%": { boxShadow: "0 0 0 12px rgba(242, 107, 31, 0)" },
         },
         "fade-in": {
           "0%": { opacity: "0", transform: "translateY(8px)" },

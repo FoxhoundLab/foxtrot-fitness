@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Dumbbell, Target, Zap, ArrowRight } from "lucide-react";
 import { CodeNameBadge } from "@/components/program-viewer/CodeNameBadge";
@@ -204,9 +205,17 @@ export default async function HomePage() {
     <div className="min-h-screen bg-bg-primary">
       {/* === HERO === */}
       <section className="relative flex min-h-[90vh] items-center justify-center overflow-hidden px-4">
-        {/* Background glow effect */}
+        {/* Background glow effect + logo watermark */}
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
           <div className="h-[600px] w-[600px] rounded-full bg-accent-red/5 blur-[120px]" />
+          <Image
+            src="/foxtrot-logo.png"
+            alt=""
+            width={700}
+            height={700}
+            priority
+            className="absolute h-[500px] w-[500px] object-contain opacity-[0.06] md:h-[700px] md:w-[700px]"
+          />
         </div>
 
         <div className="relative z-10 max-w-4xl text-center">

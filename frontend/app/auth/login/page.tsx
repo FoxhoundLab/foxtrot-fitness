@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { MailCheck, Send } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -30,6 +31,13 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-[70vh] items-center justify-center px-4">
       <Card className="w-full max-w-md p-8">
+        <Image
+          src="/fox-head.png"
+          alt="Foxtrot Fitness"
+          width={72}
+          height={72}
+          className="mx-auto mb-4 object-contain"
+        />
         {sent ? (
           <div className="text-center">
             <MailCheck className="mx-auto mb-4 h-12 w-12 text-accent-green" />

@@ -41,12 +41,12 @@ select {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #e5342d;
+  background: #f26b1f;
 }
 
 /* Selection */
 ::selection {
-  background: #e5342d;
+  background: #f26b1f;
   color: #f5f5f7;
 }
 

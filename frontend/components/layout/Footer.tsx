@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export function Footer() {
@@ -12,7 +13,16 @@ export function Footer() {
           <Link href="/onboard" className="hover:text-text-secondary">Generate</Link>
           <Link href="/auth/login" className="hover:text-text-secondary">Sign In</Link>
         </nav>
-        <p className="font-body text-xs text-text-muted">Build Your Workout. 2026</p>
+        <p className="flex items-center gap-2 font-body text-xs text-text-muted">
+          <Image
+            src="/fox-head.png"
+            alt="Foxtrot Fitness logo"
+            width={20}
+            height={20}
+            className="h-5 w-5 object-contain opacity-70"
+          />
+          Build Your Workout. 2026
+        </p>
       </div>
     </footer>
   );

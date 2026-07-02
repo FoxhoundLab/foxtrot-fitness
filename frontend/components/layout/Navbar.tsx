@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
@@ -33,8 +34,15 @@ export function Navbar() {
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
         <Link
           href="/"
-          className="font-display text-xl uppercase tracking-[0.2em] text-text-primary"
+          className="flex items-center gap-2 font-display text-xl uppercase tracking-[0.2em] text-text-primary"
         >
+          <Image
+            src="/fox-head.png"
+            alt=""
+            width={40}
+            height={40}
+            className="h-10 w-10 object-contain"
+          />
           Foxtrot <span className="text-accent-red">Fitness</span>
         </Link>
 

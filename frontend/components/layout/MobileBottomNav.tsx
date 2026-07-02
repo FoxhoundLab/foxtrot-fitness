@@ -1,12 +1,25 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Library, Plus, User } from "lucide-react";
+import { Library, Plus, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+function FoxHomeIcon({ className }: { className?: string }) {
+  return (
+    <Image
+      src="/fox-head.png"
+      alt=""
+      width={20}
+      height={20}
+      className={cn("object-contain", className)}
+    />
+  );
+}
+
 const ITEMS = [
-  { href: "/", label: "Home", icon: Home },
+  { href: "/", label: "Home", icon: FoxHomeIcon },
   { href: "/library", label: "Library", icon: Library },
   { href: "/onboard", label: "Generate", icon: Plus },
   { href: "/auth/login", label: "Profile", icon: User },
