@@ -11,7 +11,6 @@ import { ItemPicker } from "@/components/equipment-wizard/ItemPicker";
 import { SummaryReview } from "@/components/equipment-wizard/SummaryReview";
 import { GoalSelector } from "@/components/goals-form/GoalSelector";
 import { SchedulePicker } from "@/components/goals-form/SchedulePicker";
-import { FocusAreas } from "@/components/goals-form/FocusAreas";
 import { LimitationsInput } from "@/components/goals-form/LimitationsInput";
 import { PreferencesInput } from "@/components/goals-form/PreferencesInput";
 import { api, getSessionEmail } from "@/lib/api";
@@ -20,7 +19,6 @@ import type {
   Equipment,
   Experience,
   FinisherPreference,
-  FocusArea,
   GenerationRequest,
   Goal,
   SessionLength,
@@ -53,7 +51,6 @@ export default function OnboardPage() {
   const [goal, setGoal] = useState<Goal>("balanced");
   const [days, setDays] = useState<DaysPerWeek>(4);
   const [minutes, setMinutes] = useState<SessionLength>(60);
-  const [focusAreas, setFocusAreas] = useState<FocusArea[]>([]);
   const [limitations, setLimitations] = useState("");
   const [dislikes, setDislikes] = useState<string[]>([]);
   const [alternatives, setAlternatives] = useState<Record<string, string>>({});
@@ -79,7 +76,6 @@ export default function OnboardPage() {
         setGoal(d.goal ?? "balanced");
         setDays(d.days ?? 4);
         setMinutes(d.minutes ?? 60);
-        setFocusAreas(d.focusAreas ?? []);
         setLimitations(d.limitations ?? "");
         setDislikes(d.dislikes ?? []);
         setAlternatives(d.alternatives ?? {});
@@ -100,14 +96,13 @@ export default function OnboardPage() {
         goal,
         days,
         minutes,
-        focusAreas,
         limitations,
         dislikes,
         alternatives,
         finisherStyle,
       })
     );
-  }, [restored, step, experience, selectedIds, goal, days, minutes, focusAreas, limitations, dislikes, alternatives, finisherStyle]);
+  }, [restored, step, experience, selectedIds, goal, days, minutes, limitations, dislikes, alternatives, finisherStyle]);
 
   const categories = useMemo(() => {
     const order = Object.keys(CATEGORY_META);
@@ -134,16 +129,11 @@ export default function OnboardPage() {
     });
   }
 
-  function toggleFocusArea(a: FocusArea) {
-    setFocusAreas((prev) => (prev.includes(a) ? prev.filter((x) => x !== a) : [...prev, a]));
-  }
-
   const goals: UserGoals = {
     primary: goal,
     experience: experience ?? "intermediate",
     days_per_week: days,
     session_length_minutes: minutes,
-    focus_areas: focusAreas,
     limitations,
     finisher_preference: finisherStyle,
   };
@@ -253,9 +243,8 @@ export default function OnboardPage() {
           />
           <div>
             <h3 className="mb-3 font-display text-xl uppercase tracking-wide text-text-primary">
-              Focus Areas
+              Limitations & Preferences
             </h3>
-            <FocusAreas selected={focusAreas} onToggle={toggleFocusArea} />
           </div>
           <LimitationsInput value={limitations} onChange={setLimitations} />
           <PreferencesInput

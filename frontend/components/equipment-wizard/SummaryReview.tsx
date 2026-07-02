@@ -80,12 +80,6 @@ export function SummaryReview({
             </span>
           </p>
           <p>
-            <span className="text-text-muted">Focus: </span>
-            <span className="text-text-primary">
-              {goals.focus_areas.length ? goals.focus_areas.join(", ").replace(/_/g, " ") : "balanced"}
-            </span>
-          </p>
-          <p>
             <span className="text-text-muted">Finishers: </span>
             <span className="text-text-primary">{goals.finisher_preference}</span>
           </p>

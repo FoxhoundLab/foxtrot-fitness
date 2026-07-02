@@ -1,7 +1,7 @@
 // TypeScript types mirroring backend Pydantic schemas
 
 export type Difficulty = "beginner" | "intermediate" | "advanced";
-export type Goal = "strength" | "hypertrophy" | "conditioning" | "balanced" | "longevity";
+export type Goal = "strength" | "hypertrophy" | "conditioning" | "balanced" | "longevity" | "hybrid";
 export type Experience = "beginner" | "intermediate" | "advanced";
 export type DaysPerWeek = 3 | 4 | 5;
 export type SessionLength = 30 | 45 | 60 | 75 | 90;
@@ -20,7 +20,6 @@ export interface UserGoals {
   experience: Experience;
   days_per_week: DaysPerWeek;
   session_length_minutes: SessionLength;
-  focus_areas: FocusArea[];
   limitations: string;
   finisher_preference: FinisherPreference;
 }

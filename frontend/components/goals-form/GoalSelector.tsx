@@ -1,6 +1,6 @@
 "use client";
 
-import { Dumbbell, Flame, HeartPulse, Scale, Shield } from "lucide-react";
+import { Dumbbell, Flame, HeartPulse, Scale, Shield, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Goal } from "@/lib/types";
 
@@ -10,6 +10,7 @@ const GOALS: { value: Goal; label: string; description: string; icon: typeof Dum
   { value: "conditioning", label: "Conditioning", description: "Engine work. Capacity, circuits, sweat.", icon: HeartPulse },
   { value: "balanced", label: "Balanced", description: "Strength + cardio + mobility, evenly split.", icon: Scale },
   { value: "longevity", label: "Longevity", description: "Train for the long game. Joints, zones, recovery.", icon: Shield },
+  { value: "hybrid", label: "Hybrid", description: "Build muscle and burn. Hypertrophy + conditioning combined.", icon: Zap },
 ];
 
 export function GoalSelector({ value, onSelect }: { value: Goal; onSelect: (g: Goal) => void }) {

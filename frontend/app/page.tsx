@@ -255,7 +255,7 @@ export default async function HomePage() {
             </span>
             <span className="flex items-center gap-2">
               <Zap className="h-4 w-4 text-accent-orange" />
-              6 Named Finishers
+              Unique Finishers
             </span>
             <span className="flex items-center gap-2">
               <Target className="h-4 w-4 text-accent-orange" />

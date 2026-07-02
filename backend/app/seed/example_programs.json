@@ -199,15 +199,24 @@
         },
         {
           "day": 2,
-          "name": "Push + VO2 Max",
+          "name": "Push + HIIT Finisher",
           "movements": [
             {"name": "Bench Press (BB)", "sets": 4, "reps": "6-8", "tempo": "3-1-1", "rest_seconds": 120, "notes": null},
             {"name": "Overhead Press (DB)", "sets": 3, "reps": "8-10", "tempo": "2-1-1", "rest_seconds": 90, "notes": null},
             {"name": "Cable Chest Flys", "sets": 3, "reps": "12-15", "tempo": "2-1-2", "rest_seconds": 45, "notes": null},
             {"name": "Tricep Cable Pushdowns", "sets": 3, "reps": "12", "tempo": "2-1-1", "rest_seconds": 45, "notes": null}
           ],
-          "finisher": null,
-          "cardio": {"type": "vo2-max", "duration_minutes": 35, "equipment": "rower-or-bike", "notes": "Norwegian 4x4: 4 sets (4m High / 3m Low). Easy Mode available."},
+          "finisher": {
+            "name": "EMOM Finisher",
+            "format": "15m EMOM. 3 movements, 5 rounds.",
+            "movements": [
+              {"name": "KB Swings", "reps": 15},
+              {"name": "Rower Calories", "reps": 12},
+              {"name": "Mountain Climbers", "reps": 20}
+            ],
+            "notes": "Metabolic finisher. Keep pace steady."
+          },
+          "cardio": null,
           "mobility": "Warm-up: band work, push-up progression"
         },
         {
@@ -256,6 +265,6 @@
         "recovery": true
       }
     },
-    "execution_view": "### MONDAY: Leg/Back Primer + Engine\n- A1. Goblet Squats: 3x10-12 | Tempo: 3-1-2\n- A2. Hamstring Curls: 3x12 | Tempo: 3-1-2\n- B1. Weighted Pull-ups: 4x6-8 | Tempo: 3-1-X\n- B2. Seated Cable Rows: 3x10-12 | Tempo: 2-1-2\n- C1. GHD Sit-ups: 3x15\n- D1. Zone 2 Cardio: 30-45m (Rower/Bike)\n\n### TUESDAY: Push + VO2 Max\n- A1. Bench Press (BB): 4x6-8 | Tempo: 3-1-1\n- B1. Overhead Press (DB): 3x8-10 | Tempo: 2-1-1\n- B2. Cable Chest Flys: 3x12-15 | Tempo: 2-1-2\n- C1. Tricep Cable Pushdowns: 3x12 | Tempo: 2-1-1\n- Norwegian 4x4: 4 sets (4m High / 3m Low) | NOTE: Easy Mode available\n\n### THURSDAY: Heavy Legs + Core Engine\n- A1. Barbell Back Squats: 4x5-8 | Tempo: 3-1-1\n- B1. Leg Extensions: 3x10-12 | Tempo: 2-1-2\n- C1. Weighted GHD Extensions: 3x10\n- D1. Weighted Planks: 3x45-60s\n- E1. Zone 2 Cardio: 30m (Rower/Bike)\n\n### FRIDAY: Back/Biceps + Metabolic Finisher\n- A1. Barbell Rows: 4x8-10 | Tempo: 2-1-2\n- B1. Lat Pulldowns: 3x10-12 | Tempo: 3-1-1\n- B2. Rear Delt Flys: 3x15\n- C1. Bicep Curls: 3x10-12 | Tempo: 3-1-1\n- D1. HIIT Circuit: 4 Rounds (KB Swings, Rower Sprint, Battle Ropes, Leg Raises)"
+    "execution_view": "### MONDAY: Leg/Back Primer + Engine\\n- A1. Goblet Squats: 3x10-12 | Tempo: 3-1-2\\n- A2. Hamstring Curls: 3x12 | Tempo: 3-1-2\\n- B1. Weighted Pull-ups: 4x6-8 | Tempo: 3-1-X\\n- B2. Seated Cable Rows: 3x10-12 | Tempo: 2-1-2\\n- C1. GHD Sit-ups: 3x15\\n- D1. Zone 2 Cardio: 30-45m (Rower/Bike)\\n\\n### TUESDAY: Push + HIIT Finisher\\n- A1. Bench Press (BB): 4x6-8 | Tempo: 3-1-1\\n- B1. Overhead Press (DB): 3x8-10 | Tempo: 2-1-1\\n- B2. Cable Chest Flys: 3x12-15 | Tempo: 2-1-2\\n- C1. Tricep Cable Pushdowns: 3x12 | Tempo: 2-1-1\\n- FINISHER: \\\"EMOM Finisher\\\" (15m)\\n    - Min 1: KB Swings (15)\\n    - Min 2: 12 Cal Rower\\n    - Min 3: 20 Mountain Climbers\\n\\n### THURSDAY: Heavy Legs + Core Engine\\n- A1. Barbell Back Squats: 4x5-8 | Tempo: 3-1-1\\n- B1. Leg Extensions: 3x10-12 | Tempo: 2-1-2\\n- C1. Weighted GHD Extensions: 3x10\\n- D1. Weighted Planks: 3x45-60s\\n- E1. Zone 2 Cardio: 30m (Rower/Bike)\\n\\n### FRIDAY: Back/Biceps + Metabolic Finisher\\n- A1. Barbell Rows: 4x8-10 | Tempo: 2-1-2\\n- B1. Lat Pulldowns: 3x10-12 | Tempo: 3-1-1\\n- B2. Rear Delt Flys: 3x15\\n- C1. Bicep Curls: 3x10-12 | Tempo: 3-1-1\\n- D1. HIIT Circuit: 4 Rounds (KB Swings: 20 Reps, Rower Sprint: 250m, Battle Ropes: 30s, Leg Raises: 15 Reps) | 60s rest between rounds"
   }
 ]

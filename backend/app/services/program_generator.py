@@ -190,7 +190,7 @@ def format_prompt(equipment_list: str, goals, preferences, user_level: str) -> s
         experience=user_level,
         equipment_list=equipment_list,
         goal=goals.primary,
-        focus_areas=", ".join(goals.focus_areas) if goals.focus_areas else "Full Body",
+        focus_areas="Full Body",
         session_minutes=goals.session_length_minutes,
         limitations=goals.limitations or "None",
         finisher_pref=goals.finisher_preference,

@@ -4,7 +4,7 @@ from pydantic import BaseModel, EmailStr, Field, field_serializer
 from typing import Literal, Any
 
 
-Goal = Literal["strength", "hypertrophy", "conditioning", "balanced", "longevity"]
+Goal = Literal["strength", "hypertrophy", "conditioning", "balanced", "longevity", "hybrid"]
 Experience = Literal["beginner", "intermediate", "advanced"]
 DaysPerWeek = Literal[3, 4, 5]
 SessionLength = Literal[30, 45, 60, 75, 90]
@@ -19,7 +19,6 @@ class UserGoals(BaseModel):
     experience: Experience = "intermediate"
     days_per_week: DaysPerWeek = 4
     session_length_minutes: SessionLength = 60
-    focus_areas: list[FocusArea] = []
     limitations: str = ""
     finisher_preference: FinisherPreference = "mixed"
 
