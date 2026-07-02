@@ -193,14 +193,14 @@ async def call_llm(prompt: str, missing_pillars: list[str] = None) -> str:
 
 
 def parse_json_response(raw: str) -> dict:
-    """Parse LLM response, stripping markdown code blocks and think tags if present."""
+    """Parse LLM response, extracting JSON from markdown code blocks, think tags, or raw text."""
     import re
     cleaned = raw.strip()
 
     # Strip <think>...</think> blocks (MiniMax M3, DeepSeek, etc.)
     cleaned = re.sub(r'<think>.*?</think>', '', cleaned, flags=re.DOTALL).strip()
 
-    # Strip ```json ... ``` wrapper
+    # Strip ```json ... ``` or ``` ... ``` wrapper
     if cleaned.startswith("```"):
         lines = cleaned.split("\n")
         if lines[0].startswith("```"):
@@ -209,6 +209,15 @@ def parse_json_response(raw: str) -> dict:
             lines = lines[:-1]
         cleaned = "\n".join(lines).strip()
 
+    # If there's still text before the JSON object (M3 outputs reasoning text then JSON),
+    # extract the first `{` to last `}` as the JSON payload
+    json_start = cleaned.find("{")
+    json_end = cleaned.rfind("}")
+    if json_start >= 0 and json_end > json_start:
+        json_str = cleaned[json_start:json_end + 1]
+        return json.loads(json_str)
+
+    # Fallback: try parsing the whole thing as JSON
     return json.loads(cleaned)
 
 
