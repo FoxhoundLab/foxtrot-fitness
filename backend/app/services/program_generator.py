@@ -125,7 +125,7 @@ async def call_llm(prompt: str, missing_pillars: list[str] = None) -> str:
     payload = {
         "model": settings.llm_model,
         "messages": [{"role": "user", "content": full_prompt}],
-        "max_tokens": 4096,
+        "max_tokens": 8192,
         "temperature": 0.7,
     }
 
@@ -135,7 +135,7 @@ async def call_llm(prompt: str, missing_pillars: list[str] = None) -> str:
                 settings.llm_api_url,
                 headers=headers,
                 json=payload,
-                timeout=60.0,
+                timeout=120.0,
             )
             response.raise_for_status()
             return response.json()["choices"][0]["message"]["content"]
@@ -146,8 +146,12 @@ async def call_llm(prompt: str, missing_pillars: list[str] = None) -> str:
 
 
 def parse_json_response(raw: str) -> dict:
-    """Parse LLM response, stripping markdown code blocks if present."""
+    """Parse LLM response, stripping markdown code blocks and think tags if present."""
+    import re
     cleaned = raw.strip()
+
+    # Strip <think>...</think> blocks (MiniMax M3, DeepSeek, etc.)
+    cleaned = re.sub(r'<think>.*?</think>', '', cleaned, flags=re.DOTALL).strip()
 
     # Strip ```json ... ``` wrapper
     if cleaned.startswith("```"):
@@ -162,7 +166,7 @@ def parse_json_response(raw: str) -> dict:
 
 
 def format_prompt(equipment_list: str, goals, preferences, user_level: str) -> str:
-    """Format the system prompt template with user data + knowledge base."""
+    """Format the system prompt template with user data."""
     with open(PROMPT_PATH) as f:
         content = f.read()
 
@@ -181,11 +185,8 @@ def format_prompt(equipment_list: str, goals, preferences, user_level: str) -> s
 
     template = content[start_idx:end_idx]
 
-    # Load knowledge base (movements, limitations, program patterns)
-    knowledge_base = _load_knowledge_base()
-
     return template.format(
-        knowledge_base=knowledge_base,
+        knowledge_base="See backend/app/knowledge_base/ directory for detailed movement catalogs, limitation substitutions, and program pattern templates.",
         days_per_week=goals.days_per_week,
         experience=user_level,
         equipment_list=equipment_list,
