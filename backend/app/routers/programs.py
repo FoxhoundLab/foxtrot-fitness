@@ -5,7 +5,7 @@ from sqlalchemy import select, or_
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database import get_db
-from app.deps import get_or_create_user
+from app.deps import get_current_user, get_or_create_user
 from app.models.user import User
 from app.models.program import Program
 from app.schemas.program import ProgramSchema
@@ -43,14 +43,26 @@ async def list_examples(db: AsyncSession = Depends(get_db)):
     return result.scalars().all()
 
 
-@router.get("/{program_id}", response_model=ProgramSchema)
-async def get_program(program_id: str, db: AsyncSession = Depends(get_db)):
-    """Get single program by ID."""
-    result = await db.execute(select(Program).where(Program.id == program_id))
-    program = result.scalar_one_or_none()
+def _authorize_program_access(program: Program | None, user: User | None) -> Program:
+    """404 unless the program is an example or owned by the caller."""
     if not program:
         raise HTTPException(status_code=404, detail="Program not found")
+    if program.is_example:
+        return program
+    if user is None or program.user_id != user.id:
+        raise HTTPException(status_code=404, detail="Program not found")
     return program
+
+
+@router.get("/{program_id}", response_model=ProgramSchema)
+async def get_program(
+    program_id: str,
+    user: User | None = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Get single program by ID (examples are public; others owner-only)."""
+    result = await db.execute(select(Program).where(Program.id == program_id))
+    return _authorize_program_access(result.scalar_one_or_none(), user)
 
 
 @router.post("/{program_id}/save", response_model=ProgramSchema)
@@ -61,9 +73,7 @@ async def save_program(
 ):
     """Save a program to user's library (copies the program under user's ID)."""
     result = await db.execute(select(Program).where(Program.id == program_id))
-    original = result.scalar_one_or_none()
-    if not original:
-        raise HTTPException(status_code=404, detail="Program not found")
+    original = _authorize_program_access(result.scalar_one_or_none(), user)
 
     # Create a copy owned by this user
     saved = Program(

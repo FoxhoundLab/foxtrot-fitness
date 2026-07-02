@@ -1,7 +1,7 @@
 """Auth router — magic link authentication."""
 from fastapi import APIRouter
 
-from app.services.auth_service import send_magic_link, verify_token
+from app.services.auth_service import mint_jwt, send_magic_link, verify_token
 
 router = APIRouter()
 
@@ -15,9 +15,9 @@ async def request_link(email: str):
 
 @router.post("/verify")
 async def verify(token: str):
-    """Verify magic link token."""
+    """Verify magic link token and mint a session JWT."""
     email = await verify_token(token)
-    return {"email": email, "status": "verified"}
+    return {"email": email, "token": mint_jwt(email), "status": "verified"}
 
 
 @router.get("/me")

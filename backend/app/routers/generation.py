@@ -1,21 +1,35 @@
 """Generation router — the AI program generation endpoint."""
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database import get_db
+from app.deps import get_or_create_user
 from app.models.equipment import Equipment
 from app.models.program import Program
+from app.models.user import User
 from app.schemas.generation import GenerationRequest, GenerationResponse
 from app.schemas.program import ProgramSchema
+from app.services.auth_service import check_rate_limit
 from app.services.program_generator import generate_program
 
 router = APIRouter()
 
+GENERATIONS_PER_HOUR = 5
+
 
 @router.post("", response_model=GenerationResponse)
-async def generate(request: GenerationRequest, db: AsyncSession = Depends(get_db)):
+async def generate(
+    request: GenerationRequest,
+    user: User = Depends(get_or_create_user),
+    db: AsyncSession = Depends(get_db),
+):
     """Generate a new program based on equipment + goals + preferences."""
+    if not check_rate_limit(f"generate:{user.id}", GENERATIONS_PER_HOUR):
+        raise HTTPException(
+            status_code=429,
+            detail=f"Rate limit reached — max {GENERATIONS_PER_HOUR} generations per hour",
+        )
 
     # Fetch equipment names from IDs
     result = await db.execute(
@@ -43,7 +57,7 @@ async def generate(request: GenerationRequest, db: AsyncSession = Depends(get_db
 
     # Persist to database
     program = Program(
-        user_id=None,
+        user_id=user.id,
         name=program_schema.name,
         goal_tag=program_schema.goal_tag,
         difficulty=program_schema.difficulty,

@@ -15,6 +15,7 @@ class Settings(BaseSettings):
 
     # Auth
     jwt_secret: str = "change_me_in_prod"
+    jwt_expiry_hours: int = 168
     app_url: str = "http://localhost:3000"
 
     # LLM

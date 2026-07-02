@@ -3,7 +3,7 @@
 import { Suspense, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { api, setSessionEmail } from "@/lib/api";
+import { api, setSession } from "@/lib/api";
 
 function CallbackHandler() {
   const router = useRouter();
@@ -22,8 +22,8 @@ function CallbackHandler() {
 
     api
       .verifyToken(token)
-      .then(({ email }) => {
-        setSessionEmail(email);
+      .then(({ email, token: jwt }) => {
+        setSession(email, jwt);
         router.replace("/library");
       })
       .catch(() => setFailed(true));

@@ -17,6 +17,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
 
+from fastapi import HTTPException
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -59,10 +60,13 @@ async def generate_program(
             break
         missing_pillars = missing
     else:
-        raise ValueError("Failed to generate valid program after max retries")
+        raise HTTPException(
+            status_code=502,
+            detail="Could not generate a valid program after several attempts — please retry",
+        )
 
     if not program_dict:
-        raise ValueError("No program generated")
+        raise HTTPException(status_code=502, detail="No program generated — please retry")
 
     # Generate unique code-name
     existing_names = await get_existing_program_names(session)
@@ -85,6 +89,9 @@ async def generate_program(
 
 async def call_llm(prompt: str, missing_pillars: list[str] = None) -> str:
     """Call LLM API (OpenRouter-compatible)."""
+    if not settings.llm_api_key:
+        raise HTTPException(status_code=503, detail="LLM not configured — set LLM_API_KEY")
+
     headers = {
         "Authorization": f"Bearer {settings.llm_api_key}",
         "Content-Type": "application/json",
@@ -104,15 +111,20 @@ async def call_llm(prompt: str, missing_pillars: list[str] = None) -> str:
         "temperature": 0.7,
     }
 
-    async with httpx.AsyncClient() as client:
-        response = await client.post(
-            settings.llm_api_url,
-            headers=headers,
-            json=payload,
-            timeout=60.0,
-        )
-        response.raise_for_status()
-        return response.json()["choices"][0]["message"]["content"]
+    try:
+        async with httpx.AsyncClient() as client:
+            response = await client.post(
+                settings.llm_api_url,
+                headers=headers,
+                json=payload,
+                timeout=60.0,
+            )
+            response.raise_for_status()
+            return response.json()["choices"][0]["message"]["content"]
+    except httpx.HTTPError as e:
+        raise HTTPException(status_code=502, detail=f"LLM request failed: {e}") from e
+    except (KeyError, IndexError) as e:
+        raise HTTPException(status_code=502, detail="LLM returned an unexpected response") from e
 
 
 def parse_json_response(raw: str) -> dict:

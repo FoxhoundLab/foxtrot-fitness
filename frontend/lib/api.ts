@@ -1,29 +1,43 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
 const SESSION_KEY = "foxtrot-user-email";
+const TOKEN_KEY = "foxtrot-session-jwt";
 
 export function getSessionEmail(): string | null {
   if (typeof window === "undefined") return null;
   return localStorage.getItem(SESSION_KEY);
 }
 
-export function setSessionEmail(email: string) {
+export function getSessionToken(): string | null {
+  if (typeof window === "undefined") return null;
+  return localStorage.getItem(TOKEN_KEY);
+}
+
+export function setSession(email: string, token: string) {
   localStorage.setItem(SESSION_KEY, email);
+  localStorage.setItem(TOKEN_KEY, token);
 }
 
 export function clearSession() {
   localStorage.removeItem(SESSION_KEY);
+  localStorage.removeItem(TOKEN_KEY);
 }
 
 export async function apiFetch<T>(
   path: string,
   options: RequestInit = {}
 ): Promise<T> {
+  const token = getSessionToken();
   const email = getSessionEmail();
   const res = await fetch(`${API_URL}${path}`, {
     headers: {
       "Content-Type": "application/json",
-      ...(email ? { "X-User-Email": email } : {}),
+      // JWT is the real auth; X-User-Email only works as a dev-mode fallback
+      ...(token
+        ? { Authorization: `Bearer ${token}` }
+        : email
+          ? { "X-User-Email": email }
+          : {}),
       ...options.headers,
     },
     ...options,
@@ -78,7 +92,7 @@ export const api = {
       { method: "POST" }
     ),
   verifyToken: (token: string) =>
-    apiFetch<{ email: string; status: string }>(
+    apiFetch<{ email: string; token: string; status: string }>(
       `/api/auth/verify?token=${encodeURIComponent(token)}`,
       { method: "POST" }
     ),

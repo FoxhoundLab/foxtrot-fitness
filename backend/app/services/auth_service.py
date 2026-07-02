@@ -5,9 +5,10 @@ Uses an in-memory token store. For production, replace with Redis or DB table.
 
 import secrets
 import time
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 import httpx
+import jwt as pyjwt
 from fastapi import HTTPException
 
 from app.config import settings
@@ -16,6 +17,41 @@ from app.config import settings
 _token_store: dict[str, dict] = {}
 
 TOKEN_TTL_SECONDS = 3600  # 1 hour
+
+# In-memory rate limiter: {key: [timestamps]}
+_rate_counters: dict[str, list[float]] = {}
+
+
+def check_rate_limit(key: str, limit: int, window_seconds: int = 3600) -> bool:
+    """Return True if this call is within the rate limit."""
+    now = time.time()
+    hits = [t for t in _rate_counters.get(key, []) if now - t < window_seconds]
+    if len(hits) >= limit:
+        _rate_counters[key] = hits
+        return False
+    hits.append(now)
+    _rate_counters[key] = hits
+    return True
+
+
+def mint_jwt(email: str) -> str:
+    """Mint a signed session JWT for a verified email."""
+    now = datetime.now(timezone.utc)
+    payload = {
+        "sub": email,
+        "iat": now,
+        "exp": now + timedelta(hours=settings.jwt_expiry_hours),
+    }
+    return pyjwt.encode(payload, settings.jwt_secret, algorithm="HS256")
+
+
+def decode_jwt(token: str) -> str | None:
+    """Return the email from a valid session JWT, or None if invalid/expired."""
+    try:
+        payload = pyjwt.decode(token, settings.jwt_secret, algorithms=["HS256"])
+        return payload.get("sub")
+    except pyjwt.PyJWTError:
+        return None
 
 
 async def send_magic_link(email: str) -> str:
@@ -59,8 +95,8 @@ async def verify_token(token: str) -> str:
 async def send_email(to: str, subject: str, body: str):
     """Send email via Resend API."""
     if not settings.resend_api_key:
-        # Dev mode: skip sending, log instead
-        print(f"[DEV] Email to {to}: {subject}")
+        # Dev mode: skip sending, log the full body so the link is usable locally
+        print(f"[DEV MAGIC LINK] Email to {to}: {subject}\n{body}")
         return
 
     async with httpx.AsyncClient() as client:
