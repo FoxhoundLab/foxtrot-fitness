@@ -14,7 +14,7 @@ import { SchedulePicker } from "@/components/goals-form/SchedulePicker";
 import { FocusAreas } from "@/components/goals-form/FocusAreas";
 import { LimitationsInput } from "@/components/goals-form/LimitationsInput";
 import { PreferencesInput } from "@/components/goals-form/PreferencesInput";
-import { api } from "@/lib/api";
+import { api, getSessionEmail } from "@/lib/api";
 import type {
   DaysPerWeek,
   Equipment,
@@ -34,6 +34,8 @@ const DEFAULT_DAYS: Record<Experience, DaysPerWeek> = {
   advanced: 5,
 };
 
+const DRAFT_KEY = "foxtrot-wizard-draft";
+
 export default function OnboardPage() {
   const router = useRouter();
   const [step, setStep] = useState(0);
@@ -45,7 +47,7 @@ export default function OnboardPage() {
   const [equipment, setEquipment] = useState<Equipment[]>([]);
   const [equipmentError, setEquipmentError] = useState(false);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
-  const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
+  const [expanded, setExpanded] = useState<Set<string>>(new Set());
 
   // Step 2: goals + preferences
   const [goal, setGoal] = useState<Goal>("balanced");
@@ -56,6 +58,7 @@ export default function OnboardPage() {
   const [dislikes, setDislikes] = useState<string[]>([]);
   const [alternatives, setAlternatives] = useState<Record<string, string>>({});
   const [finisherStyle, setFinisherStyle] = useState<FinisherPreference>("mixed");
+  const [restored, setRestored] = useState(false);
 
   useEffect(() => {
     api
@@ -63,6 +66,48 @@ export default function OnboardPage() {
       .then(setEquipment)
       .catch(() => setEquipmentError(true));
   }, []);
+
+  // B1: restore draft on mount, then persist on every change
+  useEffect(() => {
+    try {
+      const raw = sessionStorage.getItem(DRAFT_KEY);
+      if (raw) {
+        const d = JSON.parse(raw);
+        setStep(d.step ?? 0);
+        setExperience(d.experience ?? null);
+        setSelectedIds(new Set(d.selectedIds ?? []));
+        setGoal(d.goal ?? "balanced");
+        setDays(d.days ?? 4);
+        setMinutes(d.minutes ?? 60);
+        setFocusAreas(d.focusAreas ?? []);
+        setLimitations(d.limitations ?? "");
+        setDislikes(d.dislikes ?? []);
+        setAlternatives(d.alternatives ?? {});
+        setFinisherStyle(d.finisherStyle ?? "mixed");
+      }
+    } catch {}
+    setRestored(true);
+  }, []);
+
+  useEffect(() => {
+    if (!restored) return;
+    sessionStorage.setItem(
+      DRAFT_KEY,
+      JSON.stringify({
+        step,
+        experience,
+        selectedIds: Array.from(selectedIds),
+        goal,
+        days,
+        minutes,
+        focusAreas,
+        limitations,
+        dislikes,
+        alternatives,
+        finisherStyle,
+      })
+    );
+  }, [restored, step, experience, selectedIds, goal, days, minutes, focusAreas, limitations, dislikes, alternatives, finisherStyle]);
 
   const categories = useMemo(() => {
     const order = Object.keys(CATEGORY_META);
@@ -111,6 +156,11 @@ export default function OnboardPage() {
   };
 
   function generate() {
+    if (!getSessionEmail()) {
+      // generation requires auth; draft persists so they can resume after login
+      router.push("/auth/login");
+      return;
+    }
     const request: GenerationRequest = {
       equipment_ids: Array.from(selectedIds),
       goals,
@@ -118,6 +168,7 @@ export default function OnboardPage() {
       user_level: experience ?? "intermediate",
     };
     sessionStorage.setItem("foxtrot-generation-request", JSON.stringify(request));
+    sessionStorage.removeItem(DRAFT_KEY);
     router.push("/generate");
   }
 
@@ -151,13 +202,26 @@ export default function OnboardPage() {
                 category={cat}
                 itemCount={items.length}
                 selectedCount={items.filter((i) => selectedIds.has(i.id)).length}
-                expanded={expandedCategory === cat}
-                onToggle={() => setExpandedCategory(expandedCategory === cat ? null : cat)}
+                expanded={expanded.has(cat)}
+                onToggle={() =>
+                  setExpanded((prev) => {
+                    const next = new Set(prev);
+                    next.has(cat) ? next.delete(cat) : next.add(cat);
+                    return next;
+                  })
+                }
               >
                 <ItemPicker
                   items={items}
                   selected={selectedIds}
                   onToggle={toggleItem}
+                  onToggleAll={(ids, select) =>
+                    setSelectedIds((prev) => {
+                      const next = new Set(prev);
+                      ids.forEach((id) => (select ? next.add(id) : next.delete(id)));
+                      return next;
+                    })
+                  }
                   experience={experience ?? "intermediate"}
                 />
               </CategorySelector>

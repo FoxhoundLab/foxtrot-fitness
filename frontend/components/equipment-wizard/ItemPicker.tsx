@@ -36,14 +36,39 @@ interface ItemPickerProps {
   items: Equipment[];
   selected: Set<string>;
   onToggle: (id: string) => void;
+  onToggleAll?: (ids: string[], select: boolean) => void;
   experience: Experience;
 }
 
-export function ItemPicker({ items, selected, onToggle, experience }: ItemPickerProps) {
+export function ItemPicker({ items, selected, onToggle, onToggleAll, experience }: ItemPickerProps) {
   const showHints = experience === "beginner";
+  const allSelected = items.length > 0 && items.every((i) => selected.has(i.id));
 
   return (
     <div className="grid gap-2 sm:grid-cols-2">
+      {onToggleAll && (
+        <button
+          onClick={() => onToggleAll(items.map((i) => i.id), !allSelected)}
+          className={cn(
+            "flex min-h-[44px] items-center gap-3 rounded-sm border border-dashed px-3 py-2 text-left transition-all sm:col-span-2",
+            allSelected
+              ? "border-accent-red text-accent-red"
+              : "border-border-default text-text-secondary hover:border-text-muted"
+          )}
+        >
+          <span
+            className={cn(
+              "flex h-5 w-5 shrink-0 items-center justify-center border",
+              allSelected ? "border-accent-red bg-accent-red" : "border-border-default"
+            )}
+          >
+            {allSelected && <Check className="h-3.5 w-3.5 text-text-primary" />}
+          </span>
+          <span className="font-display text-sm uppercase tracking-wider">
+            {allSelected ? "Deselect all in category" : "Select all in category"}
+          </span>
+        </button>
+      )}
       {items.map((item) => {
         const isSelected = selected.has(item.id);
         return (

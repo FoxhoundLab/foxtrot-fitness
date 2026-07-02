@@ -110,7 +110,18 @@ export default function LibraryPage() {
           ) : (
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {filtered.map((p) => (
-                <ProgramCard key={p.id} program={p} />
+                <ProgramCard
+                  key={p.id}
+                  program={p}
+                  onDelete={
+                    p.is_example
+                      ? undefined
+                      : async (id) => {
+                          await api.deleteProgram(id);
+                          setPrograms((prev) => (prev ?? []).filter((x) => x.id !== id));
+                        }
+                  }
+                />
               ))}
             </div>
           )}

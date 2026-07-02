@@ -239,7 +239,7 @@ export default async function HomePage() {
           </Link>
 
           {/* Stats bar */}
-          <div className="mt-16 flex items-center justify-center gap-8 font-body text-sm text-text-muted">
+          <div className="mt-16 flex flex-col items-center justify-center gap-3 font-body text-xs text-text-muted sm:flex-row sm:gap-8 sm:text-sm">
             <span className="flex items-center gap-2">
               <Dumbbell className="h-4 w-4 text-accent-orange" />
               26 Equipment Types

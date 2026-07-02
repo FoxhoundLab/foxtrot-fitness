@@ -7,7 +7,7 @@ import { BookmarkPlus, Eye, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { CodeNameBadge } from "@/components/program-viewer/CodeNameBadge";
 import { PillarChecklist } from "@/components/program-viewer/PillarChecklist";
-import { api, getSessionEmail } from "@/lib/api";
+import { api, ApiError, getSessionEmail } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import type { GenerationRequest, Program } from "@/lib/types";
 
@@ -24,7 +24,11 @@ export default function GeneratePage() {
   const router = useRouter();
   const [phase, setPhase] = useState(0);
   const [program, setProgram] = useState<Program | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<{
+    title: string;
+    message: string;
+    cta: "retry" | "login" | "wait";
+  } | null>(null);
   const [saved, setSaved] = useState(false);
   const started = useRef(false);
 
@@ -50,7 +54,39 @@ export default function GeneratePage() {
         sessionStorage.removeItem("foxtrot-generation-request");
         setProgram(res.program);
       })
-      .catch((e) => setError(e instanceof Error ? e.message : "Generation failed"))
+      .catch((e) => {
+        if (e instanceof ApiError && e.status === 401) {
+          setError({
+            title: "Sign In Required",
+            message: "Generating a program needs an account so we can save it to your library.",
+            cta: "login",
+          });
+        } else if (e instanceof ApiError && e.status === 429) {
+          setError({
+            title: "Rate Limit Reached",
+            message: e.message + ". Take a rest day — try again in an hour.",
+            cta: "wait",
+          });
+        } else if (e instanceof ApiError && e.status === 503) {
+          setError({
+            title: "Generator Offline",
+            message: "The AI service isn't configured on this server yet. This isn't your fault — contact the admin.",
+            cta: "wait",
+          });
+        } else if (e instanceof ApiError) {
+          setError({
+            title: "Generation Failed",
+            message: "The AI couldn't produce a valid program this time. This usually resolves on retry.",
+            cta: "retry",
+          });
+        } else {
+          setError({
+            title: "Can't Reach the Server",
+            message: "The backend isn't responding. Check your connection (or that the API is running) and retry.",
+            cta: "retry",
+          });
+        }
+      })
       .finally(() => clearInterval(ticker));
 
     return () => clearInterval(ticker);
@@ -75,14 +111,26 @@ export default function GeneratePage() {
   if (error) {
     return (
       <div className="flex min-h-[70vh] flex-col items-center justify-center px-4 text-center">
-        <h1 className="mb-2 font-display text-4xl uppercase text-accent-red">Generation Failed</h1>
-        <p className="mb-6 max-w-md font-body text-sm text-text-secondary">{error}</p>
-        <Link href="/onboard">
-          <Button variant="secondary">
-            <RefreshCw className="h-4 w-4" />
-            Try Again
-          </Button>
-        </Link>
+        <h1 className="mb-2 font-display text-4xl uppercase text-accent-red">{error.title}</h1>
+        <p className="mb-6 max-w-md font-body text-sm text-text-secondary">{error.message}</p>
+        {error.cta === "login" && (
+          <Link href="/auth/login">
+            <Button>Sign In</Button>
+          </Link>
+        )}
+        {error.cta === "retry" && (
+          <Link href="/onboard">
+            <Button variant="secondary">
+              <RefreshCw className="h-4 w-4" />
+              Try Again
+            </Button>
+          </Link>
+        )}
+        {error.cta === "wait" && (
+          <Link href="/library">
+            <Button variant="secondary">Back to Library</Button>
+          </Link>
+        )}
       </div>
     );
   }
