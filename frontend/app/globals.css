@@ -44,6 +44,12 @@ select {
   background: #f26b1f;
 }
 
+/* Accessibility: visible focus ring on all interactive elements (fox orange) */
+:focus-visible {
+  outline: 2px solid #ff8c42;
+  outline-offset: 2px;
+}
+
 /* Selection */
 ::selection {
   background: #f26b1f;

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Tabs } from "@/components/ui/Tabs";
+import { Skeleton } from "@/components/ui/Skeleton";
 import { CodeNameBadge } from "@/components/program-viewer/CodeNameBadge";
 import { PillarChecklist } from "@/components/program-viewer/PillarChecklist";
 import { DesignView } from "@/components/program-viewer/DesignView";
@@ -43,8 +44,16 @@ export default function ProgramPage({ params }: { params: { id: string } }) {
 
   if (!program) {
     return (
-      <div className="flex min-h-[60vh] items-center justify-center">
-        <div className="h-12 w-12 animate-pulse-red bg-accent-red" />
+      <div className="mx-auto max-w-4xl px-4 py-8">
+        <Skeleton className="mb-6 h-4 w-20" />
+        <Skeleton className="mb-4 h-12 w-64" />
+        <Skeleton className="mb-2 h-4 w-96 max-w-full" />
+        <div className="mb-6 flex gap-2">
+          <Skeleton className="h-5 w-24" />
+          <Skeleton className="h-5 w-16" />
+        </div>
+        <Skeleton className="mb-8 h-6 w-48" />
+        <Skeleton className="h-64 w-full" />
       </div>
     );
   }

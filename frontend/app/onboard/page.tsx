@@ -13,6 +13,7 @@ import { GoalSelector } from "@/components/goals-form/GoalSelector";
 import { SchedulePicker } from "@/components/goals-form/SchedulePicker";
 import { LimitationsInput } from "@/components/goals-form/LimitationsInput";
 import { PreferencesInput } from "@/components/goals-form/PreferencesInput";
+import { Skeleton } from "@/components/ui/Skeleton";
 import { api } from "@/lib/api";
 import type {
   DaysPerWeek,
@@ -56,6 +57,7 @@ export default function OnboardPage() {
   const [alternatives, setAlternatives] = useState<Record<string, string>>({});
   const [finisherStyle, setFinisherStyle] = useState<FinisherPreference>("mixed");
   const [restored, setRestored] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     api
@@ -146,6 +148,8 @@ export default function OnboardPage() {
   };
 
   function generate() {
+    if (submitting) return;
+    setSubmitting(true);
     const request: GenerationRequest = {
       equipment_ids: Array.from(selectedIds),
       goals,
@@ -153,7 +157,7 @@ export default function OnboardPage() {
       user_level: experience ?? "intermediate",
     };
     sessionStorage.setItem("foxtrot-generation-request", JSON.stringify(request));
-    sessionStorage.removeItem(DRAFT_KEY);
+    // Draft is kept so cancel/timeout can restore the wizard; generate page clears it on success
     router.push("/generate");
   }
 
@@ -292,6 +296,14 @@ export default function OnboardPage() {
             </div>
           )}
 
+          {!equipmentError && equipment.length === 0 && (
+            <div className="space-y-3">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <Skeleton key={i} className="h-14 w-full" />
+              ))}
+            </div>
+          )}
+
           <div className="space-y-3">
             {categories.map(([cat, items]) => (
               <CategorySelector
@@ -377,6 +389,7 @@ export default function OnboardPage() {
             goals={goals}
             preferences={preferences}
             onGenerate={generate}
+            generating={submitting}
           />
         </div>
       )}

@@ -1,6 +1,6 @@
 "use client";
 
-import { Rocket } from "lucide-react";
+import { Loader2, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { CATEGORY_META } from "./CategorySelector";
@@ -104,8 +104,8 @@ export function SummaryReview({
         size="lg"
         className="w-full animate-pulse-red"
       >
-        <Rocket className="h-5 w-5" />
-        {generating ? "Generating…" : "Generate Program"}
+        {generating ? <Loader2 className="h-5 w-5 animate-spin" /> : <Rocket className="h-5 w-5" />}
+        {generating ? "Deploying..." : "Generate Program"}
       </Button>
     </div>
   );
