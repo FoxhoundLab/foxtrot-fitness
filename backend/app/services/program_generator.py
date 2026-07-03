@@ -103,9 +103,15 @@ async def generate_program(
     preferences,
     user_level: str,
     session: AsyncSession,
-    max_retries: int = 2,
+    max_retries: int = 1,
 ) -> ProgramSchema:
     """Generate a program via LLM with 5-pillar validation gate."""
+    # Cap equipment list to ~10 items to prevent M3 timeout on large selections
+    equipment_lines = equipment_list.strip().split("\n")
+    if len(equipment_lines) > 10:
+        equipment_list = "\n".join(equipment_lines[:10])
+        equipment_list += f"\n... and {len(equipment_lines) - 10} more pieces of equipment available"
+
     prompt = format_prompt(equipment_list, goals, preferences, user_level)
 
     program_dict = None
@@ -182,7 +188,7 @@ async def call_llm(prompt: str, missing_pillars: list[str] = None) -> str:
                 settings.llm_api_url,
                 headers=headers,
                 json=payload,
-                timeout=120.0,
+                timeout=80.0,
             )
             response.raise_for_status()
             return response.json()["choices"][0]["message"]["content"]
