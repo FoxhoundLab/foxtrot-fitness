@@ -123,7 +123,10 @@ async def generate_program(
 
         try:
             program_dict = parse_json_response(raw_response)
-        except (json.JSONDecodeError, ValueError):
+            # M3 returns a minimal schema (days + movements only); the backend
+            # adds cardio, finishers, mobility, and pillar tracking deterministically
+            program_dict = enrich_program(program_dict, goals, preferences)
+        except (json.JSONDecodeError, ValueError, KeyError, TypeError):
             missing_pillars = ["all"]
             continue
 
@@ -197,6 +200,132 @@ async def call_llm(prompt: str, missing_pillars: list[str] = None) -> str:
         raise HTTPException(status_code=502, detail=f"LLM request failed: {e}") from e
     except (KeyError, IndexError) as e:
         raise HTTPException(status_code=502, detail="LLM returned an unexpected response") from e
+
+
+LEG_KEYWORDS = ["leg", "lower", "squat", "hinge", "glute", "quad", "hamstring", "posterior"]
+
+MOBILITY_TEMPLATE = (
+    "Warm-up: 5 min dynamic flow targeting today's primary muscles. "
+    "Cool-down: 5 min static stretching."
+)
+
+METABOLIC_FINISHER = {
+    "name": "The Engine Burn",
+    "format": "10-min EMOM (every minute on the minute)",
+    "movements": [
+        {"name": "Kettlebell/Dumbbell Swings", "reps": 15},
+        {"name": "Burpees", "reps": 10},
+    ],
+    "notes": "Alternate movements each minute. Substitute freely for available equipment.",
+}
+
+BURNOUT_FINISHER = {
+    "name": "The Compression",
+    "format": "Burn-out: 2 sets to failure, 30s rest",
+    "movements": [
+        {"name": "Push-Ups", "reps": "max"},
+        {"name": "Band/Cable Rows", "reps": "max"},
+    ],
+    "notes": "Light load, controlled tempo, chase the pump on today's primary muscles.",
+}
+
+
+def _is_leg_day(day_data: dict) -> bool:
+    """Classify a day as lower-body by its name or dominant movements."""
+    text = day_data.get("name", "").lower()
+    if any(k in text for k in LEG_KEYWORDS):
+        return True
+    movements = " ".join(m.get("name", "").lower() for m in day_data.get("movements", []))
+    hits = sum(k in movements for k in ["squat", "lunge", "deadlift", "leg", "calf", "glute"])
+    return hits >= 2
+
+
+def compute_cardio(day_data: dict, day_index: int, num_days: int, leg_days: list[int]) -> dict | None:
+    """Assign cardio by split rules (deterministic)."""
+    if num_days >= 5 and day_index == 2:  # Wednesday of a 5-day split
+        return {
+            "type": "vo2-max",
+            "duration_minutes": 30,
+            "equipment": None,
+            "notes": "Norwegian 4x4: 4 min high intensity / 3 min recovery × 4 rounds",
+        }
+    # Zone 2 on leg days (4/5-day). 3-day splits get Zone 2 on the first day —
+    # the 5-pillar gate requires >=20 min of zone-2 somewhere in the week.
+    zone2_days = leg_days if (num_days >= 4 and leg_days) else [0]
+    if day_index in zone2_days:
+        return {
+            "type": "zone-2",
+            "duration_minutes": 25 if num_days == 3 else 20,
+            "equipment": None,
+            "notes": "Conversation pace, 60-70% max HR, straight after strength work",
+        }
+    return None
+
+
+def compute_finisher(day_data: dict, day_index: int, num_days: int, finisher_pref: str) -> dict | None:
+    """Assign a finisher by preference (deterministic). Upper-body days only."""
+    if finisher_pref == "none":
+        return None
+    if num_days >= 5 and day_index == 2:  # never on the standalone VO2 Max day
+        return None
+    if _is_leg_day(day_data):  # HIIT finishers live on upper-body days
+        return None
+    if finisher_pref == "metabolic":
+        template = METABOLIC_FINISHER
+    elif finisher_pref in ("volume", "hypertrophy"):
+        template = BURNOUT_FINISHER
+    else:  # "mixed" — alternate deterministically by day position
+        template = METABOLIC_FINISHER if day_index % 2 == 0 else BURNOUT_FINISHER
+    return dict(template)
+
+
+def compute_mobility(day_data: dict) -> str:
+    """Every day gets the warm-up/cool-down template."""
+    return MOBILITY_TEMPLATE
+
+
+def enrich_program(raw_program: dict, goals, preferences) -> dict:
+    """Add deterministic cardio, finisher, mobility, and pillar tracking.
+
+    M3 emits only day names + movements (minimal schema, to stay under its
+    output-token limit); everything structural is computed here.
+    """
+    days = raw_program["design_view"]["days"]
+    num_days = len(days)
+    finisher_pref = getattr(goals, "finisher_preference", "mixed") or "mixed"
+
+    leg_days = [i for i, d in enumerate(days) if _is_leg_day(d)]
+
+    for i, day_data in enumerate(days):
+        day_data.setdefault("day", i + 1)
+        day_data["cardio"] = compute_cardio(day_data, i, num_days, leg_days)
+        day_data["finisher"] = compute_finisher(day_data, i, num_days, finisher_pref)
+        day_data["mobility"] = compute_mobility(day_data)
+
+    # VO2 pillar safety net: with finishers off and no vo2-max block (3/4-day),
+    # cover VO2 with a short interval block on the last day
+    has_vo2 = any((d.get("cardio") or {}).get("type") == "vo2-max" for d in days) or any(
+        d.get("finisher") for d in days
+    )
+    if not has_vo2 and days:
+        days[-1]["cardio"] = {
+            "type": "vo2-max",
+            "duration_minutes": 15,
+            "equipment": None,
+            "notes": "Intervals: 60s hard / 60s easy — covers the VO2 Max pillar without a finisher",
+        }
+
+    raw_program["design_view"]["finishers_used"] = sorted(
+        {d["finisher"]["name"] for d in days if d.get("finisher")}
+    )
+
+    # Pillar booleans mirror the validation gate so the UI always matches it
+    _, missing = validate_program(raw_program)
+    raw_program["design_view"]["pillars_covered"] = {
+        p: p not in missing for p in ["strength", "zone2", "vo2max", "mobility", "recovery"]
+    }
+
+    return raw_program
 
 
 def parse_json_response(raw: str) -> dict:
