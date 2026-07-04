@@ -29,7 +29,7 @@ interface GenError {
   cta: "retry" | "wait";
 }
 
-function classifyError(e: unknown): GenError {
+function classifyError(e: unknown, equipmentCount?: number): GenError {
   if (e instanceof ApiError && e.status === 0) {
     return {
       title: "Generation Timed Out",
@@ -54,10 +54,14 @@ function classifyError(e: unknown): GenError {
     };
   }
   if (e instanceof ApiError) {
+    let message =
+      "The AI couldn't produce a valid program this time. This usually resolves on retry.";
+    if (equipmentCount && equipmentCount > 10) {
+      message += " You selected a lot of equipment — try with fewer pieces for faster generation.";
+    }
     return {
       title: "Generation Failed",
-      message:
-        "The AI couldn't produce a valid program this time. This usually resolves on retry.",
+      message,
       cta: "retry",
     };
   }
@@ -109,7 +113,7 @@ export default function GeneratePage() {
       })
       .catch((e) => {
         if (cancelled.current) return; // user bailed; we're already navigating
-        setError(classifyError(e));
+        setError(classifyError(e, request.equipment_ids.length));
       });
   }, [router]);
 

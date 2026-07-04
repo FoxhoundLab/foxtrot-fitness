@@ -50,12 +50,9 @@ DESIGN RULES:
    - Hypertrophy: 8-12 reps, tempo 2-1-2 or 3-1-1, rest 60-90s
    - Conditioning: 12-15 reps, tempo 2-0-2, rest 30-60s
    - Power: 1-5 reps, tempo X-0-X, rest 120-180s
-8. Include Zone 2 cardio (≥20 min, conversation pace) in at least 1-2 days per week
-9. Include VO2 Max work: Norwegian 4x4 standalone session (5-day) OR HIIT finisher (4-day) — NEVER both
-10. Include a finisher from the finisher library if preferred and equipment allows
-11. Include warm-up/cool-down or mobility notes in each day
-12. Ensure at least 1 full rest day or active recovery day in the weekly split
-13. Respect all dislikes — substitute with preferred alternatives
+8. Cardio, finishers, mobility, and pillar tracking are added by the system AFTER you respond — do NOT include them in your JSON. Design day names/movements knowing the system will add Zone 2 on leg days, VO2 Max work per the split rules, and warm-up/cool-down notes.
+9. Rest days are implied by the weekly schedule — output EXACTLY {days_per_week} day entries in the JSON, training days only. Do NOT include rest/recovery days as day entries.
+10. Respect all dislikes — substitute with preferred alternatives
 
 SPLIT-SPECIFIC RULES (CRITICAL):
 - 3-day split: Full body each day. Finishers handle cardio. No dedicated cardio day.
@@ -90,9 +87,8 @@ Do NOT generate a code-name in your output. The system will assign a unique
 Operation [Adjective] [Noun] code-name automatically after generation.
 
 OUTPUT FORMAT:
-Output ONLY valid JSON matching this schema:
+Output ONLY valid JSON matching this MINIMAL schema. Keep reasoning extremely brief — the JSON is the deliverable. Do NOT include finisher, cardio, mobility, pillars_covered, or finishers_used fields; the system computes those deterministically after you respond.
 {{
-  "name": "string — Operation [Adjective] [Noun]",
   "goal_tag": "string — e.g., 'High-Volume Hypertrophy & Metabolic Conditioning'",
   "difficulty": "beginner | intermediate | advanced",
   "split": "{days_per_week}-day",
@@ -111,29 +107,9 @@ Output ONLY valid JSON matching this schema:
             "rest_seconds": number,
             "notes": "string | null"
           }}
-        ],
-        "finisher": null | {{
-          "name": "string",
-          "format": "string",
-          "movements": [...],
-          "notes": "string | null"
-        }},
-        "cardio": null | {{
-          "type": "zone-2 | vo2-max | hiit",
-          "duration_minutes": number,
-          "equipment": "string | null"
-        }},
-        "mobility": "string | null — warm-up/cool-down notes"
+        ]
       }}
-    ],
-    "finishers_used": ["string"],
-    "pillars_covered": {{
-      "strength": true,
-      "zone2": true,
-      "vo2max": true,
-      "mobility": true,
-      "recovery": true
-    }}
+    ]
   }}
 }}
 """
