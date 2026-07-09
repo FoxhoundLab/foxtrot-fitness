@@ -8,7 +8,12 @@ import { Button } from "@/components/ui/Button";
 import { CodeNameBadge } from "@/components/program-viewer/CodeNameBadge";
 import { PillarChecklist } from "@/components/program-viewer/PillarChecklist";
 import { api, ApiError, getSessionEmail } from "@/lib/api";
-import { cn, GENERATED_PROGRAM_KEY, LAST_REQUEST_KEY } from "@/lib/utils";
+import {
+  cn,
+  GENERATED_PROGRAM_KEY,
+  LAST_REQUEST_KEY,
+  WIZARD_DRAFT_KEY,
+} from "@/lib/utils";
 import type { GenerationRequest, Program } from "@/lib/types";
 
 const PHASES = [
@@ -107,6 +112,25 @@ export default function GeneratePage() {
         setProgram(res.program);
       })
       .catch((e) => {
+        // Restore the wizard draft so "Back to Wizard" lands on the filled-in
+        // review step instead of an empty step 0 — no input loss on failure
+        try {
+          sessionStorage.setItem(
+            WIZARD_DRAFT_KEY,
+            JSON.stringify({
+              step: 3,
+              experience: request.user_level,
+              selectedIds: request.equipment_ids,
+              goal: request.goals.primary,
+              days: request.goals.days_per_week,
+              minutes: request.goals.session_length_minutes,
+              limitations: request.goals.limitations,
+              dislikes: request.preferences.dislikes,
+              alternatives: request.preferences.preferred_alternatives,
+              finisherStyle: request.goals.finisher_preference,
+            })
+          );
+        } catch {}
         setError(classifyError(e, request.equipment_ids.length));
       });
   }, [router]);

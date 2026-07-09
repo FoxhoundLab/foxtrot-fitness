@@ -68,6 +68,18 @@ export default function ProgramPage({ params }: { params: { id: string } }) {
     try {
       const saved = await api.createProgram(program);
       sessionStorage.setItem(GENERATED_PROGRAM_KEY, JSON.stringify(saved));
+      // Re-point the stored generation request at the saved copy's id so
+      // "Edit Inputs & Regenerate" still restores the wizard afterwards
+      try {
+        const rawReq = sessionStorage.getItem(LAST_REQUEST_KEY);
+        if (rawReq) {
+          const stored = JSON.parse(rawReq);
+          if (stored.programId === program.id) {
+            stored.programId = saved.id;
+            sessionStorage.setItem(LAST_REQUEST_KEY, JSON.stringify(stored));
+          }
+        }
+      } catch {}
       setProgram(saved);
       setSource("api");
       setJustSaved(true);
