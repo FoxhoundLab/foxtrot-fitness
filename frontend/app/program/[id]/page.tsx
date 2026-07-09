@@ -2,27 +2,109 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { ArrowLeft, BookmarkPlus, CheckCircle2, RefreshCw } from "lucide-react";
+import { Button } from "@/components/ui/Button";
 import { Tabs } from "@/components/ui/Tabs";
 import { CodeNameBadge } from "@/components/program-viewer/CodeNameBadge";
 import { PillarChecklist } from "@/components/program-viewer/PillarChecklist";
 import { DesignView } from "@/components/program-viewer/DesignView";
 import { ExecutionView } from "@/components/program-viewer/ExecutionView";
-import { api } from "@/lib/api";
-import { cn, formatDifficultyColor } from "@/lib/utils";
-import type { Program } from "@/lib/types";
+import { api, getSessionEmail } from "@/lib/api";
+import {
+  cn,
+  formatDifficultyColor,
+  GENERATED_PROGRAM_KEY,
+  LAST_REQUEST_KEY,
+  WIZARD_DRAFT_KEY,
+} from "@/lib/utils";
+import type { GenerationRequest, Program } from "@/lib/types";
+
+function readLocalProgram(id: string): Program | null {
+  try {
+    const raw = sessionStorage.getItem(GENERATED_PROGRAM_KEY);
+    if (!raw) return null;
+    const program: Program = JSON.parse(raw);
+    return program.id === id ? program : null;
+  } catch {
+    return null;
+  }
+}
 
 export default function ProgramPage({ params }: { params: { id: string } }) {
+  const router = useRouter();
   const [program, setProgram] = useState<Program | null>(null);
+  // "local" = generated this session but not persisted server-side yet
+  const [source, setSource] = useState<"api" | "local">("api");
   const [error, setError] = useState(false);
   const [tab, setTab] = useState("design");
+  const [justSaved, setJustSaved] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
 
   useEffect(() => {
     api
       .getProgram(params.id)
-      .then(setProgram)
-      .catch(() => setError(true));
+      .then((p) => {
+        setProgram(p);
+        setSource("api");
+      })
+      .catch(() => {
+        // Not in the DB — an anonymous generation lives only in this browser
+        const local = readLocalProgram(params.id);
+        if (local) {
+          setProgram(local);
+          setSource("local");
+        } else {
+          setError(true);
+        }
+      });
   }, [params.id]);
+
+  const isSignedIn = !!getSessionEmail();
+
+  async function saveToLibrary() {
+    if (!program) return;
+    setSaveError(null);
+    try {
+      const saved = await api.createProgram(program);
+      sessionStorage.setItem(GENERATED_PROGRAM_KEY, JSON.stringify(saved));
+      setProgram(saved);
+      setSource("api");
+      setJustSaved(true);
+      router.replace(`/program/${saved.id}`);
+    } catch {
+      setSaveError("Save failed — check that you're still signed in and try again.");
+    }
+  }
+
+  function editAndRegenerate() {
+    if (!program) return;
+    try {
+      const raw = sessionStorage.getItem(LAST_REQUEST_KEY);
+      if (raw) {
+        const stored: { programId: string; request: GenerationRequest } = JSON.parse(raw);
+        if (stored.programId === params.id || stored.programId === program.id) {
+          const { request } = stored;
+          sessionStorage.setItem(
+            WIZARD_DRAFT_KEY,
+            JSON.stringify({
+              step: 3,
+              experience: request.user_level,
+              selectedIds: request.equipment_ids,
+              goal: request.goals.primary,
+              days: request.goals.days_per_week,
+              minutes: request.goals.session_length_minutes,
+              limitations: request.goals.limitations,
+              dislikes: request.preferences.dislikes,
+              alternatives: request.preferences.preferred_alternatives,
+              finisherStyle: request.goals.finisher_preference,
+            })
+          );
+        }
+      }
+    } catch {}
+    router.push("/onboard");
+  }
 
   if (error) {
     return (
@@ -48,6 +130,8 @@ export default function ProgramPage({ params }: { params: { id: string } }) {
       </div>
     );
   }
+
+  const showSave = source === "local" && !program.is_example;
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-8 pb-28 md:pb-12">
@@ -76,6 +160,43 @@ export default function ProgramPage({ params }: { params: { id: string } }) {
           <span className="font-mono text-xs text-text-muted">v{program.version}</span>
         </div>
         <PillarChecklist pillars={program.design_view.pillars_covered} variant="compact" />
+
+        {/* Action row */}
+        <div className="no-print mt-6 flex flex-wrap items-center gap-3">
+          {justSaved && (
+            <span className="inline-flex items-center gap-2 font-body text-sm text-accent-green">
+              <CheckCircle2 className="h-4 w-4" /> Saved to your library
+            </span>
+          )}
+          {!justSaved && showSave && isSignedIn && (
+            <Button onClick={saveToLibrary} className="shadow-glow-red-strong">
+              <BookmarkPlus className="h-4 w-4" />
+              Save to Library
+            </Button>
+          )}
+          {!justSaved && showSave && !isSignedIn && (
+            <Link href={`/auth/login?returnTo=${encodeURIComponent(`/program/${program.id}`)}`}>
+              <Button className="shadow-glow-red-strong">
+                <BookmarkPlus className="h-4 w-4" />
+                Sign In to Save
+              </Button>
+            </Link>
+          )}
+          {!program.is_example && (
+            <Button variant="secondary" onClick={editAndRegenerate}>
+              <RefreshCw className="h-4 w-4" />
+              Edit Inputs &amp; Regenerate
+            </Button>
+          )}
+        </div>
+        {saveError && (
+          <p className="no-print mt-3 font-body text-sm text-accent-red">{saveError}</p>
+        )}
+        {source === "local" && !justSaved && (
+          <p className="no-print mt-3 font-body text-xs text-text-muted">
+            This program isn&apos;t saved yet — it lives only in this browser session.
+          </p>
+        )}
       </header>
 
       {/* View toggle */}

@@ -41,7 +41,21 @@ make seed
 
 ## Environment Variables
 
-See `.env.example` files in each subdirectory.
+See `.env.example` files in each subdirectory. To get started locally:
+
+```bash
+cp backend/.env.example backend/.env
+cp frontend/.env.example frontend/.env    # if present
+```
+
+Then in `backend/.env`:
+
+- **`LLM_API_KEY`** — required to test program generation. Without it the app still
+  runs; the generate flow shows a clean "Generator Offline" screen (HTTP 503)
+  instead of crashing.
+- **`RESEND_API_KEY`** — required only for real email delivery. Dev mode works
+  without it: the magic link is printed to the backend console **and** surfaced
+  as a clickable "Dev Mode — Link Ready" button on the sign-in page.
 
 ## License
 

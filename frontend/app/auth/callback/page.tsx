@@ -20,11 +20,18 @@ function CallbackHandler() {
     if (verifying.current) return; // tokens are one-time use — don't double-verify
     verifying.current = true;
 
+    // Only relative paths — never forward users to an external URL after login
+    const rawReturnTo = params.get("returnTo");
+    const returnTo =
+      rawReturnTo && rawReturnTo.startsWith("/") && !rawReturnTo.startsWith("//")
+        ? rawReturnTo
+        : undefined;
+
     api
-      .verifyToken(token)
+      .verifyToken(token, returnTo)
       .then(({ email, token: jwt }) => {
         setSession(email, jwt);
-        router.replace("/library");
+        router.replace(returnTo ?? "/library");
       })
       .catch(() => setFailed(true));
   }, [params, router]);

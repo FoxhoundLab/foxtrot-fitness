@@ -2,6 +2,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.config import settings
 from app.routers import auth, users, programs, equipment, movements, generation
 
 app = FastAPI(
@@ -10,9 +11,13 @@ app = FastAPI(
     version="0.1.0",
 )
 
+_allowed_origins = [settings.app_url]
+if settings.env == "development" and "http://localhost:3000" not in _allowed_origins:
+    _allowed_origins.append("http://localhost:3000")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=_allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

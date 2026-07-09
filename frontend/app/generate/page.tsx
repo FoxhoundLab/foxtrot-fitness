@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/Button";
 import { CodeNameBadge } from "@/components/program-viewer/CodeNameBadge";
 import { PillarChecklist } from "@/components/program-viewer/PillarChecklist";
 import { api, ApiError, getSessionEmail } from "@/lib/api";
-import { cn } from "@/lib/utils";
+import { cn, GENERATED_PROGRAM_KEY, LAST_REQUEST_KEY } from "@/lib/utils";
 import type { GenerationRequest, Program } from "@/lib/types";
 
 const PHASES = [
@@ -20,17 +20,69 @@ const PHASES = [
   "ASSIGNING CODE-NAME...",
 ];
 
+interface GenError {
+  title: string;
+  message: string;
+  cta: "retry" | "wait";
+}
+
+function classifyError(e: unknown, equipmentCount?: number): GenError {
+  if (e instanceof ApiError && e.status === 429) {
+    return {
+      title: "Rate Limit Reached",
+      message: e.message + ". Take a rest day — try again in an hour.",
+      cta: "wait",
+    };
+  }
+  if (e instanceof ApiError && e.status === 503) {
+    return {
+      title: "Generator Offline",
+      message:
+        "The AI service isn't configured on this server yet. This isn't your fault — contact the admin.",
+      cta: "wait",
+    };
+  }
+  if (e instanceof ApiError) {
+    let message =
+      "The AI couldn't produce a valid program this time. This usually resolves on retry.";
+    if (equipmentCount && equipmentCount > 10) {
+      message += " You selected a lot of equipment — try with fewer pieces for faster generation.";
+    }
+    return { title: "Generation Failed", message, cta: "retry" };
+  }
+  return {
+    title: "Can't Reach the Server",
+    message:
+      "The backend isn't responding. Check your connection (or that the API is running) and retry.",
+    cta: "retry",
+  };
+}
+
 export default function GeneratePage() {
   const router = useRouter();
   const [phase, setPhase] = useState(0);
+  const [elapsed, setElapsed] = useState(0);
   const [program, setProgram] = useState<Program | null>(null);
-  const [error, setError] = useState<{
-    title: string;
-    message: string;
-    cta: "retry" | "wait";
-  } | null>(null);
+  const [error, setError] = useState<GenError | null>(null);
   const [saved, setSaved] = useState(false);
   const started = useRef(false);
+
+  // Animation timers live in their own effect so React Strict Mode's
+  // mount → cleanup → remount cycle doesn't kill them while the (guarded,
+  // run-once) generation request is still in flight.
+  const done = !!program || !!error;
+  useEffect(() => {
+    if (done) return;
+    const ticker = setInterval(
+      () => setPhase((p) => Math.min(p + 1, PHASES.length - 1)),
+      1800
+    );
+    const clock = setInterval(() => setElapsed((s) => s + 1), 1000);
+    return () => {
+      clearInterval(ticker);
+      clearInterval(clock);
+    };
+  }, [done]);
 
   useEffect(() => {
     if (started.current) return;
@@ -43,47 +95,20 @@ export default function GeneratePage() {
     }
     const request: GenerationRequest = JSON.parse(raw);
 
-    const ticker = setInterval(
-      () => setPhase((p) => Math.min(p + 1, PHASES.length - 1)),
-      1800
-    );
-
     api
       .generateProgram(request)
       .then((res) => {
         sessionStorage.removeItem("foxtrot-generation-request");
+        sessionStorage.setItem(GENERATED_PROGRAM_KEY, JSON.stringify(res.program));
+        sessionStorage.setItem(
+          LAST_REQUEST_KEY,
+          JSON.stringify({ programId: res.program.id, request })
+        );
         setProgram(res.program);
       })
       .catch((e) => {
-        if (e instanceof ApiError && e.status === 429) {
-          setError({
-            title: "Rate Limit Reached",
-            message: e.message + ". Take a rest day — try again in an hour.",
-            cta: "wait",
-          });
-        } else if (e instanceof ApiError && e.status === 503) {
-          setError({
-            title: "Generator Offline",
-            message: "The AI service isn't configured on this server yet. This isn't your fault — contact the admin.",
-            cta: "wait",
-          });
-        } else if (e instanceof ApiError) {
-          setError({
-            title: "Generation Failed",
-            message: "The AI couldn't produce a valid program this time. This usually resolves on retry.",
-            cta: "retry",
-          });
-        } else {
-          setError({
-            title: "Can't Reach the Server",
-            message: "The backend isn't responding. Check your connection (or that the API is running) and retry.",
-            cta: "retry",
-          });
-        }
-      })
-      .finally(() => clearInterval(ticker));
-
-    return () => clearInterval(ticker);
+        setError(classifyError(e, request.equipment_ids.length));
+      });
   }, [router]);
 
   const [saveError, setSaveError] = useState<string | null>(null);
@@ -91,7 +116,7 @@ export default function GeneratePage() {
   async function save() {
     if (!program) return;
     if (!getSessionEmail()) {
-      router.push("/auth/login");
+      router.push(`/auth/login?returnTo=${encodeURIComponent(`/program/${program.id}`)}`);
       return;
     }
     try {
@@ -113,20 +138,29 @@ export default function GeneratePage() {
           <Link href="/onboard">
             <Button variant="secondary">
               <RefreshCw className="h-4 w-4" />
-              Try Again
+              Back to Wizard
             </Button>
           </Link>
         )}
         {error.cta === "wait" && (
-          <Link href="/library">
-            <Button variant="secondary">Back to Library</Button>
-          </Link>
+          <div className="flex flex-wrap justify-center gap-3">
+            <Link href="/onboard">
+              <Button variant="secondary">
+                <RefreshCw className="h-4 w-4" />
+                Back to Wizard
+              </Button>
+            </Link>
+            <Link href="/library">
+              <Button variant="ghost">Back to Library</Button>
+            </Link>
+          </div>
         )}
       </div>
     );
   }
 
   if (!program) {
+    const finalPhase = phase === PHASES.length - 1;
     return (
       <div className="flex min-h-[70vh] flex-col items-center justify-center px-4">
         <div className="mb-10 h-20 w-20 animate-pulse-red bg-accent-red" />
@@ -138,6 +172,9 @@ export default function GeneratePage() {
                 "font-mono text-sm transition-all duration-500",
                 i < phase && "text-text-muted line-through",
                 i === phase && "text-accent-red",
+                // Final phase loops a subtle pulse so a long generation
+                // doesn't look frozen once the ticker runs out of phases
+                i === phase && finalPhase && "animate-pulse",
                 i > phase && "text-text-muted/40"
               )}
             >
@@ -145,6 +182,9 @@ export default function GeneratePage() {
             </p>
           ))}
         </div>
+        <p className="mt-8 font-mono text-xs text-text-muted">
+          ELAPSED: {elapsed}s{finalPhase ? " — still working, hang tight" : ""}
+        </p>
       </div>
     );
   }
@@ -152,7 +192,7 @@ export default function GeneratePage() {
   return (
     <div className="flex min-h-[70vh] flex-col items-center justify-center px-4 py-12 text-center animate-fade-in">
       <p className="mb-4 font-display text-lg uppercase tracking-[0.3em] text-text-muted">
-        Operation Ready
+        Program Ready
       </p>
       <CodeNameBadge name={program.name} size="xl" className="mb-6" />
       <p className="mb-8 max-w-md font-body text-base text-text-secondary">{program.goal_tag}</p>
@@ -175,11 +215,11 @@ export default function GeneratePage() {
         ) : isSignedIn ? (
           <Button size="lg" onClick={save} className="shadow-glow-red-strong">
             <BookmarkPlus className="h-5 w-5" />
-            Save Operation
+            Save Program
           </Button>
         ) : (
-          <Link href="/auth/login">
-            <Button size="lg" variant="secondary">
+          <Link href={`/auth/login?returnTo=${encodeURIComponent(`/program/${program.id}`)}`}>
+            <Button size="lg" className="shadow-glow-red-strong">
               <BookmarkPlus className="h-5 w-5" />
               Sign In to Save
             </Button>

@@ -1,6 +1,14 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
+// Anonymous generations only exist client-side; the program page reads
+// GENERATED_PROGRAM_KEY so "View Program" and the post-sign-in return trip
+// both work. LAST_REQUEST_KEY holds {programId, request} so "Edit Inputs &
+// Regenerate" can refill the wizard.
+export const GENERATED_PROGRAM_KEY = "foxtrot-generated-program";
+export const LAST_REQUEST_KEY = "foxtrot-last-request";
+export const WIZARD_DRAFT_KEY = "foxtrot-wizard-draft";
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }

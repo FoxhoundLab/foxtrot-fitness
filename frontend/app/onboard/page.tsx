@@ -14,6 +14,7 @@ import { SchedulePicker } from "@/components/goals-form/SchedulePicker";
 import { LimitationsInput } from "@/components/goals-form/LimitationsInput";
 import { PreferencesInput } from "@/components/goals-form/PreferencesInput";
 import { api } from "@/lib/api";
+import { WIZARD_DRAFT_KEY } from "@/lib/utils";
 import type {
   DaysPerWeek,
   Equipment,
@@ -32,7 +33,7 @@ const DEFAULT_DAYS: Record<Experience, DaysPerWeek> = {
   advanced: 5,
 };
 
-const DRAFT_KEY = "foxtrot-wizard-draft";
+const DRAFT_KEY = WIZARD_DRAFT_KEY;
 
 export default function OnboardPage() {
   const router = useRouter();
@@ -377,6 +378,7 @@ export default function OnboardPage() {
             goals={goals}
             preferences={preferences}
             onGenerate={generate}
+            onEditStep={setStep}
           />
         </div>
       )}

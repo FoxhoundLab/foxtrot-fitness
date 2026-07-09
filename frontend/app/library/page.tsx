@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { FolderOpen, LogIn } from "lucide-react";
+import { FolderOpen, LogIn, Plus } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { ProgramCard } from "@/components/library/ProgramCard";
 import { FilterBar, type LibraryFilters } from "@/components/library/FilterBar";
@@ -47,11 +47,19 @@ export default function LibraryPage() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 pb-28 md:pb-12">
-      <div className="mb-8">
-        <h1 className="font-display text-5xl uppercase tracking-wide text-text-primary">
-          Program <span className="text-accent-red">Library</span>
-        </h1>
-        <div className="mt-2 h-1 w-24 bg-accent-red" />
+      <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <h1 className="font-display text-5xl uppercase tracking-wide text-text-primary">
+            Program <span className="text-accent-red">Library</span>
+          </h1>
+          <div className="mt-2 h-1 w-24 bg-accent-red" />
+        </div>
+        <Link href="/onboard">
+          <Button>
+            <Plus className="h-4 w-4" />
+            Generate New Program
+          </Button>
+        </Link>
       </div>
 
       {signedOut && (

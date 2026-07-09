@@ -87,6 +87,20 @@ export const api = {
   getProgram: (id: string) => apiFetch<Program>(`/api/programs/${id}`),
   saveProgram: (id: string) =>
     apiFetch<Program>(`/api/programs/${id}/save`, { method: "POST" }),
+  // Persist a client-held program (anonymous generation saved after sign-in)
+  createProgram: (program: Program) =>
+    apiFetch<Program>("/api/programs", {
+      method: "POST",
+      body: JSON.stringify({
+        name: program.name,
+        goal_tag: program.goal_tag,
+        difficulty: program.difficulty,
+        split: program.split,
+        user_level: program.user_level,
+        design_view: program.design_view,
+        execution_view: program.execution_view,
+      }),
+    }),
   deleteProgram: (id: string) =>
     apiFetch<void>(`/api/programs/${id}`, { method: "DELETE" }),
   listExamplePrograms: () => apiFetch<Program[]>("/api/programs/examples"),
@@ -99,14 +113,16 @@ export const api = {
     }),
 
   // Auth — backend expects email/token as query params
-  requestMagicLink: (email: string) =>
+  requestMagicLink: (email: string, returnTo?: string) =>
     apiFetch<{ message: string; dev_link?: string }>(
-      `/api/auth/request-link?email=${encodeURIComponent(email)}`,
+      `/api/auth/request-link?email=${encodeURIComponent(email)}` +
+        (returnTo ? `&return_to=${encodeURIComponent(returnTo)}` : ""),
       { method: "POST" }
     ),
-  verifyToken: (token: string) =>
-    apiFetch<{ email: string; token: string; status: string }>(
-      `/api/auth/verify?token=${encodeURIComponent(token)}`,
+  verifyToken: (token: string, returnTo?: string) =>
+    apiFetch<{ email: string; token: string; status: string; return_to?: string | null }>(
+      `/api/auth/verify?token=${encodeURIComponent(token)}` +
+        (returnTo ? `&return_to=${encodeURIComponent(returnTo)}` : ""),
       { method: "POST" }
     ),
 };

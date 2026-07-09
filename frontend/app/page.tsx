@@ -323,7 +323,7 @@ export default async function HomePage() {
           {/* CTA bar */}
           <div className="mt-16 border border-border-default bg-bg-secondary p-8 text-center">
             <p className="mb-4 font-display text-3xl uppercase tracking-wide text-text-primary">
-              Ready to Deploy?
+              Ready to Train?
             </p>
             <p className="mb-6 font-body text-sm text-text-secondary">
               Your workout is one click away.

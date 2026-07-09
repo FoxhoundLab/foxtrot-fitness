@@ -54,7 +54,7 @@ def decode_jwt(token: str) -> str | None:
         return None
 
 
-async def send_magic_link(email: str) -> tuple[str, bool]:
+async def send_magic_link(email: str, return_to: str | None = None) -> tuple[str, bool]:
     """Generate magic link token, store it, and send via Resend.
 
     Returns (token, is_dev) where is_dev=True means the link was printed
@@ -71,6 +71,10 @@ async def send_magic_link(email: str) -> tuple[str, bool]:
     _cleanup_expired()
 
     magic_link = f"{settings.app_url}/auth/callback?token={token}"
+    if return_to:
+        from urllib.parse import quote
+
+        magic_link += f"&returnTo={quote(return_to, safe='')}"
     is_dev = not settings.resend_api_key
     await send_email(
         email,

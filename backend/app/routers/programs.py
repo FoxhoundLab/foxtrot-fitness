@@ -8,9 +8,39 @@ from app.database import get_db
 from app.deps import get_current_user, get_or_create_user
 from app.models.user import User
 from app.models.program import Program
-from app.schemas.program import ProgramSchema
+from app.schemas.program import ProgramCreate, ProgramSchema
 
 router = APIRouter()
+
+
+@router.post("", response_model=ProgramSchema)
+async def create_program(
+    body: ProgramCreate,
+    user: User = Depends(get_or_create_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Persist a client-held program (e.g. generated anonymously, then signed in).
+
+    Anonymous generations are never stored server-side, so after sign-in the
+    frontend submits the full program here to save it as a fresh version 1.
+    """
+    program = Program(
+        user_id=user.id,
+        name=body.name,
+        goal_tag=body.goal_tag,
+        difficulty=body.difficulty,
+        split=body.split,
+        user_level=body.user_level,
+        design_view=body.design_view.model_dump(),
+        execution_view=body.execution_view,
+        version=1,
+        is_active=True,
+        is_example=False,
+    )
+    db.add(program)
+    await db.commit()
+    await db.refresh(program)
+    return program
 
 
 @router.get("", response_model=list[ProgramSchema])
@@ -75,7 +105,10 @@ async def save_program(
     result = await db.execute(select(Program).where(Program.id == program_id))
     original = _authorize_program_access(result.scalar_one_or_none(), user)
 
-    # Create a copy owned by this user
+    # Create a copy owned by this user. Only bump the version when the user
+    # is iterating on a program they already own; copying an example or an
+    # unowned program starts their lineage at version 1.
+    is_iteration = original.user_id == user.id
     saved = Program(
         user_id=user.id,
         name=original.name,
@@ -85,7 +118,7 @@ async def save_program(
         user_level=original.user_level,
         design_view=original.design_view,
         execution_view=original.execution_view,
-        version=original.version + 1,
+        version=original.version + 1 if is_iteration else 1,
         is_active=True,
         is_example=False,
     )
