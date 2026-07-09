@@ -182,7 +182,10 @@ async def call_llm(prompt: str, missing_pillars: list[str] = None) -> str:
     payload = {
         "model": settings.llm_model,
         "messages": [{"role": "user", "content": full_prompt}],
-        "max_tokens": 8192,
+        # Reasoning models (MiniMax M3) spend heavily inside <think> blocks —
+        # at 8192 the whole budget can go to reasoning and the JSON never
+        # arrives (observed truncation mid-<think> at ~24KB raw)
+        "max_tokens": 16384,
         "temperature": 0.7,
     }
 
@@ -192,7 +195,10 @@ async def call_llm(prompt: str, missing_pillars: list[str] = None) -> str:
                 settings.llm_api_url,
                 headers=headers,
                 json=payload,
-                timeout=80.0,
+                # M3 runs 55-70s on a typical program and can spike past 80s;
+                # 2 attempts × 120s stays under the browser's default fetch
+                # timeout, so slow-but-successful runs aren't cut off
+                timeout=120.0,
             )
             response.raise_for_status()
             return response.json()["choices"][0]["message"]["content"]
@@ -352,6 +358,14 @@ def parse_json_response(raw: str) -> dict:
     if json_start >= 0 and json_end > json_start:
         json_str = cleaned[json_start:json_end + 1]
         return json.loads(json_str)
+
+    # Salvage path: M3 sometimes writes the entire JSON inside the <think>
+    # block and emits nothing after it. Mine the raw text (think content
+    # included) for the outermost JSON object before giving up.
+    json_start = raw.find("{")
+    json_end = raw.rfind("}")
+    if json_start >= 0 and json_end > json_start:
+        return json.loads(raw[json_start:json_end + 1])
 
     # Fallback: try parsing the whole thing as JSON
     return json.loads(cleaned)
